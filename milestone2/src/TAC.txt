@@ -1,0 +1,28 @@
+call main
+Label1
+t1 = 127
+myByte=t1
+t2 = System
+t3 = "Byte value: "
+t4 = myByte
+t5 = t3 + t4
+t6 = myByte
+t7 = t6 + 1 
+t8 = System
+t9 = "Incremented byte value: "
+t10 = myByte
+t11 = t9 + t10
+t12 = 32767
+myShort=t12
+t13 = System
+t14 = "Short value: "
+t15 = myShort
+t16 = t14 + t15
+t17 = myShort
+t18 = t17 + 1 
+t19 = System
+t20 = "Incremented short value: "
+t21 = myShort
+t22 = t20 + t21
+function end
+Label2

@@ -1,0 +1,6 @@
+Name, Type, Line number, Function Input Type, Function Output Type, Size, Scope
+ByteShortExample,class,1,,,0,global
+main,Method,2,String[],void,0,global_class
+args,String[],2,,,0,global_class_Method
+myByte,byte,4,,,1,global_class_Method
+myShort,short,12,,,2,global_class_Method
