@@ -1,5 +1,10 @@
 %{
+#include <iostream>
+#include <string>
+#include <vector>
+#include<cstring>
 #include<bits/stdc++.h>
+// #include "sym.h"
 using namespace std;
 
 #define YYERROR_VERBOSE
@@ -23,15 +28,23 @@ struct symentry;
 struct symtable;
 struct symentry
 {
+    string maintype;
     int linenumber;
     int offset;
     string type;     // identifier,method,record,enum,
     string modifier; // public,private
     string lexeme;
     int size;
-    string scope;   // int level;
+    string scope;
+    // int level;
+
+	vector<int>arrdims;
+    int order;
+    string primtype;
+    int exprvalue;
+
     vector<string> funcargtype;
-	string argcon;
+		string argcon;
     string funcrettype;
     symtable *name; // for method,record,class,...
 };
@@ -112,6 +125,26 @@ void insertclass(string lexeme,string type,string modifier,symtable*name,int lin
 			cout<< "Error: Method is already declared "<<lexeme<<endl;
 		}
 }
+int sizeoftype(string x){
+	if(x=="int")
+	return 4;
+	else if(x=="float")
+	return 4;
+	else if(x=="double")
+	return 8;
+	else if(x== "char")
+	return 1;
+	else if(x=="long")
+	return 8;
+	else if(x=="short")
+	return 2;
+	else if(x=="byte")
+	return 1;
+	else if(x=="boolean")
+	return 1;
+	else
+	return 0;
+}
 void insertidentifier(string lexeme,string type,string modifier,int linen)
 {
     symentry *a = new symentry;
@@ -122,36 +155,30 @@ void insertidentifier(string lexeme,string type,string modifier,int linen)
     a->modifier=modifier;
 		a->scope=curr->scope;
 		a->linenumber = linen;
-		if(type == "int"){
-			a->size = 4;
-		}
-		else if(type == "float"){
-			a->size = 4;
-		}
-		else if(type == "double"){
-			a->size = 8;
-		}
-		else if(type == "char"){
-			a->size = 2;
-		}
-		else if(type == "long"){
-			a->size = 8;
-		}
-		else if(type == "short"){
-			a->size = 2;
-		}
-		else if(type == "byte"){
-			a->size = 1;
-		}
-		else if(type == "boolean"){
-			a->size = 1;
-		}
-		else{
-			a->size = 0;
-		}
+		a->size=sizeoftype(type);
 		}
 		else{
 			cout<< "Error: Method is already declared "<<lexeme<<endl;
+		}
+}
+
+void insertidentifier(string lexeme,string type,string primtype,string modifier,int linen,int order,vector<int>dims)
+{
+    symentry *a = new symentry;
+		if(!samelookup(lexeme)){
+    curr->m[lexeme] = a;
+    a->lexeme=lexeme;
+    a->primtype=primtype;
+    a->type=type;
+    a->modifier=modifier;
+		a->scope=curr->scope;
+		a->linenumber = linen;
+        a->order=order;
+        a->arrdims=dims;
+		a->size=sizeoftype(primtype);
+		}
+		else{
+			cout<< "Error: identifier is already declared "<<lexeme<<endl;
 		}
 }
 
@@ -255,12 +282,29 @@ Node *createNode(string label, string value, vector <Node *> children) {
 }
 
 struct Typeinfo{
-	string type;
-	vector<string>variables; //for variable declator list
 	vector<string>type_variable; //for variable_types formalparameter declator list
-	string name;
+	string name="";
 	symtable *scope;
-	int linep;
+	int linep=0;
+
+	string type="";
+    int exprvalue=0;
+    int order=0;
+
+    string dectype="";
+    int decorder1=0;
+    string variable="";
+    vector<string>variables;
+    int decorder2=0;
+    vector<int>decorders2;
+    string arrtype="";
+    vector<string>arrtypes;
+    vector<int>arrdim;
+    vector<vector<int>>arrdims;
+    string initvartype="";
+    vector<string>initvartypes;
+    bool initialdecl=false;
+    vector<bool>initialdecls;
 };
 int flag = 0;
 Typeinfo *createstruct(){
@@ -305,13 +349,13 @@ Typeinfo *createstruct(){
 
 %type <str> Identifier ASSIGNMENTOPERATOR AssignmentOperator
 
-%type <typeinfo> CompactConstructorDeclarationSym RecordDeclarationSym ConstructorDeclaratorLRBSym TryBlockSym TrySym ForSym		OMPSB   PSB   OMAdditionalBound   ReceiverParameterComma   IdentifierDot   OMImportDeclaration   OMTopLevelClassOrInterfaceDeclaration   OMDotIdentifier   OMModuleDirective   OMRequiresModifier   OMCommaModuleName   CommaModuleName   OMCommaTypeName   CommaTypeName   OMClassModifier   OMCommaTypeParameter   CommaTypeParameter   OMCommaInterfaceType   CommaInterfaceType   OMClassBodyDeclaration   EqualVariableInitializer   OMCommaFormalParameter   CommaFormalParameter   OMCommaExceptionType   CommaExceptionType   OMCommaRecordComponent   CommaRecordComponent     OMRecordBodyDeclaration   OMInterfaceMemberDeclaration    OMCommaVariableInitializer   CommaVariableInitializer   OMBlockStatement   OMSwitchRule   OMSwitchBlockStatementGroup   OMSwitchLabelColon   SwitchLabelColon   OMCommaCaseConstant   CommaCaseConstant   OMCommaStatementExpression   CommaStatementExpression   OMCatchClause   OMOrClassType   OrClassType   OMSemicolonResource   SemicolonResource   OMCommaExpression   CommaExpression   OMDimExpr   Modifieropt   UnqualifiedMethodIdentifier   Literal   PrimitiveType   NumericType   IntegralType   FloatingPointType   ReferenceType   TypeParameter   TypeBound   AdditionalBound  ModuleName   ExpressionName   MethodName   CompilationUnit   OrdinaryCompilationUnit   ModularCompilationUnit   PackageDeclaration   ImportDeclaration   SingleTypeImportDeclaration   SingleStaticImportDeclaration   ImportOnDemandDeclaration   StaticImportOnDemandDeclaration   TopLevelClassOrInterfaceDeclaration   ModuleDeclaration   ModuleDirective   ClassDeclaration   NormalClassDeclaration   TypeParameters   TypeParameterList   ClassExtends   ClassImplements   InterfaceTypeList   ClassPermits   ClassBody   ClassBodyDeclaration   ClassMemberDeclaration   FieldDeclaration   VariableDeclaratorList   VariableDeclarator   VariableDeclaratorId   VariableInitializer   UnannType   UnannPrimitiveType   UnannArrayType   MethodDeclaration   MethodHeader   Result   MethodDeclarator   ReceiverParameter   FormalParameterList   FormalParameter   VariableArityParameter   Throws   ExceptionTypeList   ExceptionType   MethodBody   InstanceInitializer   StaticInitializer   ConstructorDeclaration   ConstructorDeclarator   ConstructorBody   ExplicitConstructorInvocation    RecordDeclaration   RecordHeader   RecordComponentList   RecordComponent   VariableArityRecordComponent   RecordBody   RecordBodyDeclaration   CompactConstructorDeclaration   InterfaceDeclaration   NormalInterfaceDeclaration   InterfaceModifier   InterfaceExtends   InterfacePermits   InterfaceBody   InterfaceMemberDeclaration   ConstantDeclaration   InterfaceMethodDeclaration   ArrayInitializer   VariableInitializerList   Block   BlockStatements   BlockStatement   LocalClassOrInterfaceDeclaration   LocalVariableDeclarationStatement   LocalVariableDeclaration   LocalVariableType   Statement   StatementNoShortIf   StatementWithoutTrailingSubstatement   EmptyStatement   LabeledStatement   LabeledStatementNoShortIf   ExpressionStatement   StatementExpression   IfThenStatement   IfThenElseStatement   IfThenElseStatementNoShortIf   AssertStatement   SwitchStatement   SwitchBlock   SwitchRule   SwitchBlockStatementGroup   SwitchLabel   CaseConstant   WhileStatement   WhileStatementNoShortIf   DoStatement   ForStatement   ForStatementNoShortIf   BasicForStatement   BasicForStatementNoShortIf   ForInit   ForUpdate   StatementExpressionList   EnhancedForStatement   EnhancedForStatementNoShortIf   BreakStatement   YieldStatement   ContinueStatement   ReturnStatement   ThrowStatement   SynchronizedStatement   TryStatement   Catches   CatchClause   CatchFormalParameter   CatchType   Finally   TryWithResourcesStatement   ResourceSpecification   ResourceList   Resource   Primary   PrimaryNoNewArray   ClassLiteral   ClassInstanceCreationExpression   UnqualifiedClassInstanceCreationExpression   ClassOrInterfaceTypeToInstantiate   FieldAccess   ArrayAccess   MethodInvocation   ArgumentList   MethodReference   ArrayCreationExpression   DimExpr   Expression   AssignmentExpression   Assignment   LeftHandSide     ConditionalExpression   ConditionalOrExpression   ConditionalAndExpression   InclusiveOrExpression   ExclusiveOrExpression   AndExpression   EqualityExpression   RelationalExpression   InstanceofExpression   ShiftExpression   AdditiveExpression   MultiplicativeExpression   UnaryExpression   PreIncrementExpression   PreDecrementExpression   UnaryExpressionNotPlusMinus   PostfixExpression   PostIncrementExpression   PostDecrementExpression   CastExpression   SwitchExpression   VariableAccess   
+%type <typeinfo> CompactConstructorDeclarationSym RecordDeclarationSym ConstructorDeclaratorLRBSym TryBlockSym TrySym ForSym		OMPSB   PSB   OMAdditionalBound   ReceiverParameterComma   IdentifierDot   OMImportDeclaration   OMTopLevelClassOrInterfaceDeclaration   OMDotIdentifier   OMModuleDirective   OMRequiresModifier   OMCommaModuleName   CommaModuleName   OMCommaTypeName   CommaTypeName   OMClassModifier   OMCommaTypeParameter   CommaTypeParameter   OMCommaInterfaceType   CommaInterfaceType   OMClassBodyDeclaration     OMCommaFormalParameter   CommaFormalParameter   OMCommaExceptionType   CommaExceptionType   OMCommaRecordComponent   CommaRecordComponent     OMRecordBodyDeclaration   OMInterfaceMemberDeclaration    OMCommaVariableInitializer   CommaVariableInitializer   OMBlockStatement   OMSwitchRule   OMSwitchBlockStatementGroup   OMSwitchLabelColon   SwitchLabelColon   OMCommaCaseConstant   CommaCaseConstant   OMCommaStatementExpression   CommaStatementExpression   OMCatchClause   OMOrClassType   OrClassType   OMSemicolonResource   SemicolonResource   OMCommaExpression   CommaExpression   OMDimExpr   Modifieropt   UnqualifiedMethodIdentifier   Literal   PrimitiveType   NumericType   IntegralType   FloatingPointType   ReferenceType   TypeParameter   TypeBound   AdditionalBound  ModuleName   ExpressionName   MethodName   CompilationUnit   OrdinaryCompilationUnit   ModularCompilationUnit   PackageDeclaration   ImportDeclaration   SingleTypeImportDeclaration   SingleStaticImportDeclaration   ImportOnDemandDeclaration   StaticImportOnDemandDeclaration   TopLevelClassOrInterfaceDeclaration   ModuleDeclaration   ModuleDirective   ClassDeclaration   NormalClassDeclaration   TypeParameters   TypeParameterList   ClassExtends   ClassImplements   InterfaceTypeList   ClassPermits   ClassBody   ClassBodyDeclaration   ClassMemberDeclaration   FieldDeclaration   VariableDeclaratorList   VariableDeclarator   VariableDeclaratorId   VariableInitializer   UnannType   UnannPrimitiveType   UnannArrayType   MethodDeclaration   MethodHeader   Result   MethodDeclarator   ReceiverParameter   FormalParameterList   FormalParameter   VariableArityParameter   Throws   ExceptionTypeList   ExceptionType   MethodBody   InstanceInitializer   StaticInitializer   ConstructorDeclaration   ConstructorDeclarator   ConstructorBody   ExplicitConstructorInvocation    RecordDeclaration   RecordHeader   RecordComponentList   RecordComponent   VariableArityRecordComponent   RecordBody   RecordBodyDeclaration   CompactConstructorDeclaration   InterfaceDeclaration   NormalInterfaceDeclaration   InterfaceModifier   InterfaceExtends   InterfacePermits   InterfaceBody   InterfaceMemberDeclaration   ConstantDeclaration   InterfaceMethodDeclaration   ArrayInitializer   VariableInitializerList   Block   BlockStatements   BlockStatement   LocalClassOrInterfaceDeclaration   LocalVariableDeclarationStatement   LocalVariableDeclaration   LocalVariableType   Statement   StatementNoShortIf   StatementWithoutTrailingSubstatement   EmptyStatement   LabeledStatement   LabeledStatementNoShortIf   ExpressionStatement   StatementExpression   IfThenStatement   IfThenElseStatement   IfThenElseStatementNoShortIf   AssertStatement   SwitchStatement   SwitchBlock   SwitchRule   SwitchBlockStatementGroup   SwitchLabel   CaseConstant   WhileStatement   WhileStatementNoShortIf   DoStatement   ForStatement   ForStatementNoShortIf   BasicForStatement   BasicForStatementNoShortIf   ForInit   ForUpdate   StatementExpressionList   EnhancedForStatement   EnhancedForStatementNoShortIf   BreakStatement   YieldStatement   ContinueStatement   ReturnStatement   ThrowStatement   SynchronizedStatement   TryStatement   Catches   CatchClause   CatchFormalParameter   CatchType   Finally   TryWithResourcesStatement   ResourceSpecification   ResourceList   Resource   Primary   PrimaryNoNewArray   ClassLiteral   ClassInstanceCreationExpression   UnqualifiedClassInstanceCreationExpression   ClassOrInterfaceTypeToInstantiate   FieldAccess   ArrayAccess   MethodInvocation   ArgumentList   MethodReference   ArrayCreationExpression   DimExpr   Expression   AssignmentExpression   Assignment   LeftHandSide     ConditionalExpression   ConditionalOrExpression   ConditionalAndExpression   InclusiveOrExpression   ExclusiveOrExpression   AndExpression   EqualityExpression   RelationalExpression   InstanceofExpression   ShiftExpression   AdditiveExpression   MultiplicativeExpression   UnaryExpression   PreIncrementExpression   PreDecrementExpression   UnaryExpressionNotPlusMinus   PostfixExpression   PostIncrementExpression   PostDecrementExpression   CastExpression   SwitchExpression   VariableAccess   
 
 
 %%
 
-OMPSB:  PSB								{$$ = createstruct();($$)->type = ($1)->type ;}										
-		|	OMPSB PSB					{$$ = createstruct();($$)->type = ($1)->type + "[]";}										
+OMPSB:  PSB								{$$ = createstruct();($$)->type = ($1)->type ;$$->order=1;}										
+		|	OMPSB PSB					{$$ = createstruct();($$)->type = ($1)->type + "[]";$$->order=$1->order+1;}										
 		;
 PSB: LSB RSB		{$$ = createstruct();($$)->type = "[]";}														
 		;
@@ -363,8 +407,6 @@ CommaInterfaceType:     COMMA Identifier								{$$ = createstruct();}
         ;
 OMClassBodyDeclaration:  ClassBodyDeclaration								
         |    OMClassBodyDeclaration   ClassBodyDeclaration 					
-        ;
-EqualVariableInitializer:   EQUAL VariableInitializer						{$$ = createstruct();($$)->type = ($2)->type;}	
         ;
 OMCommaFormalParameter: CommaFormalParameter								{$$ = createstruct();($$)->type_variable = ($1)->type_variable;}
         |      OMCommaFormalParameter CommaFormalParameter 		{$$ = createstruct();vector<string>a=($1)->type_variable;vector<string>b=($2)->type_variable;for(auto z:a){($$)->type_variable.push_back(z);}for(auto z:b){($$)->type_variable.push_back(z);}}				
@@ -434,8 +476,8 @@ OMCommaExpression:   CommaExpression
         ;
 CommaExpression:    COMMA Expression									{$$ = createstruct();}		
         ;
-OMDimExpr:      DimExpr														
-        |     OMDimExpr  DimExpr 											
+OMDimExpr:      DimExpr												{$$=createstruct();int p=$1->exprvalue;vector<int>q={p};$$->arrdim=q;}		
+        |     OMDimExpr  DimExpr 									{$$=createstruct();int p=$2->exprvalue;$$->arrdim=$1->arrdim;($$)->arrdim.push_back(p);}		
         ;
 Modifieropt:	PUBLIC									{$$ = createstruct();}						
 		| PROTECTED												{$$ = createstruct();}				
@@ -465,7 +507,7 @@ UnqualifiedMethodIdentifier:	 IDENTIFIERWK			{$$ = createstruct(); string p = $1
 		| RECORD											{$$ = createstruct();}	
 		| TRANSITIVE										{$$ = createstruct();}	
 		;
-Literal:	 INTEGERLITERAL									{($$) = createstruct();($$)->type = "int";}	
+Literal:	 INTEGERLITERAL									{($$) = createstruct();$$->exprvalue=atoi($1);($$)->type = "int";}	
 		| FLOATINGPOINTLITERAL								{($$) = createstruct();($$)->type = "float";}	
 		| BOOLEANLITERAL									{($$) = createstruct();($$)->type = "boolean";}	
 		| NULLLITERAL									{($$) = createstruct();($$)->type = "null";}	
@@ -652,27 +694,27 @@ ClassMemberDeclaration:	 FieldDeclaration
 FieldDeclaration:	 UnannType VariableDeclaratorList SEMICOLON     	{$$ = createstruct();($$)->variables=($2)->variables;($$)->type=($1)->type+($2)->type;for(auto z:($$)->variables)insertidentifier(z,($$)->type,"",line);}
 		| OMClassModifier UnannType VariableDeclaratorList SEMICOLON	{$$ = createstruct();($$)->variables=($3)->variables;($$)->type=($2)->type+($3)->type;for(auto z:($$)->variables)insertidentifier(z,($$)->type,"",line);}
 		;
-VariableDeclaratorList:	 VariableDeclarator								{$$ = createstruct();($$)->variables = ($1)->variables;($$)->type = ($1)->type;}
-		| VariableDeclarator COMMA VariableDeclaratorList				{$$ = createstruct();($$)->type = ($1)->type;vector<string>a=($1)->variables;vector<string>b=($3)->variables;for(auto z:a){($$)->variables.push_back(z);}for(auto z:b){($$)->variables.push_back(z);}}
+VariableDeclaratorList:	 VariableDeclarator								{$$ = createstruct();($$)->variables.push_back($1->variable);($$)->type = ($1)->type;$$->decorders2.push_back(($1)->decorder2);$$->arrtypes.push_back($1->arrtype);$$->arrdims.push_back($1->arrdim);$$->initialdecls.push_back($1->initialdecl);$$->initvartypes.push_back($1->initvartype);}
+		| VariableDeclaratorList COMMA 	VariableDeclarator		        {$$ = createstruct();$$=$1;($$)->variables.push_back($3->variable);($$)->type = ($3)->type;$$->decorders2.push_back(($3)->decorder2);$$->arrtypes.push_back($3->arrtype);$$->arrdims.push_back($3->arrdim);$$->initialdecls.push_back($3->initialdecl);$$->initvartypes.push_back($3->initvartype);}
 		;
-VariableDeclarator:	 VariableDeclaratorId								{$$ = createstruct();($$)->variables = ($1)->variables;($$)->type = ($1)->type;}
-		| VariableDeclaratorId EqualVariableInitializer					{$$ = createstruct();($$)->variables = ($1)->variables; ($$)->type = ($1)->type;}		
+VariableDeclarator:	 VariableDeclaratorId								{$$ = createstruct();$$=$1;$$->initialdecl=false;}
+		| VariableDeclaratorId EQUAL VariableInitializer				{$$ = createstruct();$$=$1;$$->initialdecl=true;$$->arrtype=$3->arrtype;$$->arrdim=$3->arrdim;$$->initvartype=$3->initvartype;}		
 		;
-VariableDeclaratorId:  Identifier										{$$ = createstruct();string p=($1);($$)->variables.push_back(p);}						
-		|	 Identifier OMPSB											{$$ = createstruct();($$)->type = ($2)->type;}
+VariableDeclaratorId:  Identifier										{$$ = createstruct();string p=($1);$$->variable=p;$$->decorder2=0;}						
+		|	 Identifier OMPSB											{$$ = createstruct();string p=($1);$$->variable=p;$$->decorder2=$2->order;}
 		;
 
-VariableInitializer:	 Expression								{$$ = createstruct();($$)->type = ($1)->type;}	
-		| ArrayInitializer												{$$ = createstruct();($$)->type = ($1)->type;}
+VariableInitializer:	 Expression								{$$ = createstruct();$$=$1;}	
+		| ArrayInitializer												{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->arrtype=$1->arrtype;$$->arrdim=$1->arrdim;$$->initvartype="";}
 		;
-UnannType:	 UnannPrimitiveType										{$$ = createstruct();($$)->type = ($1)->type;}					
+UnannType:	 UnannPrimitiveType										{$$ = createstruct();($$)->type = ($1)->type;$$->dectype=$1->type;$1->decorder1=0;}					
 		| Identifier												{$$ = createstruct();string p = $1;($$)->type = p;}
-		| UnannArrayType											{$$ = createstruct();($$)->type = ($1)->type;}
+		| UnannArrayType											{$$ = createstruct();($$)->type=($1)->type;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;}
 		;
 UnannPrimitiveType:	 NumericType				{$$ = createstruct();($$)->type = ($1)->type;}						
 		| BOOLEAN														{$$ = createstruct();($$)->type = "boolean";}
 		;
-UnannArrayType:    UnannPrimitiveType OMPSB							{$$ = createstruct();($$)->type = ($1)->type + ($2)->type;;}	
+UnannArrayType:    UnannPrimitiveType OMPSB							{$$ = createstruct();($$)->type = ($1)->type + ($2)->type;$$->dectype=$1->type;$$->decorder1=$2->order;}	
 		|	 Identifier OMPSB											{$$ = createstruct();string p = $1;($$)->type = p + ($2)->type;}
 		;
 MethodDeclaration:	 MethodHeader MethodBody		{goparent();insertmethod(($1)->variables[0],"Method",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);}				
@@ -856,18 +898,33 @@ BlockStatement:	 LocalClassOrInterfaceDeclaration
 LocalClassOrInterfaceDeclaration:	 ClassDeclaration						
 		| NormalInterfaceDeclaration										
 		;
-LocalVariableDeclarationStatement:	 LocalVariableDeclaration SEMICOLON		{
-	vector<string>a=($1)->variables;
-	for(auto z:a){
-		insertidentifier(z,($1)->type,"",line);
-	}
+LocalVariableDeclarationStatement:	 LocalVariableDeclaration SEMICOLON		{$$=createstruct();$$=$1;
+	int n=($$)->variables.size();
+    for(int i=0;i<n;i++){
+        int order=$$->decorder1+($$->decorders2)[i];
+        string x;
+        if(order)
+        x="array";
+        else
+        x="identifier";
+
+        if(($$->initialdecls)[i]){
+            insertidentifier($$->variables[i],x,$$->dectype,"",0,order,$$->arrdims[i]);
+            cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
+        }
+        else{
+            vector<int>p(order,0);
+            insertidentifier($$->variables[i],x,$$->dectype,"",0,order,p);
+            cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
+        }
+    }
 }
 		;
-LocalVariableDeclaration:	 LocalVariableType VariableDeclaratorList		{$$ = createstruct();($$)->variables=($2)->variables;($$)->type=($1)->type+($2)->type;}
-		| OMClassModifier LocalVariableType VariableDeclaratorList			{$$ = createstruct();($$)->variables=($3)->variables;($$)->type=($2)->type+($3)->type;}
+LocalVariableDeclaration:	 LocalVariableType VariableDeclaratorList		{$$ = createstruct();$$=$2;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;($$)->variables=($2)->variables;$$->decorders2=$2->decorders2;$$->arrtypes=$2->arrtypes;$$->arrdims=$2->arrdims;$$->initvartypes=$2->initvartypes;for(auto yyy:$$->variables)cout<<yyy<<" ";}
+		| OMClassModifier LocalVariableType VariableDeclaratorList			{$$ = createstruct();$$=$3;$$->dectype=$2->dectype;$$->decorder1=$2->decorder1;($$)->variables=($3)->variables;$$->decorders2=$3->decorders2;$$->arrtypes=$3->arrtypes;$$->arrdims=$3->arrdims;$$->initvartypes=$3->initvartypes;}
 		;
-LocalVariableType:	 UnannType						{$$ = createstruct();($$)->type=($1)->type;}								
-		| VAR										{$$ = createstruct();($$)->type="all";}							
+LocalVariableType:	 UnannType						{$$ = createstruct();($$)->type=($1)->type;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;}								
+		| VAR										{$$ = createstruct();($$)->type="all";$$->dectype="all";$$->decorder1=0;}							
 		;
 Statement:	 StatementWithoutTrailingSubstatement							
 		| LabeledStatement													
@@ -1043,10 +1100,10 @@ ResourceList:	 Resource
 Resource:	 LocalVariableDeclaration													
 		| VariableAccess															
 		;
-Primary:	 PrimaryNoNewArray												{$$ = createstruct();($$)->type = ($1)->type;}			
-		| ArrayCreationExpression														
+Primary:	 PrimaryNoNewArray												{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->exprvalue=$1->exprvalue;vector<int>q;$$->arrdim=q;$$->arrtype="";$$->initvartype=$1->initvartype;}			
+		| ArrayCreationExpression											{$$=createstruct();$$=$1;$$->initvartype="";}			
 		;
-PrimaryNoNewArray:	 Literal													{$$ = createstruct();($$)->type = ($1)->type;}		
+PrimaryNoNewArray:	 Literal													{$$ = createstruct();$$->exprvalue=$1->exprvalue;$$->initvartype=$1->type;($$)->type = ($1)->type;}		
 		| ClassLiteral																	{$$ = createstruct();($$)->type = ($1)->type;}
 		| THIS																			{$$ = createstruct();($$)->type = "class";}
 		| Identifier DOT THIS														{$$ = createstruct();($$)->type = "class";}
@@ -1115,7 +1172,7 @@ MethodReference:   Identifier DOUBLECOLON Identifier			{$$ = createstruct();}
 		|	 ExpressionName DOT SUPER DOUBLECOLON Identifier					
 		|	 UnannArrayType DOUBLECOLON NEW										
 		;
-ArrayCreationExpression:   NEW PrimitiveType OMDimExpr				{$$ = createstruct();}			
+ArrayCreationExpression:   NEW PrimitiveType OMDimExpr				{$$ = createstruct();$$->type=$2->type;$$->arrtype=$2->type;$$->arrdim=$3->arrdim;cout<<"hi";for(auto z:$3->arrdim)cout<<z<<"  ";}			
 		|	 NEW PrimitiveType OMDimExpr OMPSB									{$$ = createstruct();}
 		|	 NEW Identifier OMDimExpr											{$$ = createstruct();}
 		|	 NEW Identifier OMDimExpr OMPSB										{$$ = createstruct();}
@@ -1123,11 +1180,11 @@ ArrayCreationExpression:   NEW PrimitiveType OMDimExpr				{$$ = createstruct();}
 		|	 NEW Identifier OMPSB ArrayInitializer								{$$ = createstruct();}
 		;
 
-DimExpr:	 LSB Expression RSB								{$$ = createstruct();}
+DimExpr:	 LSB Expression RSB								{$$ = createstruct();if($2->type!="int")cout<<"error coz of nonint array para";$$->exprvalue=$2->exprvalue;$$->type=$2->type;}
 		;
-Expression:	AssignmentExpression							{$$ = createstruct();($$)->type = ($1)->type;}
+Expression:	AssignmentExpression							{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->exprvalue=$1->exprvalue;}
 		;
-AssignmentExpression:	 ConditionalExpression				{$$ = createstruct();($$)->type = ($1)->type;}
+AssignmentExpression:	 ConditionalExpression				{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->exprvalue=$1->exprvalue;}
 		| Assignment										{$$ = createstruct();($$)->type = ($1)->type;}
 		;
 Assignment:	 LeftHandSide AssignmentOperator Expression		{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($3)->type;}
@@ -1139,29 +1196,29 @@ LeftHandSide:	 ExpressionName
 		;
 AssignmentOperator:	 ASSIGNMENTOPERATOR						
 		;
-ConditionalExpression:	 ConditionalOrExpression									{$$ = createstruct();($$)->type = ($1)->type;}
+ConditionalExpression:	 ConditionalOrExpression									{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->exprvalue=$1->exprvalue;}
 		| ConditionalOrExpression QM Expression COLON ConditionalExpression		{$$ = createstruct();type_check(($1)->type,"boolean",line);type_check(($3)->type,($5)->type,line);($$)->type = ($1)->type;}	
 		;
-ConditionalOrExpression:	 ConditionalAndExpression							{$$ = createstruct();($$)->type = ($1)->type;}				
+ConditionalOrExpression:	 ConditionalAndExpression							{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}				
 		| ConditionalOrExpression OR ConditionalAndExpression 				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";}			
 		;
-ConditionalAndExpression:	 InclusiveOrExpression									{$$ = createstruct();($$)->type = ($1)->type;}
+ConditionalAndExpression:	 InclusiveOrExpression									{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		| ConditionalAndExpression AND InclusiveOrExpression						{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";}
 		;
-InclusiveOrExpression:	 ExclusiveOrExpression								{$$ = createstruct();($$)->type = ($1)->type;}	
+InclusiveOrExpression:	 ExclusiveOrExpression								{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}	
 		| InclusiveOrExpression BITOR ExclusiveOrExpression				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;}			
 		;
-ExclusiveOrExpression:	 AndExpression											{$$ = createstruct();($$)->type = ($1)->type;}
+ExclusiveOrExpression:	 AndExpression											{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		| ExclusiveOrExpression BITXOR AndExpression							{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;}	
 		;
-AndExpression:	 EqualityExpression													{$$ = createstruct();($$)->type = ($1)->type;}
+AndExpression:	 EqualityExpression													{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		| AndExpression BITAND EqualityExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;}
 		;
-EqualityExpression:	 RelationalExpression										{$$ = createstruct();($$)->type = ($1)->type;}	
+EqualityExpression:	 RelationalExpression										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}	
 		| EqualityExpression DOUBLEEQUAL RelationalExpression						{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";}	
 		| EqualityExpression NE RelationalExpression								{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";}
 		;
-RelationalExpression:	 ShiftExpression											{$$ = createstruct();($$)->type = ($1)->type;}
+RelationalExpression:	 ShiftExpression											{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		| RelationalExpression LT ShiftExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";}
 		| RelationalExpression GT ShiftExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";}
 		| RelationalExpression LTE ShiftExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";}	
@@ -1170,16 +1227,16 @@ RelationalExpression:	 ShiftExpression											{$$ = createstruct();($$)->type
 		;
 InstanceofExpression:	 RelationalExpression INSTANCEOF ReferenceType				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;}
 		;
-ShiftExpression:	 AdditiveExpression												{$$ = createstruct();($$)->type = ($1)->type;}
+ShiftExpression:	 AdditiveExpression												{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		| ShiftExpression LSHIFT AdditiveExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;}
 		| ShiftExpression RSHIFT AdditiveExpression								{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;}	
 		| ShiftExpression THREEGT AdditiveExpression								{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;}
 		;
-AdditiveExpression:	 MultiplicativeExpression										{$$ = createstruct();($$)->type = ($1)->type;}
+AdditiveExpression:	 MultiplicativeExpression										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		| AdditiveExpression PLUS MultiplicativeExpression			{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);}			
 		| AdditiveExpression MINUS MultiplicativeExpression				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);}				
 		;
-MultiplicativeExpression:	 UnaryExpression										{$$ = createstruct();($$)->type = ($1)->type;}
+MultiplicativeExpression:	 UnaryExpression										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		| MultiplicativeExpression MULTIPLY UnaryExpression					{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);}		
 		| MultiplicativeExpression DIVIDE UnaryExpression						{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);}
 		| MultiplicativeExpression PERCENT UnaryExpression					{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);}		
@@ -1188,20 +1245,20 @@ UnaryExpression:	 PreIncrementExpression							{$$ = createstruct();($$)->type =
 		| PreDecrementExpression													{$$ = createstruct();($$)->type = ($1)->type;}
 		| PLUS UnaryExpression														{$$ = createstruct();($$)->type = ($2)->type;}
 		| MINUS UnaryExpression														{$$ = createstruct();($$)->type = ($2)->type;}
-		| UnaryExpressionNotPlusMinus											{$$ = createstruct();($$)->type = ($1)->type;}	
+		| UnaryExpressionNotPlusMinus											{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}	
 		;
 PreIncrementExpression:	 INCREAMENT UnaryExpression						{$$ = createstruct();($$)->type = ($2)->type;}			
 		;
 PreDecrementExpression:	 DECREAMENT UnaryExpression						{$$ = createstruct();($$)->type = ($2)->type;}			
 		;
-UnaryExpressionNotPlusMinus:	 PostfixExpression		{$$ = createstruct();($$)->type = ($1)->type;}							
+UnaryExpressionNotPlusMinus:	 PostfixExpression		{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}							
 		| TILDA UnaryExpression												{$$ = createstruct();($$)->type = ($2)->type;}	
 		| EXCLAM UnaryExpression											{$$ = createstruct();($$)->type = ($2)->type;}		
 		| CastExpression															{$$ = createstruct();($$)->type = ($1)->type;}
 		| SwitchExpression															{$$ = createstruct();($$)->type = ($1)->type;}
 		;
-PostfixExpression:	 Primary							{$$ = createstruct();($$)->type = ($1)->type;}							
-		| Identifier																{$$ = createstruct();string p = $1;if(lookup(p)){($$)->type = lookup(p)->type;}}
+PostfixExpression:	 Primary							{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}							
+		| Identifier								{$$ = createstruct();string p = $1;symentry*s=lookup(p); if(lookup(p)){($$)->type = s->type;$$->order=s->order;$$->exprvalue=s->exprvalue;}}
 		| ExpressionName														{$$ = createstruct();($$)->type = ($1)->type;}		
 		| PostIncrementExpression													{$$ = createstruct();($$)->type = ($1)->type;}
 		| PostDecrementExpression												{$$ = createstruct();($$)->type = ($1)->type;}
@@ -1303,8 +1360,14 @@ if(argc <= 1){
 		symtable* c=q.front();
 		if(c)
 		// prints(c);
-		for(auto z:c->m){
-			csvFile<<z.first<<","<<z.second->type<<","<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<","<<z.second->size<<","<<z.second->scope<<"\n";
+		// for(auto z:c->m){
+		// 	csvFile<<z.first<<","<<z.second->type<<","<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<","<<z.second->size<<","<<z.second->scope<<"\n";
+		// }
+        for(auto z:c->m){
+			csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<"arraysize:";
+			for(auto y:z.second->arrdims)
+			csvFile<<y<<"x";
+			csvFile<<"\n";
 		}
 		q.pop();
 		vector<symtable*>v=c->childscope;
