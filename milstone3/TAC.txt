@@ -1,20 +1,27 @@
-call main
-Label1
-t1 = 2
-a=t1
-b=
-t4 = 4
-t5 = t4 * 48
-t6 = 5
-t8 = t6 * 16
-t7 = t6 + t8
-t9 = 0
-a[t7] = t9
-t10 = 2
-t11 = 3
-t12 = t10 * t11
-t13 = a
-t14 = t12 + t13
-c=t14
+call mkae
+mkae:
+pushlocal c
+t1 = 3
+t2 = 5
+t3 = t1 * t2
+t4 = b
+t5 = t3 + t4
+c=t5
 function end
-Label2
+poplocal c
+go to mkaeret:
+call main
+main:
+pushlocal g
+t6 = 2
+t7 = 3
+t8 = t6 * t7
+g=t8
+pushlocal t
+t9 = g
+t10 = t
+t9 = t10
+function end
+poplocal t
+poplocal g
+go to mainret:

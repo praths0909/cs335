@@ -908,10 +908,10 @@ OMSemicolonResource: SemicolonResource							{$$=new Typeinfo; $$->tac= $1->tac;
     ;
 SemicolonResource:  Resource SEMICOLON						{$$=new Typeinfo; $$->tac= $1->tac;}				
     ;
-OMCommaExpression:   CommaExpression						{$$=new Typeinfo; $$->tac= $1->tac;}					
-        |  OMCommaExpression CommaExpression 				{$$=new Typeinfo; $$->tac=concvector($1->tac,$2->tac);}					
+OMCommaExpression:   CommaExpression						{$$=new Typeinfo; $$->tac= $1->tac;for(auto z:$1->params)$$->params.push_back(z);}					
+        |  OMCommaExpression CommaExpression 				{$$=new Typeinfo; $$->tac=concvector($1->tac,$2->tac);for(auto z:($1)->params)($$)->params.push_back(z);for(auto z:($2)->params)($$)->params.push_back(z);}					
         ;
-CommaExpression:    COMMA Expression									{$$=new Typeinfo; $$->tac= $2->tac;}
+CommaExpression:    COMMA Expression									{$$=new Typeinfo; $$->tac= $2->tac;string s = ($2)->tempname; $$->params.push_back(s);}
         ;
 OMDimExpr:      DimExpr												{$$=createstruct();int p=$1->exprvalue;vector<int>q={p};$$->arrdim=q;$$->tac= $1->tac;}		
         |     OMDimExpr  DimExpr 									{$$=createstruct();int p=$2->exprvalue;$$->arrdim=$1->arrdim;($$)->arrdim.push_back(p);$$->tac=concvector($1->tac,$2->tac);}		
@@ -986,7 +986,7 @@ ModuleName:	 Identifier										{$$=new Typeinfo; $$->tac=emptyvector();}
 ExpressionName:	 Identifier DOT Identifier			{$$ = createstruct();string q=($1);string p=($3);($$)->type=q+"."+p;string x=$1;string r=newtemp(); $$->tempname=r;r=r+" = "+x; $$->tac={r};}		
 		| ExpressionName DOT Identifier						{$$ = createstruct();string p=($3);($$)->type=($1)->type+"."+p; $$->tac=$1->tac;}
 		;
-MethodName:	 UnqualifiedMethodIdentifier					{$$ = createstruct(); ;($$)->name = ($1)->name; $$->tac=$1->tac;}
+MethodName:	 UnqualifiedMethodIdentifier					{$$ = createstruct(); ;($$)->name = ($1)->name; $$->tac=$1->tac;$$->tempname=$1->tempname;}
 		;
 CompilationUnit:	 OrdinaryCompilationUnit				{$$=new Typeinfo;$$->tac=$1->tac; for(auto z:($$->tac))code<<z<<"\n"; }
 		| ModularCompilationUnit						{$$=new Typeinfo;$$->tac=$1->tac; for(auto z:($$->tac))code<<z<<"\n"; }	
@@ -1131,17 +1131,17 @@ ClassMemberDeclaration:	 FieldDeclaration								{$$=new Typeinfo; $$->tac=$1->t
 		;
 
 
-FieldDeclaration:	 UnannType VariableDeclaratorList SEMICOLON     	{$$ = createstruct();($$)->variables=($2)->variables;($$)->type=($1)->type+($2)->type;for(auto z:($$)->variables)insertidentifier(z,($$)->type,"",line);$$->tac=$2->tac;}
-		| OMClassModifier UnannType VariableDeclaratorList SEMICOLON	{$$ = createstruct();($$)->variables=($3)->variables;($$)->type=($2)->type+($3)->type;for(auto z:($$)->variables)insertidentifier(z,($$)->type,"",line);$$->tac=$3->tac;}
+FieldDeclaration:	 UnannType VariableDeclaratorList SEMICOLON     	{$$ = createstruct();($$)->variables=($2)->variables;($$)->type=($1)->type+($2)->type;for(auto z:($$)->variables)insertidentifier(z,($$)->type,"",line);($$)->puvariables=($2)->puvariables;vector<string> s = pushlocal(($2)->puvariables); $$->tac=concvector(s,$2->tac);}
+		| OMClassModifier UnannType VariableDeclaratorList SEMICOLON	{$$ = createstruct();($$)->variables=($3)->variables;($$)->type=($2)->type+($3)->type;for(auto z:($$)->variables)insertidentifier(z,($$)->type,"",line);($$)->puvariables=($3)->puvariables;vector<string> s = pushlocal(($3)->puvariables); $$->tac=concvector(s,$3->tac);}
 		;
-VariableDeclaratorList:	 VariableDeclarator								{$$ = createstruct();($$)->variables.push_back($1->variable);($$)->type = ($1)->type;$$->decorders2.push_back(($1)->decorder2);$$->arrtypes.push_back($1->arrtype);$$->arrdims.push_back($1->arrdim);$$->initialdecls.push_back($1->initialdecl);$$->initvartypes.push_back($1->initvartype);$$->tac=$1->tac;}
-		| VariableDeclaratorList COMMA 	VariableDeclarator		        {$$ = createstruct();$$=$1;($$)->variables.push_back($3->variable);($$)->type = ($3)->type;$$->decorders2.push_back(($3)->decorder2);$$->arrtypes.push_back($3->arrtype);$$->arrdims.push_back($3->arrdim);$$->initialdecls.push_back($3->initialdecl);$$->initvartypes.push_back($3->initvartype);$$->tac=concvector($1->tac,$3->tac);}
+VariableDeclaratorList:	 VariableDeclarator								{$$ = createstruct();($$)->variables.push_back($1->variable);($$)->type = ($1)->type;$$->decorders2.push_back(($1)->decorder2);$$->arrtypes.push_back($1->arrtype);$$->arrdims.push_back($1->arrdim);$$->initialdecls.push_back($1->initialdecl);$$->initvartypes.push_back($1->initvartype);($$)->puvariables = ($1)->puvariables;$$->tac=$1->tac;}
+		| VariableDeclaratorList COMMA 	VariableDeclarator		        {$$ = createstruct();$$=$1;($$)->variables.push_back($3->variable);($$)->type = ($3)->type;$$->decorders2.push_back(($3)->decorder2);$$->arrtypes.push_back($3->arrtype);$$->arrdims.push_back($3->arrdim);$$->initialdecls.push_back($3->initialdecl);$$->initvartypes.push_back($3->initvartype);vector<string>a=($1)->puvariables;vector<string>b=($3)->puvariables;for(auto z:a){($$)->puvariables.push_back(z);}for(auto z:b){($$)->puvariables.push_back(z);} $$->tac=concvector($1->tac,$3->tac);}
 		;
-VariableDeclarator:	 VariableDeclaratorId								{$$ = createstruct();$$=$1;$$->initialdecl=false;$$->tac=emptyvector();}
-		| VariableDeclaratorId EQUAL VariableInitializer				{$$ = createstruct();$$=$1;$$->initialdecl=true;$$->arrtype=$3->arrtype;$$->arrdim=$3->arrdim;$$->initvartype=$3->initvartype;string c=$1->tempname+"="+$3->tempname;$$->tac=concvector($1->tac,$3->tac,c);}		
+VariableDeclarator:	 VariableDeclaratorId								{$$ = createstruct();$$=$1;$$->initialdecl=false;($$)->puvariables = ($1)->puvariables;$$->tac=emptyvector();}
+		| VariableDeclaratorId EQUAL VariableInitializer				{$$ = createstruct();$$=$1;$$->initialdecl=true;$$->arrtype=$3->arrtype;$$->arrdim=$3->arrdim;$$->initvartype=$3->initvartype;string c=$1->tempname+"="+$3->tempname;($$)->puvariables = ($1)->puvariables;$$->tac=concvector($1->tac,$3->tac,c);}		
 		;
-VariableDeclaratorId:  Identifier										{$$ = createstruct();string p=($1);$$->variable=p;$$->decorder2=0;string x=$1;$$->tempname=x;}						
-		|	 Identifier OMPSB											{$$ = createstruct();string p=($1);$$->variable=p;$$->decorder2=$2->order;string x=$1;$$->tempname=x;}
+VariableDeclaratorId:  Identifier										{$$ = createstruct();string p=($1);$$->variable=p;$$->decorder2=0;string x=$1;$$->tempname=x;($$)->puvariables.push_back(x);}						
+		|	 Identifier OMPSB											{$$ = createstruct();string p=($1);$$->variable=p;$$->decorder2=$2->order;string x=$1;$$->tempname=x;($$)->puvariables.push_back(x);}
 		;
 
 VariableInitializer:	 Expression								{$$ = createstruct();$$=$1;}	
@@ -1158,13 +1158,13 @@ UnannArrayType:    UnannPrimitiveType OMPSB							{$$ = createstruct();($$)->typ
 		|	 Identifier OMPSB											{$$ = createstruct();string p = $1;($$)->type = p + ($2)->type;$$->tac=emptyvector();}
 		;
 
-MethodDeclaration:	 MethodHeader MethodBody		{goparent();insertmethod(($1)->variables[0],"Method",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);$$=new Typeinfo;string p=newlabel(); string z="function end\n"+p; $$->tac=concvector($1->tac,$2->tac,z);}				
-		| OMClassModifier MethodHeader MethodBody			{goparent();insertmethod(($2)->variables[0],"Method",($2)->type,($2)->type_variable,($1)->scope,"",($2)->linep);$$=new Typeinfo;string p=newlabel(); string z="function end\n"+p; $$->tac=concvector($2->tac,$3->tac,z);}			
+MethodDeclaration:	 MethodHeader MethodBody		{goparent();insertmethod(($1)->variables[0],"Method",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);$$=new Typeinfo;string f = ($1)->tempname;string p=gotomethodretlabel(f); string z="function end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($1->tac,$2->tac,z,sv,p);}				
+		| OMClassModifier MethodHeader MethodBody			{goparent();insertmethod(($2)->variables[0],"Method",($2)->type,($2)->type_variable,($1)->scope,"",($2)->linep);$$=new Typeinfo;string f = ($2)->tempname;string p=gotomethodretlabel(f); string z="function end"; stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st); 	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($2->tac,$3->tac,z,sv,p);}			
 		;
-MethodHeader:	 Result MethodDeclarator				{$$ = createstruct();($$)->type = ($1)->type;($$)->variables = ($1)->variables;($$)->type_variable = ($2)->type_variable;($$)->scope =($1)->scope;($$)->linep = ($2)->linep;string q=newlabel();string p="call "+($1)->tempname+"\n"+q;$$->tac=concvector(p,$2->tac);}				
-		| Result MethodDeclarator Throws				{$$ = createstruct();($$)->type = ($1)->type;($$)->variables = ($1)->variables;($$)->type_variable = ($2)->type_variable;($$)->scope =($1)->scope;($$)->linep = ($2)->linep;string q=newlabel();string p="call "+($1)->tempname+"\n"+q;$$->tac=concvector(p,$2->tac);}				
-		| TypeParameters Result MethodDeclarator		{$$ = createstruct();($$)->type = ($2)->type;($$)->variables = ($2)->variables;($$)->type_variable = ($3)->type_variable;($$)->scope =($2)->scope;($$)->linep = ($3)->linep;string q=newlabel();string p="call "+($2)->tempname+"\n"+q; $$->tac=concvector(p,$3->tac);}			
-		| TypeParameters Result MethodDeclarator Throws			{$$ = createstruct();($$)->type = ($2)->type;($$)->variables = ($2)->variables;($$)->type_variable = ($3)->type_variable;($$)->scope =($2)->scope;($$)->linep = ($3)->linep;string q=newlabel();string p="call "+($2)->tempname+"\n"+q; $$->tac=concvector(p,$3->tac);}		
+MethodHeader:	 Result MethodDeclarator				{$$ = createstruct();($$)->type = ($1)->type;($$)->variables = ($1)->variables;($$)->type_variable = ($2)->type_variable;($$)->scope =($1)->scope;($$)->linep = ($2)->linep;$$->tempname=($1)->tempname; string f = ($1)->tempname; string q=newmethodlabel(f);string p="call "+($1)->tempname+"\n"+q;$$->tac=concvector(p,$2->tac);}				
+		| Result MethodDeclarator Throws				{$$ = createstruct();($$)->type = ($1)->type;($$)->variables = ($1)->variables;($$)->type_variable = ($2)->type_variable;($$)->scope =($1)->scope;($$)->linep = ($2)->linep;$$->tempname=($1)->tempname; string f = ($1)->tempname; string q=newmethodlabel(f);string p="call "+($1)->tempname+"\n"+q; $$->tac=concvector(p,$2->tac);}				
+		| TypeParameters Result MethodDeclarator		{$$ = createstruct();($$)->type = ($2)->type;($$)->variables = ($2)->variables;($$)->type_variable = ($3)->type_variable;($$)->scope =($2)->scope;($$)->linep = ($3)->linep;$$->tempname=($2)->tempname; string f = ($2)->tempname; string q=newmethodlabel(f);string p="call "+($2)->tempname+"\n"+q; $$->tac=concvector(p,$3->tac);}			
+		| TypeParameters Result MethodDeclarator Throws			{$$ = createstruct();($$)->type = ($2)->type;($$)->variables = ($2)->variables;($$)->type_variable = ($3)->type_variable;($$)->scope =($2)->scope;($$)->linep = ($3)->linep;$$->tempname=($2)->tempname; string f = ($2)->tempname; string q=newmethodlabel(f);string p="call "+($2)->tempname+"\n"+q; $$->tac=concvector(p,$3->tac);}		
 		;
 Result:    UnannType	Identifier							{$$ = createstruct();symtable*a = createscope("Method");($$)->scope = a; ($$)->type = ($1)->type;string p = $2;($$)->variables.push_back(p); changescope(a);string x=$2; $$->tempname=x;$$->tac=emptyvector();}						
 		|	 VOID Identifier								{$$ = createstruct();symtable*a = createscope("Method");($$)->scope = a;($$)->type = "void";string p = $2;($$)->variables.push_back(p); changescope(a);string x=$2; $$->tempname=x;$$->tac=emptyvector();}			
@@ -1207,19 +1207,20 @@ InstanceInitializer:	 Block										{$$=new Typeinfo; $$->tac=$1->tac;}
 		;
 StaticInitializer:	 STATIC Block                           {$$=new Typeinfo; $$->tac=$2->tac;}	
 		;	
-ConstructorDeclaration:	 ConstructorDeclarator ConstructorBody			{goparent();insertmethod(($1)->variables[0],"constructor",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);$$=new Typeinfo;string z="constructor called";string zz="constructor end"; $$->tac=concvector(z,$1->tac,$2->tac,zz);}
-		| ConstructorDeclarator Throws ConstructorBody				{goparent();insertmethod(($1)->variables[0],"constructor",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);$$=new Typeinfo;string z="constructor called";string zz="constructor end"; $$->tac=concvector(z,$1->tac,$2->tac,zz);}
-		| OMClassModifier ConstructorDeclarator ConstructorBody			{goparent();insertmethod(($2)->variables[0],"constructor",($2)->type,($2)->type_variable,($2)->scope,"",($2)->linep);$$=new Typeinfo;string z="constructor called";string zz="constructor end"; $$->tac=concvector(z,$1->tac,$2->tac,zz);}
-		| OMClassModifier ConstructorDeclarator Throws ConstructorBody	{goparent();insertmethod(($2)->variables[0],"constructor",($2)->type,($2)->type_variable,($2)->scope,"",($2)->linep);$$=new Typeinfo;string z="constructor called";string zz="constructor end"; $$->tac=concvector(z,$1->tac,$2->tac,zz);}
+
+ConstructorDeclaration:	 ConstructorDeclarator ConstructorBody			{goparent();insertmethod(($1)->variables[0],"constructor",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);$$=new Typeinfo;string f = ($1)->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($1->tac,$2->tac,z,sv,p);}
+		| ConstructorDeclarator Throws ConstructorBody				{goparent();insertmethod(($1)->variables[0],"constructor",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);$$=new Typeinfo;string f = ($1)->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($1->tac,$3->tac,z,sv,p);}
+		| OMClassModifier ConstructorDeclarator ConstructorBody			{goparent();insertmethod(($2)->variables[0],"constructor",($2)->type,($2)->type_variable,($2)->scope,"",($2)->linep);$$=new Typeinfo;string f = ($2)->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($2->tac,$3->tac,z,sv,p);}
+		| OMClassModifier ConstructorDeclarator Throws ConstructorBody	{goparent();insertmethod(($2)->variables[0],"constructor",($2)->type,($2)->type_variable,($2)->scope,"",($2)->linep);$$=new Typeinfo;string f = ($2)->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($2->tac,$4->tac,z,sv,p);}
 		;
 ConstructorDeclaratorLRBSym: LRB {$$ = createstruct();symtable*a = createscope("constructor");($$)->scope = a; changescope(a);}
 		;
-ConstructorDeclarator:   Identifier ConstructorDeclaratorLRBSym RRB							{$$ = createstruct();($$)->scope = ($2)->scope; ($$)->type_variable.push_back("void");string p = $1;($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;$$->tac=emptyvector();}						
-		|	 Identifier ConstructorDeclaratorLRBSym FormalParameterList RRB								{$$ = createstruct();($$)->scope = ($2)->scope;($$)->type_variable = ($3)->type_variable;string p = $1;($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;$$->tac=$3->tac;}				
+ConstructorDeclarator:   Identifier ConstructorDeclaratorLRBSym RRB							{$$ = createstruct();($$)->scope = ($2)->scope; ($$)->type_variable.push_back("void");string p = $1;($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;string x = $1;$$->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;$$->tac=concvector(g);}						
+		|	 Identifier ConstructorDeclaratorLRBSym FormalParameterList RRB								{$$ = createstruct();($$)->scope = ($2)->scope;($$)->type_variable = ($3)->type_variable;string p = $1;($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;string x = $1;$$->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;$$->tac=concvector(g,$3->tac);}				
 		|	 Identifier LRB ReceiverParameterComma RRB										{$$ = createstruct();$$->tac=emptyvector();}
 		|	 Identifier LRB ReceiverParameterComma FormalParameterList RRB					{$$ = createstruct();$$->tac=$4->tac;}
-		|	 TypeParameters Identifier ConstructorDeclaratorLRBSym RRB								{$$ = createstruct();($$)->scope = ($3)->scope;($$)->type_variable.push_back("void");string p = $2; ($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;$$->tac=emptyvector();}				
-		|	 TypeParameters Identifier ConstructorDeclaratorLRBSym FormalParameterList RRB			{$$ = createstruct();($$)->scope = ($3)->scope;($$)->type_variable = ($4)->type_variable;string p = $2;($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;$$->tac=$4->tac;}					
+		|	 TypeParameters Identifier ConstructorDeclaratorLRBSym RRB								{$$ = createstruct();($$)->scope = ($3)->scope;($$)->type_variable.push_back("void");string p = $2; ($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;string x = $2;$$->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;$$->tac=concvector(g);}				
+		|	 TypeParameters Identifier ConstructorDeclaratorLRBSym FormalParameterList RRB			{$$ = createstruct();($$)->scope = ($3)->scope;($$)->type_variable = ($4)->type_variable;string p = $2;($$)->variables.push_back(p);($$)->type = "void";($$)->linep = line;string x = $2;$$->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;$$->tac=concvector(g,$4->tac);}					
 		|	 TypeParameters Identifier LRB ReceiverParameterComma RRB						{$$=new Typeinfo; $$->tac=emptyvector();}	
 		|	 TypeParameters Identifier LRB ReceiverParameterComma FormalParameterList RRB		{$$=new Typeinfo;$$->tac=$4->tac;}	
 		;
@@ -1229,8 +1230,8 @@ ConstructorBody: LCB RCB												{$$=new Typeinfo; $$->tac=emptyvector();}
 		| LCB ExplicitConstructorInvocation RCB						{$$=new Typeinfo;$$->tac=$2->tac;}	
 		| LCB ExplicitConstructorInvocation BlockStatements RCB			{$$=new Typeinfo; $$->tac=concvector($2->tac,$3->tac);}	
 		;
-ExplicitConstructorInvocation:	 THIS LRB RRB SEMICOLON							{$$=new Typeinfo; $$->tac=emptyvector();}	
-		| THIS LRB ArgumentList RRB SEMICOLON									{$$=new Typeinfo;$$->tac=$3->tac;}
+ExplicitConstructorInvocation:	 THIS LRB RRB SEMICOLON							{$$=new Typeinfo;vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters();string s = ($1);($$)->tempname = "%rax";string s1 = gotomethod(s);string s2 = newmethodretlabel(s); $$->tac=concvector(pv1,s1,s2,pv2);}			
+		| THIS LRB ArgumentList RRB SEMICOLON								{$$=new Typeinfo;vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters(); string s = ($1);($$)->tempname = "%rax"; string s1 = gotomethod(s);string s2 = newmethodretlabel(s);vector<string> pushpar = pusharg(($3)->params);$$->tac=concvector(pv1,$3->tac,pushpar,s1,s2,pv2);}	
 		| SUPER LRB RRB SEMICOLON													{$$=new Typeinfo; $$->tac=emptyvector();}	
 		| SUPER LRB ArgumentList RRB SEMICOLON									{$$=new Typeinfo;$$->tac=$3->tac;}
 		| Identifier DOT SUPER LRB RRB SEMICOLON									{$$=new Typeinfo; $$->tac=emptyvector();}	
@@ -1342,11 +1343,11 @@ InterfaceMemberDeclaration:	 ConstantDeclaration						{$$=new Typeinfo;$$->tac=$
 		| InterfaceDeclaration										{$$=new Typeinfo;$$->tac=$1->tac;}	
 		| SEMICOLON														{$$=new Typeinfo;$$->tac=emptyvector();}
 		;
-ConstantDeclaration:	 UnannType VariableDeclaratorList SEMICOLON		{$$=new Typeinfo;$$->tac=$2->tac;vector<string>a=($2)->variables;($$)->type=($1)->type+($2)->type;for(auto z:a){insertidentifier(z,($1)->type,"",line);}}
-		| OMClassModifier UnannType VariableDeclaratorList SEMICOLON	{$$=new Typeinfo;$$->tac=$3->tac;vector<string>a=($3)->variables;($$)->type=($2)->type+($3)->type;for(auto z:a){insertidentifier(z,($2)->type,"",line);}}
+ConstantDeclaration:	 UnannType VariableDeclaratorList SEMICOLON		{$$=new Typeinfo;($$)->puvariables=($2)->puvariables;vector<string> s = pushlocal(($2)->puvariables); $$->tac=concvector(s,$2->tac);vector<string>a=($2)->variables;($$)->type=($1)->type+($2)->type;for(auto z:a){insertidentifier(z,($1)->type,"",line);}}
+		| OMClassModifier UnannType VariableDeclaratorList SEMICOLON	{$$=new Typeinfo;($$)->puvariables=($3)->puvariables;vector<string> s = pushlocal(($3)->puvariables); $$->tac=concvector(s,$3->tac);vector<string>a=($3)->variables;($$)->type=($2)->type+($3)->type;for(auto z:a){insertidentifier(z,($2)->type,"",line);}}
 		;
-InterfaceMethodDeclaration:	 MethodHeader MethodBody				{$$=new Typeinfo;$$->tac=concvector($1->tac,$2->tac);}	
-		| OMClassModifier MethodHeader MethodBody			{$$=new Typeinfo;$$->tac=concvector($2->tac,$3->tac);}				
+InterfaceMethodDeclaration:	 MethodHeader MethodBody			{$$=new Typeinfo;string f = ($1)->tempname;string p=gotomethodretlabel(f); string z="function end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($1->tac,$2->tac,z,sv,p);}
+		| OMClassModifier MethodHeader MethodBody			{$$=new Typeinfo;string f = ($2)->tempname;string p=gotomethodretlabel(f); string z="function end"; stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st); 	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($2->tac,$3->tac,z,sv,p);}
 		;
 ArrayInitializer:	 LCB RCB												{$$ = createstruct();($$)->type = "[]";$$->tac=emptyvector();}
 		| LCB COMMA RCB														{$$ = createstruct();($$)->type = "[]";$$->tac=emptyvector();}
@@ -1391,8 +1392,8 @@ LocalVariableDeclarationStatement:	 LocalVariableDeclaration SEMICOLON		{$$=crea
     $$->tac=$1->tac;
 }
 		;
-LocalVariableDeclaration:	 LocalVariableType VariableDeclaratorList		{$$ = createstruct();$$=$2;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;($$)->variables=($2)->variables;$$->decorders2=$2->decorders2;$$->arrtypes=$2->arrtypes;$$->arrdims=$2->arrdims;$$->initvartypes=$2->initvartypes;for(auto yyy:$$->variables)cout<<yyy<<" ";$$->tac=$2->tac;}
-		| OMClassModifier LocalVariableType VariableDeclaratorList			{$$ = createstruct();$$=$3;$$->dectype=$2->dectype;$$->decorder1=$2->decorder1;($$)->variables=($3)->variables;$$->decorders2=$3->decorders2;$$->arrtypes=$3->arrtypes;$$->arrdims=$3->arrdims;$$->initvartypes=$3->initvartypes;$$->tac=$3->tac;}
+LocalVariableDeclaration:	 LocalVariableType VariableDeclaratorList		{$$ = createstruct();$$=$2;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;($$)->variables=($2)->variables;$$->decorders2=$2->decorders2;$$->arrtypes=$2->arrtypes;$$->arrdims=$2->arrdims;$$->initvartypes=$2->initvartypes;for(auto yyy:$$->variables)cout<<yyy<<" ";($$)->puvariables=($2)->puvariables;vector<string> s = pushlocal(($2)->puvariables); $$->tac=concvector(s,$2->tac);}
+		| OMClassModifier LocalVariableType VariableDeclaratorList			{$$ = createstruct();$$=$3;$$->dectype=$2->dectype;$$->decorder1=$2->decorder1;($$)->variables=($3)->variables;$$->decorders2=$3->decorders2;$$->arrtypes=$3->arrtypes;$$->arrdims=$3->arrdims;$$->initvartypes=$3->initvartypes; ($$)->puvariables=($3)->puvariables;vector<string> s = pushlocal(($3)->puvariables); $$->tac=concvector(s,$3->tac);}
 		;
 LocalVariableType:	 UnannType						{$$ = createstruct();$$->tac= $1->tac;($$)->type=($1)->type;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;}								
 		| VAR										{$$ = createstruct();$$->tac= emptyvector();($$)->type="all";$$->dectype="all";$$->decorder1=0;}							
@@ -1528,8 +1529,8 @@ ContinueStatement:   CONTINUE SEMICOLON										{$$=new Typeinfo;string p=gotoo
 		|	 CONTINUE Identifier SEMICOLON										{$$=new Typeinfo;string p=gotoo(labelvariable); $$->tac={p};}											
 		;
 
-ReturnStatement:	 RETURN SEMICOLON													{$$=new Typeinfo;string p=gotoo(labelvariable+1); $$->tac={p};}	
-		| RETURN Expression SEMICOLON												{$$=new Typeinfo;string p=gotoo(labelvariable+1); $$->tac=concvector(p,$2->tac);}									
+ReturnStatement:	 RETURN SEMICOLON		{$$=new Typeinfo;string p=gotomethodretlabel(currmethod.top()); $$->tac={p};}					
+		| RETURN Expression SEMICOLON{$$=new Typeinfo;string p=gotomethodretlabel(currmethod.top());string s = "%rax = " + $2->tempname; $$->tac=concvector($2->tac,s,p);}				
 		;	
 ThrowStatement:	 THROW Expression SEMICOLON										{$$=new Typeinfo; $$->tac=$2->tac;}		
 		;
@@ -1619,8 +1620,8 @@ ArrayAccess:   Identifier LSB Expression RSB			{$$=new Typeinfo; vector<int>v={2
 		|	 ExpressionName LSB Expression RSB				{$$=new Typeinfo; $$->tac=concvector($1->tac,$3->tac);}
 		|	 PrimaryNoNewArray LSB Expression RSB			{$$=new Typeinfo; vector<int>v=($1)->dimsize;string x=($1)->arrtype; vector<int>f; for(int i=1;i<v.size();i++)f.push_back(v[i]);$$->dimsize=f; $$->arrtype=x;string y=newtemp();$$->tempname=y;string z=newtemp();y=y+" = "+($3)->tempname+" + "+z;z=z+" = "+($3)->tempname+" * "+to_string(tellsize(f,x)); $$->tac=concvector($1->tac,$3->tac,z,y);$$->arrname=$1->arrname;}
 		;
-MethodInvocation:   MethodName LRB ArgumentList RRB							{$$ = createstruct();if(lookup(($1)->name)){($$)->type =  lookup(($1)->name)->funcrettype ;} $$->tac=concvector($1->tac,$3->tac);}		
-		|	 MethodName LRB RRB												{$$ = createstruct();if(lookup(($1)->name)){($$)->type =  lookup(($1)->name)->funcrettype ;}$$->tac=$1->tac;}	
+MethodInvocation:   MethodName LRB ArgumentList RRB							{$$ = createstruct();if(lookup(($1)->name)){($$)->type =  lookup(($1)->name)->funcrettype ;} vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters(); string s = ($1)->tempname;($$)->tempname = "%rax"; string s1 = gotomethod(s);string s2 = newmethodretlabel(s);vector<string> pushpar = pusharg(($3)->params);$$->tac=concvector(pv1,$3->tac,pushpar,s1,$1->tac,s2,pv2);}		
+		|	 MethodName LRB RRB												{$$ = createstruct();if(lookup(($1)->name)){($$)->type =  lookup(($1)->name)->funcrettype ;}vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters();string s = ($1)->tempname;($$)->tempname = "%rax";string s1 = gotomethod(s);string s2 = newmethodretlabel(s); $$->tac=concvector(pv1,s1,$1->tac,s2,pv2);}	
 		|	 Identifier DOT Identifier LRB RRB						{$$=new Typeinfo; $$->tac=emptyvector();}	
 		|	 Identifier DOT Identifier LRB ArgumentList RRB					{$$=new Typeinfo; $$->tac=$5->tac;}	
 		|	 ExpressionName DOT Identifier LRB RRB						{$$=new Typeinfo; $$->tac=$1->tac;}								
@@ -1635,8 +1636,8 @@ MethodInvocation:   MethodName LRB ArgumentList RRB							{$$ = createstruct();i
 		|	 ExpressionName DOT SUPER DOT Identifier LRB ArgumentList RRB			{$$=new Typeinfo; $$->tac=concvector($1->tac,$7->tac);}				
 		;
 
-ArgumentList:	 Expression										{$$=new Typeinfo; $$->tac=$1->tac;}				
-		| Expression OMCommaExpression							{$$=new Typeinfo; $$->tac=concvector($1->tac,$2->tac);}			
+ArgumentList:	 Expression										{$$=new Typeinfo; $$->tac=$1->tac;string s = ($1)->tempname; $$->params.push_back(s);}	
+		| Expression OMCommaExpression							{$$=new Typeinfo; $$->tac=concvector($1->tac,$2->tac);string s = ($1)->tempname; $$->params.push_back(s); for(auto z:($2)->params)($$)->params.push_back(z);}	
 		;
 MethodReference:   Identifier DOUBLECOLON Identifier			{$$=new Typeinfo; $$->tac=emptyvector();}	
 		|	 ExpressionName DOUBLECOLON Identifier				

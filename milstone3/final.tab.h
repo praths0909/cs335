@@ -178,7 +178,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 587 "final.y"
+#line 748 "final.y"
 char* str; struct Typeinfo* typeinfo;
 
 #line 185 "final.tab.h"
