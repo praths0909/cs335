@@ -12,7 +12,8 @@ extern int yyrestart(FILE*);
 extern FILE* yyin;
 ofstream code("TAC.txt");
 
-
+stack<string> currmethod;
+stack<stack<string>> currmethodlocals;
 struct symentry;
 struct symtable;
 struct symentry
@@ -64,6 +65,118 @@ string gotolabel(int labelvariable){
 string gotoo(int p){
     return " go to label "+to_string(p);
 }
+int sizeoftype(string x){
+	if(x=="int")
+	return 4;
+	else if(x=="float")
+	return 4;
+	else if(x=="double")
+	return 8;
+	else if(x== "char")
+	return 1;
+	else if(x=="long")
+	return 8;
+	else if(x=="short")
+	return 2;
+	else if(x=="byte")
+	return 1;
+	else if(x=="boolean")
+	return 1;
+	else
+	return 0;
+}
+
+string newmethodlabel(string i){
+	stack<string> st;
+	currmethodlocals.push(st);
+	currmethod.push(i);
+	return i+":";
+}
+string newmethodretlabel(string i){
+	return i+"ret:";
+}
+string gotomethod(string i){
+	return "go to " + i+":";
+}
+string gotomethodretlabel(string i){
+	return "go to " + i+"ret:";
+}
+vector<string> pusharg(vector<string> s){
+	vector<string> r;
+	for(auto k:s){
+		string temp = "pushparam " + k;
+		r.push_back(temp);
+	}
+	return r;
+}
+vector<string> pushlocal(vector<string> s){
+	vector<string> r;
+	for(auto k:s){
+		string temp = "pushlocal " + k;
+		currmethodlocals.top().push(k);
+		r.push_back(temp);
+	}
+	return r;
+}
+vector<string> poplocal(stack<string> s){
+	vector<string> r;
+	while(!s.empty()){
+		string temp = "poplocal " + s.top();
+		s.pop();
+		r.push_back(temp);
+	}
+	return r;
+}
+vector<string> pushregisters(){
+	vector<string> r;
+		string temp = "push ";
+		temp = temp + "%rbp";
+		r.push_back(temp);
+		temp = "push ";
+		temp = temp + "%rbx";
+		r.push_back(temp);
+		temp = "push ";
+		temp = temp + "%rsp";
+		r.push_back(temp);
+		temp = "push ";
+		temp = temp + "%r12";
+		r.push_back(temp);
+		temp = "push ";
+		temp = temp + "%r13";
+		r.push_back(temp);
+		temp = "push ";
+		temp = temp + "%r14";
+		r.push_back(temp);
+		temp = "push ";
+		temp = temp + "%r15";
+		r.push_back(temp);
+	return r;
+}
+vector<string> popregisters(){
+	vector<string> r;
+		string temp = "pop " ;
+		temp = temp + "%r15";
+		r.push_back(temp);
+		temp = "pop " ;
+		temp = temp + "%r14";
+		r.push_back(temp);
+		temp = "pop " ;
+		temp = temp + "%r13";
+		r.push_back(temp);
+		temp = "pop " ;
+		temp = temp + "%r12";
+		r.push_back(temp);
+		temp = "pop " ;
+		temp = temp + "%rsp";
+		r.push_back(temp);
+		temp = "pop " ;
+		temp = temp + "%rax";
+		r.push_back(temp);
+		temp = "pop " ;
+		temp = temp + "%rbp";
+		r.push_back(temp);
+	return r;
+} 
 int tellsize(vector<int>a,string p){
 	int pr=1;
 	for(auto x:a){
@@ -71,6 +184,18 @@ int tellsize(vector<int>a,string p){
 	}
 	return pr*4;
 }
+
+int offsetcalcid(string type,int order,vector<int>dims){
+    int p=sizeof(type);
+    int product=1;
+    for(auto x:dims)
+    product*=x;
+    if(order)
+    return p*product;
+    else
+    return p;
+}
+
 vector<string> concvector(string a){
     vector<string>b={a};
     return b;
@@ -145,6 +270,57 @@ vector<string> concvector(vector<string>&va,string a,string b,vector<string>&vb,
     return ret;
 }
 
+vector<string> concvector(vector<string> p1,string a,string b,vector<string> p2){
+	vector<string>s = p1;
+	s.push_back(a);
+	s.push_back(b);
+    for(auto z:p2)
+	s.push_back(z);
+	return s;
+}
+vector<string> concvector(vector<string> p1,vector<string>&va,vector<string>&vb,string a,vector<string>&vc,string b,vector<string> p2){
+	vector<string>s = p1;
+    for(auto z:va)
+	s.push_back(z);
+    for(auto z:vb)
+	s.push_back(z);
+	s.push_back(a);
+    for(auto z:vc)
+	s.push_back(z);
+	s.push_back(b);
+    for(auto z:p2)
+	s.push_back(z);
+	return s;
+}
+vector<string> concvector(vector<string>&va,vector<string>&vb,vector<string>&vd,string a,string b,vector<string>&vc){
+	vector<string>s=va;
+    for(auto z:vb)
+	s.push_back(z);
+    for(auto z:vd)
+	s.push_back(z);
+	s.push_back(a);
+	s.push_back(b);
+    for(auto z:vc)
+	s.push_back(z);
+	return s;
+}
+vector<string> concvector(vector<string>&va,string a,string b){
+	vector<string>s=va;
+	s.push_back(a);
+	s.push_back(b);
+	return s;
+}
+vector<string> concvector(vector<string>&va,vector<string>&vb,string a,vector<string>&vc,string b){
+	vector<string>s=va;
+		for(auto z:vb)
+	s.push_back(z);
+	s.push_back(a);
+		for(auto z:vc)
+	s.push_back(z);
+	s.push_back(b);
+	return s;
+}
+////////////////////////////
 vector<string> concvector(vector<string>&va,string a,string b,vector<string>&vb,string c,string d){
     vector<string>ret;
     ret=va;
@@ -392,26 +568,7 @@ void insertclass(string lexeme,string type,string modifier,symtable*name,int lin
 			cout<< "Error: Method is already declared "<<lexeme<<endl;
 		}
 }
-int sizeoftype(string x){
-	if(x=="int")
-	return 4;
-	else if(x=="float")
-	return 4;
-	else if(x=="double")
-	return 8;
-	else if(x== "char")
-	return 1;
-	else if(x=="long")
-	return 8;
-	else if(x=="short")
-	return 2;
-	else if(x=="byte")
-	return 1;
-	else if(x=="boolean")
-	return 1;
-	else
-	return 0;
-}
+
 void insertidentifier(string lexeme,string type,string modifier,int linen)
 {
     symentry *a = new symentry;
@@ -566,6 +723,10 @@ struct Typeinfo{
     string tempname;
     string arrname;
     vector<int>dimsize;
+
+
+    vector<string>puvariables; //for variable declator list
+	vector<string>params; 
 
 
 
@@ -1501,7 +1662,7 @@ Expression:	AssignmentExpression							{$$ = createstruct();$$=$1;($$)->type = (
 AssignmentExpression:	 ConditionalExpression				{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->exprvalue=$1->exprvalue;}
 		| Assignment										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		;
-Assignment:	 LeftHandSide AssignmentOperator Expression		{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($3)->type;string p=($1)->tempname+" = "+($3)->tempname;$$->tempname=($1)->tempname;$$->tac=concvector($1->tac,$3->tac,p);}
+Assignment:	 LeftHandSide AssignmentOperator Expression		{$$ = createstruct();($$)->type = ($3)->type;string p=($1)->tempname+" = "+($3)->tempname;$$->tempname=($1)->tempname;$$->tac=concvector($1->tac,$3->tac,p);}
 		;
 LeftHandSide:	 ExpressionName								{$$=new Typeinfo; $$=$1;}	
    		| Identifier										{$$ = createstruct();string p = $1;if(lookup(p)){($$)->type = lookup(p)->type;}string x=$1; string q=newtemp();$$->tempname=q;q=q+" = "+x; $$->tac={q};}
@@ -1511,52 +1672,52 @@ LeftHandSide:	 ExpressionName								{$$=new Typeinfo; $$=$1;}
 AssignmentOperator:	 ASSIGNMENTOPERATOR							{$$=$1;}
 		;
 ConditionalExpression:	 ConditionalOrExpression									{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->exprvalue=$1->exprvalue;}
-		| ConditionalOrExpression QM Expression COLON ConditionalExpression		{$$ = createstruct();type_check(($1)->type,"boolean",line);type_check(($3)->type,($5)->type,line);($$)->type = ($1)->type;int lv=labelvariable;string a=newlabel();string ret="if zero "+($1)->tempname+gotoo(lv+1);$$->tac=concvector($1->tac,ret,$3->tac,a,$5->tac);}	
+		| ConditionalOrExpression QM Expression COLON ConditionalExpression		{$$ = createstruct();($$)->type = ($1)->type;int lv=labelvariable;string a=newlabel();string ret="if zero "+($1)->tempname+gotoo(lv+1);$$->tac=concvector($1->tac,ret,$3->tac,a,$5->tac);}	
 		;
 ConditionalOrExpression:	 ConditionalAndExpression							{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}				
-		| ConditionalOrExpression OR ConditionalAndExpression 				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" || "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}			
+		| ConditionalOrExpression OR ConditionalAndExpression 				{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" || "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}			
 		;
 ConditionalAndExpression:	 InclusiveOrExpression									{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
-		| ConditionalAndExpression AND InclusiveOrExpression						{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" && "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| ConditionalAndExpression AND InclusiveOrExpression						{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" && "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
 		;
 InclusiveOrExpression:	 ExclusiveOrExpression								{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}	
-		| InclusiveOrExpression BITOR ExclusiveOrExpression				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" | "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}			
+		| InclusiveOrExpression BITOR ExclusiveOrExpression				{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" | "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}			
 		;
 ExclusiveOrExpression:	 AndExpression											{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
-		| ExclusiveOrExpression BITXOR AndExpression							{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" ^ "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
+		| ExclusiveOrExpression BITXOR AndExpression							{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" ^ "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
 		;
 AndExpression:	 EqualityExpression													{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
-		| AndExpression BITAND EqualityExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" & "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| AndExpression BITAND EqualityExpression									{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" & "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
 		;
 EqualityExpression:	 RelationalExpression										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}	
-		| EqualityExpression DOUBLEEQUAL RelationalExpression						{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" == "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
-		| EqualityExpression NE RelationalExpression								{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" != "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| EqualityExpression DOUBLEEQUAL RelationalExpression						{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" == "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
+		| EqualityExpression NE RelationalExpression								{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" != "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
 		;
 RelationalExpression:	 ShiftExpression											{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
-		| RelationalExpression LT ShiftExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" < "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
-		| RelationalExpression GT ShiftExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" > "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
-		| RelationalExpression LTE ShiftExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" <= "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
-		| RelationalExpression GTE ShiftExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" >= "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
+		| RelationalExpression LT ShiftExpression									{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" < "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| RelationalExpression GT ShiftExpression									{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" > "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| RelationalExpression LTE ShiftExpression									{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" <= "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
+		| RelationalExpression GTE ShiftExpression									{$$ = createstruct();($$)->type = "boolean";string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" >= "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
 		| InstanceofExpression														{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
 		;
 
 
 
-InstanceofExpression:	 RelationalExpression INSTANCEOF ReferenceType				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" instanceof "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+InstanceofExpression:	 RelationalExpression INSTANCEOF ReferenceType				{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" instanceof "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
 		;
 ShiftExpression:	 AdditiveExpression												{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
-		| ShiftExpression LSHIFT AdditiveExpression									{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" << "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
-		| ShiftExpression RSHIFT AdditiveExpression								{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" >> "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
-		| ShiftExpression THREEGT AdditiveExpression								{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" >>> "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| ShiftExpression LSHIFT AdditiveExpression									{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" << "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| ShiftExpression RSHIFT AdditiveExpression								{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" >> "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}	
+		| ShiftExpression THREEGT AdditiveExpression								{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" >>> "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
 		;
 AdditiveExpression:	 MultiplicativeExpression										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
-		| AdditiveExpression PLUS MultiplicativeExpression			{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" + "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}			
-		| AdditiveExpression MINUS MultiplicativeExpression				{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" - "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}				
+		| AdditiveExpression PLUS MultiplicativeExpression			{$$ = createstruct();($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" + "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}			
+		| AdditiveExpression MINUS MultiplicativeExpression				{$$ = createstruct();($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" - "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}				
 		;
 MultiplicativeExpression:	 UnaryExpression										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
-		| MultiplicativeExpression MULTIPLY UnaryExpression					{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" * "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}		
-		| MultiplicativeExpression DIVIDE UnaryExpression						{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" / "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
-		| MultiplicativeExpression PERCENT UnaryExpression					{$$ = createstruct();type_check(($1)->type,($3)->type,line);($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" % "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}		
+		| MultiplicativeExpression MULTIPLY UnaryExpression					{$$ = createstruct();($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" * "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}		
+		| MultiplicativeExpression DIVIDE UnaryExpression						{$$ = createstruct();($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" / "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}
+		| MultiplicativeExpression PERCENT UnaryExpression					{$$ = createstruct();($$)->type = type_change(($1)->type,($3)->type);string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" % "+$3->tempname;$$->tac=concvector($1->tac,$3->tac,a);}		
 		;
 UnaryExpression:	 PreIncrementExpression							{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}				
 		| PreDecrementExpression													{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}
@@ -1564,9 +1725,9 @@ UnaryExpression:	 PreIncrementExpression							{$$ = createstruct();$$=$1;($$)->
 		| MINUS UnaryExpression														{$$ = createstruct();($$)->type = ($2)->type;string a=newtemp();$$->tempname=a;a=a+" = "+" - "+$2->tempname;$$->tac=concvector($2->tac,a);}
 		| UnaryExpressionNotPlusMinus											{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}	
 		;
-PreIncrementExpression:	 INCREAMENT UnaryExpression						{$$ = createstruct();($$)->type = ($2)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$2->tempname+" + 1 ";$$->tac=concvector($2->tac,a);}			
+PreIncrementExpression:	 INCREAMENT UnaryExpression						{$$ = createstruct();($$)->type = ($2)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$2->tempname+" + 1 ";$$->tac=concvector($2->tac,a);$$->exprvalue=$2->exprvalue+1;}			
 		;
-PreDecrementExpression:	 DECREAMENT UnaryExpression						{$$ = createstruct();($$)->type = ($2)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$2->tempname+" - 1 ";$$->tac=concvector($2->tac,a);}			
+PreDecrementExpression:	 DECREAMENT UnaryExpression						{$$ = createstruct();($$)->type = ($2)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$2->tempname+" - 1 ";$$->tac=concvector($2->tac,a);$$->exprvalue=$2->exprvalue+1;}			
 		;
 UnaryExpressionNotPlusMinus:	 PostfixExpression		{$$ = createstruct();$$=$1;($$)->type = ($1)->type;}							
 		| TILDA UnaryExpression												{$$ = createstruct();($$)->type = ($2)->type;string a=newtemp();$$->tempname=a;a=a+" = "+" ~ "+$2->tempname;$$->tac=concvector($2->tac,a);}	
@@ -1584,9 +1745,9 @@ PostIncrementExpression:	 PostfixExpression INCREAMENT					{$$ = createstruct();
 		;
 PostDecrementExpression:	 PostfixExpression DECREAMENT					{$$ = createstruct();($$)->type = ($1)->type;string a=newtemp();$$->tempname=a;a=a+" = "+$1->tempname+" - 1 ";$$->tac=concvector($1->tac,a);}	
 		;
-CastExpression:	 LRB PrimitiveType RRB UnaryExpression							{$$ = createstruct();($$)->type = ($2)->type; ($4)->type = ($2)->type; type_check(($2)->type,($4)->type,line);string a=newtemp();$$->tempname=a;a=a+" = "+$4->tempname;$$->tac=concvector($4->tac,a);}
-		| LRB UnannArrayType RRB UnaryExpressionNotPlusMinus						{$$ = createstruct();($$)->type = ($2)->type; ($4)->type = ($2)->type; type_check(($2)->type,($4)->type,line);string a=newtemp();$$->tempname=a;a=a+" = "+$4->tempname;$$->tac=concvector($4->tac,a);}
-		| LRB UnannArrayType OMAdditionalBound RRB UnaryExpressionNotPlusMinus		{$$ = createstruct();($$)->type = ($2)->type; ($5)->type = ($2)->type; type_check(($2)->type,($5)->type,line);string a=newtemp();$$->tempname=a;a=a+" = "+$5->tempname;$$->tac=concvector($5->tac,a);}
+CastExpression:	 LRB PrimitiveType RRB UnaryExpression							{$$ = createstruct();($$)->type = ($2)->type; ($4)->type = ($2)->type; string a=newtemp();$$->tempname=a;a=a+" = "+$4->tempname;$$->tac=concvector($4->tac,a);}
+		| LRB UnannArrayType RRB UnaryExpressionNotPlusMinus						{$$ = createstruct();($$)->type = ($2)->type; ($4)->type = ($2)->type; string a=newtemp();$$->tempname=a;a=a+" = "+$4->tempname;$$->tac=concvector($4->tac,a);}
+		| LRB UnannArrayType OMAdditionalBound RRB UnaryExpressionNotPlusMinus		{$$ = createstruct();($$)->type = ($2)->type; ($5)->type = ($2)->type; string a=newtemp();$$->tempname=a;a=a+" = "+$5->tempname;$$->tac=concvector($5->tac,a);}
 		;
 SwitchExpression:	 SWITCH LRB Expression RRB {symtable *a = createscope("switch"); changescope(a);} SwitchBlock			{goparent();$$=new Typeinfo; $$->tac=concvector($3->tac,$6->tac);($$)->type = "switch";}
 		;	

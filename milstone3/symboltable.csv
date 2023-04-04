@@ -3,3 +3,4 @@ ByteShortExample,class,,arraysize:
 main,Method,,arraysize:
 a,identifier,int,arraysize:
 b,array,int,arraysize:7x8x
+c,identifier,int,arraysize:
