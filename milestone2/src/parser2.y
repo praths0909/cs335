@@ -347,6 +347,7 @@ struct Typeinfo{
     char valchar;
     bool valbool;
     string littype;
+
 };
 %}
 

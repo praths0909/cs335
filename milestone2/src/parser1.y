@@ -36,6 +36,9 @@ struct symentry
     int size;
     string scope;
     // int level;
+
+	vector<int>arrdims;
+
     vector<string> funcargtype;
 		string argcon;
     string funcrettype;
@@ -118,6 +121,26 @@ void insertclass(string lexeme,string type,string modifier,symtable*name,int lin
 			cout<< "Error: Method is already declared "<<lexeme<<endl;
 		}
 }
+int sizeoftype(string x){
+	if(x=="int")
+	return 4;
+	else if(x=="float")
+	return 4;
+	else if(x=="double")
+	return 8;
+	else if(x== "char")
+	return 1;
+	else if(x=="long")
+	return 8;
+	else if(x=="short")
+	return 2;
+	else if(x=="byte")
+	return 1;
+	else if(x=="boolean")
+	return 1;
+	else
+	return 0;
+}
 void insertidentifier(string lexeme,string type,string modifier,int linen)
 {
     symentry *a = new symentry;
@@ -128,33 +151,7 @@ void insertidentifier(string lexeme,string type,string modifier,int linen)
     a->modifier=modifier;
 		a->scope=curr->scope;
 		a->linenumber = linen;
-		if(type == "int"){
-			a->size = 4;
-		}
-		else if(type == "float"){
-			a->size = 4;
-		}
-		else if(type == "double"){
-			a->size = 8;
-		}
-		else if(type == "char"){
-			a->size = 2;
-		}
-		else if(type == "long"){
-			a->size = 8;
-		}
-		else if(type == "short"){
-			a->size = 2;
-		}
-		else if(type == "byte"){
-			a->size = 1;
-		}
-		else if(type == "boolean"){
-			a->size = 1;
-		}
-		else{
-			a->size = 0;
-		}
+		a->size=sizeoftype(type);
 		}
 		else{
 			cout<< "Error: Method is already declared "<<lexeme<<endl;
@@ -311,7 +308,7 @@ Typeinfo *createstruct(){
 
 %type <str> Identifier ASSIGNMENTOPERATOR AssignmentOperator
 
-%type <typeinfo> CompactConstructorDeclarationSym RecordDeclarationSym ConstructorDeclaratorLRBSym TryBlockSym TrySym ForSym		OMPSB   PSB   OMAdditionalBound   ReceiverParameterComma   IdentifierDot   OMImportDeclaration   OMTopLevelClassOrInterfaceDeclaration   OMDotIdentifier   OMModuleDirective   OMRequiresModifier   OMCommaModuleName   CommaModuleName   OMCommaTypeName   CommaTypeName   OMClassModifier   OMCommaTypeParameter   CommaTypeParameter   OMCommaInterfaceType   CommaInterfaceType   OMClassBodyDeclaration   EqualVariableInitializer   OMCommaFormalParameter   CommaFormalParameter   OMCommaExceptionType   CommaExceptionType   OMCommaRecordComponent   CommaRecordComponent     OMRecordBodyDeclaration   OMInterfaceMemberDeclaration    OMCommaVariableInitializer   CommaVariableInitializer   OMBlockStatement   OMSwitchRule   OMSwitchBlockStatementGroup   OMSwitchLabelColon   SwitchLabelColon   OMCommaCaseConstant   CommaCaseConstant   OMCommaStatementExpression   CommaStatementExpression   OMCatchClause   OMOrClassType   OrClassType   OMSemicolonResource   SemicolonResource   OMCommaExpression   CommaExpression   OMDimExpr   Modifieropt   UnqualifiedMethodIdentifier   Literal   PrimitiveType   NumericType   IntegralType   FloatingPointType   ReferenceType   TypeParameter   TypeBound   AdditionalBound  ModuleName   ExpressionName   MethodName   CompilationUnit   OrdinaryCompilationUnit   ModularCompilationUnit   PackageDeclaration   ImportDeclaration   SingleTypeImportDeclaration   SingleStaticImportDeclaration   ImportOnDemandDeclaration   StaticImportOnDemandDeclaration   TopLevelClassOrInterfaceDeclaration   ModuleDeclaration   ModuleDirective   ClassDeclaration   NormalClassDeclaration   TypeParameters   TypeParameterList   ClassExtends   ClassImplements   InterfaceTypeList   ClassPermits   ClassBody   ClassBodyDeclaration   ClassMemberDeclaration   FieldDeclaration   VariableDeclaratorList   VariableDeclarator   VariableDeclaratorId   VariableInitializer   UnannType   UnannPrimitiveType   UnannArrayType   MethodDeclaration   MethodHeader   Result   MethodDeclarator   ReceiverParameter   FormalParameterList   FormalParameter   VariableArityParameter   Throws   ExceptionTypeList   ExceptionType   MethodBody   InstanceInitializer   StaticInitializer   ConstructorDeclaration   ConstructorDeclarator   ConstructorBody   ExplicitConstructorInvocation    RecordDeclaration   RecordHeader   RecordComponentList   RecordComponent   VariableArityRecordComponent   RecordBody   RecordBodyDeclaration   CompactConstructorDeclaration   InterfaceDeclaration   NormalInterfaceDeclaration   InterfaceModifier   InterfaceExtends   InterfacePermits   InterfaceBody   InterfaceMemberDeclaration   ConstantDeclaration   InterfaceMethodDeclaration   ArrayInitializer   VariableInitializerList   Block   BlockStatements   BlockStatement   LocalClassOrInterfaceDeclaration   LocalVariableDeclarationStatement   LocalVariableDeclaration   LocalVariableType   Statement   StatementNoShortIf   StatementWithoutTrailingSubstatement   EmptyStatement   LabeledStatement   LabeledStatementNoShortIf   ExpressionStatement   StatementExpression   IfThenStatement   IfThenElseStatement   IfThenElseStatementNoShortIf   AssertStatement   SwitchStatement   SwitchBlock   SwitchRule   SwitchBlockStatementGroup   SwitchLabel   CaseConstant   WhileStatement   WhileStatementNoShortIf   DoStatement   ForStatement   ForStatementNoShortIf   BasicForStatement   BasicForStatementNoShortIf   ForInit   ForUpdate   StatementExpressionList   EnhancedForStatement   EnhancedForStatementNoShortIf   BreakStatement   YieldStatement   ContinueStatement   ReturnStatement   ThrowStatement   SynchronizedStatement   TryStatement   Catches   CatchClause   CatchFormalParameter   CatchType   Finally   TryWithResourcesStatement   ResourceSpecification   ResourceList   Resource   Primary   PrimaryNoNewArray   ClassLiteral   ClassInstanceCreationExpression   UnqualifiedClassInstanceCreationExpression   ClassOrInterfaceTypeToInstantiate   FieldAccess   ArrayAccess   MethodInvocation   ArgumentList   MethodReference   ArrayCreationExpression   DimExpr   Expression   AssignmentExpression   Assignment   LeftHandSide     ConditionalExpression   ConditionalOrExpression   ConditionalAndExpression   InclusiveOrExpression   ExclusiveOrExpression   AndExpression   EqualityExpression   RelationalExpression   InstanceofExpression   ShiftExpression   AdditiveExpression   MultiplicativeExpression   UnaryExpression   PreIncrementExpression   PreDecrementExpression   UnaryExpressionNotPlusMinus   PostfixExpression   PostIncrementExpression   PostDecrementExpression   CastExpression   SwitchExpression   VariableAccess   
+%type <typeinfo> CompactConstructorDeclarationSym RecordDeclarationSym ConstructorDeclaratorLRBSym TryBlockSym TrySym ForSym		OMPSB   PSB   OMAdditionalBound   ReceiverParameterComma   IdentifierDot   OMImportDeclaration   OMTopLevelClassOrInterfaceDeclaration   OMDotIdentifier   OMModuleDirective   OMRequiresModifier   OMCommaModuleName   CommaModuleName   OMCommaTypeName   CommaTypeName   OMClassModifier   OMCommaTypeParameter   CommaTypeParameter   OMCommaInterfaceType   CommaInterfaceType   OMClassBodyDeclaration     OMCommaFormalParameter   CommaFormalParameter   OMCommaExceptionType   CommaExceptionType   OMCommaRecordComponent   CommaRecordComponent     OMRecordBodyDeclaration   OMInterfaceMemberDeclaration    OMCommaVariableInitializer   CommaVariableInitializer   OMBlockStatement   OMSwitchRule   OMSwitchBlockStatementGroup   OMSwitchLabelColon   SwitchLabelColon   OMCommaCaseConstant   CommaCaseConstant   OMCommaStatementExpression   CommaStatementExpression   OMCatchClause   OMOrClassType   OrClassType   OMSemicolonResource   SemicolonResource   OMCommaExpression   CommaExpression   OMDimExpr   Modifieropt   UnqualifiedMethodIdentifier   Literal   PrimitiveType   NumericType   IntegralType   FloatingPointType   ReferenceType   TypeParameter   TypeBound   AdditionalBound  ModuleName   ExpressionName   MethodName   CompilationUnit   OrdinaryCompilationUnit   ModularCompilationUnit   PackageDeclaration   ImportDeclaration   SingleTypeImportDeclaration   SingleStaticImportDeclaration   ImportOnDemandDeclaration   StaticImportOnDemandDeclaration   TopLevelClassOrInterfaceDeclaration   ModuleDeclaration   ModuleDirective   ClassDeclaration   NormalClassDeclaration   TypeParameters   TypeParameterList   ClassExtends   ClassImplements   InterfaceTypeList   ClassPermits   ClassBody   ClassBodyDeclaration   ClassMemberDeclaration   FieldDeclaration   VariableDeclaratorList   VariableDeclarator   VariableDeclaratorId   VariableInitializer   UnannType   UnannPrimitiveType   UnannArrayType   MethodDeclaration   MethodHeader   Result   MethodDeclarator   ReceiverParameter   FormalParameterList   FormalParameter   VariableArityParameter   Throws   ExceptionTypeList   ExceptionType   MethodBody   InstanceInitializer   StaticInitializer   ConstructorDeclaration   ConstructorDeclarator   ConstructorBody   ExplicitConstructorInvocation    RecordDeclaration   RecordHeader   RecordComponentList   RecordComponent   VariableArityRecordComponent   RecordBody   RecordBodyDeclaration   CompactConstructorDeclaration   InterfaceDeclaration   NormalInterfaceDeclaration   InterfaceModifier   InterfaceExtends   InterfacePermits   InterfaceBody   InterfaceMemberDeclaration   ConstantDeclaration   InterfaceMethodDeclaration   ArrayInitializer   VariableInitializerList   Block   BlockStatements   BlockStatement   LocalClassOrInterfaceDeclaration   LocalVariableDeclarationStatement   LocalVariableDeclaration   LocalVariableType   Statement   StatementNoShortIf   StatementWithoutTrailingSubstatement   EmptyStatement   LabeledStatement   LabeledStatementNoShortIf   ExpressionStatement   StatementExpression   IfThenStatement   IfThenElseStatement   IfThenElseStatementNoShortIf   AssertStatement   SwitchStatement   SwitchBlock   SwitchRule   SwitchBlockStatementGroup   SwitchLabel   CaseConstant   WhileStatement   WhileStatementNoShortIf   DoStatement   ForStatement   ForStatementNoShortIf   BasicForStatement   BasicForStatementNoShortIf   ForInit   ForUpdate   StatementExpressionList   EnhancedForStatement   EnhancedForStatementNoShortIf   BreakStatement   YieldStatement   ContinueStatement   ReturnStatement   ThrowStatement   SynchronizedStatement   TryStatement   Catches   CatchClause   CatchFormalParameter   CatchType   Finally   TryWithResourcesStatement   ResourceSpecification   ResourceList   Resource   Primary   PrimaryNoNewArray   ClassLiteral   ClassInstanceCreationExpression   UnqualifiedClassInstanceCreationExpression   ClassOrInterfaceTypeToInstantiate   FieldAccess   ArrayAccess   MethodInvocation   ArgumentList   MethodReference   ArrayCreationExpression   DimExpr   Expression   AssignmentExpression   Assignment   LeftHandSide     ConditionalExpression   ConditionalOrExpression   ConditionalAndExpression   InclusiveOrExpression   ExclusiveOrExpression   AndExpression   EqualityExpression   RelationalExpression   InstanceofExpression   ShiftExpression   AdditiveExpression   MultiplicativeExpression   UnaryExpression   PreIncrementExpression   PreDecrementExpression   UnaryExpressionNotPlusMinus   PostfixExpression   PostIncrementExpression   PostDecrementExpression   CastExpression   SwitchExpression   VariableAccess   
 
 
 %%
@@ -369,8 +366,6 @@ CommaInterfaceType:     COMMA Identifier								{$$ = createstruct();}
         ;
 OMClassBodyDeclaration:  ClassBodyDeclaration								
         |    OMClassBodyDeclaration   ClassBodyDeclaration 					
-        ;
-EqualVariableInitializer:   EQUAL VariableInitializer						{$$ = createstruct();($$)->type = ($2)->type;}	
         ;
 OMCommaFormalParameter: CommaFormalParameter								{$$ = createstruct();($$)->type_variable = ($1)->type_variable;}
         |      OMCommaFormalParameter CommaFormalParameter 		{$$ = createstruct();vector<string>a=($1)->type_variable;vector<string>b=($2)->type_variable;for(auto z:a){($$)->type_variable.push_back(z);}for(auto z:b){($$)->type_variable.push_back(z);}}				
@@ -440,8 +435,8 @@ OMCommaExpression:   CommaExpression
         ;
 CommaExpression:    COMMA Expression									{$$ = createstruct();}		
         ;
-OMDimExpr:      DimExpr														
-        |     OMDimExpr  DimExpr 											
+OMDimExpr:      DimExpr												{$$=createstruct();int p=$1->exprvalue;vector<int>q={p};$$->arrdims=q;}		
+        |     OMDimExpr  DimExpr 									{$$=createstruct();int p=$2->exprvalue;$1->arrdims.push_back(p);$$->arrdims=$1->arrdims;}		
         ;
 Modifieropt:	PUBLIC									{$$ = createstruct();}						
 		| PROTECTED												{$$ = createstruct();}				
@@ -662,7 +657,7 @@ VariableDeclaratorList:	 VariableDeclarator								{$$ = createstruct();($$)->va
 		| VariableDeclarator COMMA VariableDeclaratorList				{$$ = createstruct();($$)->type = ($1)->type;vector<string>a=($1)->variables;vector<string>b=($3)->variables;for(auto z:a){($$)->variables.push_back(z);}for(auto z:b){($$)->variables.push_back(z);}}
 		;
 VariableDeclarator:	 VariableDeclaratorId								{$$ = createstruct();($$)->variables = ($1)->variables;($$)->type = ($1)->type;}
-		| VariableDeclaratorId EqualVariableInitializer					{$$ = createstruct();($$)->variables = ($1)->variables; ($$)->type = ($1)->type;}		
+		| VariableDeclaratorId EQUAL VariableInitializer				{$$ = createstruct();($$)->variables = ($1)->variables; ($$)->type = ($1)->type;}		
 		;
 VariableDeclaratorId:  Identifier										{$$ = createstruct();string p=($1);($$)->variables.push_back(p);}						
 		|	 Identifier OMPSB											{$$ = createstruct();($$)->type = ($2)->type;}
@@ -1050,7 +1045,7 @@ Resource:	 LocalVariableDeclaration
 		| VariableAccess															
 		;
 Primary:	 PrimaryNoNewArray												{$$ = createstruct();($$)->type = ($1)->type;}			
-		| ArrayCreationExpression														
+		| ArrayCreationExpression											{$$=createstruct();$$=$1;}			
 		;
 PrimaryNoNewArray:	 Literal													{$$ = createstruct();($$)->type = ($1)->type;}		
 		| ClassLiteral																	{$$ = createstruct();($$)->type = ($1)->type;}
@@ -1121,7 +1116,7 @@ MethodReference:   Identifier DOUBLECOLON Identifier			{$$ = createstruct();}
 		|	 ExpressionName DOT SUPER DOUBLECOLON Identifier					
 		|	 UnannArrayType DOUBLECOLON NEW										
 		;
-ArrayCreationExpression:   NEW PrimitiveType OMDimExpr				{$$ = createstruct();}			
+ArrayCreationExpression:   NEW PrimitiveType OMDimExpr				{$$ = createstruct();$$->type=$2->type;$$->arrdims=$3->arrdims;}			
 		|	 NEW PrimitiveType OMDimExpr OMPSB									{$$ = createstruct();}
 		|	 NEW Identifier OMDimExpr											{$$ = createstruct();}
 		|	 NEW Identifier OMDimExpr OMPSB										{$$ = createstruct();}
@@ -1129,9 +1124,9 @@ ArrayCreationExpression:   NEW PrimitiveType OMDimExpr				{$$ = createstruct();}
 		|	 NEW Identifier OMPSB ArrayInitializer								{$$ = createstruct();}
 		;
 
-DimExpr:	 LSB Expression RSB								{$$ = createstruct();}
+DimExpr:	 LSB Expression RSB								{$$ = createstruct();$$->exprvalue=$2->exprvalue;$$->type=$2->type;int p=$2->exprvalue;vector<int>q={p};$$->arrdims=q;}
 		;
-Expression:	AssignmentExpression							{$$ = createstruct();($$)->type = ($1)->type;}
+Expression:	AssignmentExpression							{$$ = createstruct();($$)->type = ($1)->type;$$->exprvalue=1000;}
 		;
 AssignmentExpression:	 ConditionalExpression				{$$ = createstruct();($$)->type = ($1)->type;}
 		| Assignment										{$$ = createstruct();($$)->type = ($1)->type;}
@@ -1309,8 +1304,14 @@ if(argc <= 1){
 		symtable* c=q.front();
 		if(c)
 		// prints(c);
+		// for(auto z:c->m){
+		// 	csvFile<<z.first<<","<<z.second->type<<","<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<","<<z.second->size<<","<<z.second->scope<<"\n";
+		// }
 		for(auto z:c->m){
-			csvFile<<z.first<<","<<z.second->type<<","<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<","<<z.second->size<<","<<z.second->scope<<"\n";
+			csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<"arraysize:";
+			for(auto y:z.second->arrdims)
+			csvFile<<y<<"x";
+			csvFile<<"\n";
 		}
 		q.pop();
 		vector<symtable*>v=c->childscope;
