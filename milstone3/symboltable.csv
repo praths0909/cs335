@@ -1,7 +1,0 @@
-Name, Type, Line number, Function Input Type, Function Output Type, Size, Scope
-ByteShortExample,class,,arraysize:
-main,Method,,arraysize:
-mkae,Method,,arraysize:
-c,identifier,int,arraysize:
-g,identifier,int,arraysize:
-t,identifier,int,arraysize:

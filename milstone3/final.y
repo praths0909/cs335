@@ -11,6 +11,7 @@ extern int yylex();
 extern int yyrestart(FILE*);
 extern FILE* yyin;
 ofstream code("TAC.txt");
+ofstream csvFile("symboltable.csv");
 
 stack<string> currmethod;
 stack<stack<string>> currmethodlocals;
@@ -944,13 +945,13 @@ UnqualifiedMethodIdentifier:	 IDENTIFIERWK			{$$ = createstruct(); string p = $1
 		| RECORD											{string x=$1;$$=new Typeinfo; $$->tempname=x;}	
 		| TRANSITIVE										{string x=$1;$$=new Typeinfo; $$->tempname=x;}	
 		;
-Literal:	 INTEGERLITERAL								{string x=$1;int p=stoi(x);$$=new Typeinfo;$$->littype="int";$$->valfloat=p;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};$$->exprvalue=atoi($1);($$)->type = "int";}				
-		| FLOATINGPOINTLITERAL							{string x=$1;float p=stof(x);$$=new Typeinfo;$$->littype="float";$$->valfloat=p;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};($$)->type = "float";}						
-		| BOOLEANLITERAL						{string x=$1;;$$=new Typeinfo;$$->littype="bool";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};($$)->type = "boolean";}									
-		| NULLLITERAL							{string x=$1;$$=new Typeinfo;$$->littype="null";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};$$->type="null";}								
-		| CHARACTERLITERAL							{string x=$1;$$=new Typeinfo;$$->littype="char";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+"="+x;$$->tac={z};($$)->type = "char";}								
-		| STRING									{string x=$1;$$=new Typeinfo;$$->littype="string";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};($$)->type = "string";}								
-		| TEXTBLOCKS								{string x=$1;$$=new Typeinfo;$$->littype="textblock";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};($$)->type = "textblock";}						
+Literal:	 INTEGERLITERAL								{string x=$1;int p=stoi(x);$$=new Typeinfo;     $$->littype="int";$$->valint=p;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};$$->exprvalue=atoi($1);($$)->type = "int";}				
+		| FLOATINGPOINTLITERAL							{string x=$1;float p=stof(x);$$=new Typeinfo;   $$->littype="float";$$->valfloat=p;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};$$->exprvalue=(int)($$->valfloat);($$)->type = "float";}						
+		| BOOLEANLITERAL						        {string x=$1;;$$=new Typeinfo;                  $$->littype="bool";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};if(x=="true"){$$->exprvalue=1;}else{$$->exprvalue=0;};($$)->type = "bool";}									
+		| NULLLITERAL							        {string x=$1;$$=new Typeinfo;                   $$->littype="null";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};$$->exprvalue=0;$$->type="null";}								
+		| CHARACTERLITERAL							    {string x=$1;$$=new Typeinfo;                   $$->littype="char";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+"="+x;$$->tac={z};$$->exprvalue=x[0]-'\0';($$)->type = "char";}								
+		| STRING									    {string x=$1;$$=new Typeinfo;                   $$->littype="string";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};($$)->type = "string";}								
+		| TEXTBLOCKS								    {string x=$1;$$=new Typeinfo;                   $$->littype="textblock";$$->valstr=x;string y=newtemp();$$->tempname=y;string z=y+" = "+x;$$->tac={z};($$)->type = "textblock";}						
 		;
 ASSIGNMENTOPERATOR:	 NEWASSIGNMENTOPERATOR			{$$=$1;}	
 		| EQUAL											{$$=$1;}			
@@ -988,7 +989,7 @@ ExpressionName:	 Identifier DOT Identifier			{$$ = createstruct();string q=($1);
 		;
 MethodName:	 UnqualifiedMethodIdentifier					{$$ = createstruct(); ;($$)->name = ($1)->name; $$->tac=$1->tac;$$->tempname=$1->tempname;}
 		;
-CompilationUnit:	 OrdinaryCompilationUnit				{$$=new Typeinfo;$$->tac=$1->tac; for(auto z:($$->tac))code<<z<<"\n"; }
+CompilationUnit:	 OrdinaryCompilationUnit				{$$=new Typeinfo;$$->tac=$1->tac;code<<"hello"; for(auto z:($$->tac))code<<z<<"\n"; }
 		| ModularCompilationUnit						{$$=new Typeinfo;$$->tac=$1->tac; for(auto z:($$->tac))code<<z<<"\n"; }	
 		;
 OrdinaryCompilationUnit:				{$$=new Typeinfo;$$->tac=emptyvector();}							
@@ -1148,14 +1149,14 @@ VariableInitializer:	 Expression								{$$ = createstruct();$$=$1;}
 		| ArrayInitializer												{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->arrtype=$1->arrtype;$$->arrdim=$1->arrdim;$$->initvartype="";}
 		;
 UnannType:	 UnannPrimitiveType										{$$ = createstruct();$$=$1;($$)->type = ($1)->type;$$->dectype=$1->type;$1->decorder1=0;}					
-		| Identifier												{$$ = createstruct();string p = $1;($$)->type = p;$$->tempname=p;}
+		| Identifier												{$$ = createstruct();string p = $1;($$)->type = p;$$->tempname=p;$$->decorder1=0; $$->dectype="";}
 		| UnannArrayType											{$$ = createstruct();$$=$1;($$)->type=($1)->type;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;}
 		;
 UnannPrimitiveType:	 NumericType				{$$ = createstruct();($$)->type = ($1)->type;$$->tac=emptyvector();}						
 		| BOOLEAN														{$$ = createstruct();($$)->type = "boolean";$$->tac=emptyvector();}
 		;
 UnannArrayType:    UnannPrimitiveType OMPSB							{$$ = createstruct();($$)->type = ($1)->type + ($2)->type;$$->dectype=$1->type;$$->decorder1=$2->order;$$->tac=emptyvector();}	
-		|	 Identifier OMPSB											{$$ = createstruct();string p = $1;($$)->type = p + ($2)->type;$$->tac=emptyvector();}
+		|	 Identifier OMPSB											{$$ = createstruct();string p = $1;($$)->type = p + ($2)->type;$$->dectype="";$$->decorder1=$2->order;$$->tac=emptyvector();}
 		;
 
 MethodDeclaration:	 MethodHeader MethodBody		{goparent();insertmethod(($1)->variables[0],"Method",($1)->type,($1)->type_variable,($1)->scope,"",($1)->linep);$$=new Typeinfo;string f = ($1)->tempname;string p=gotomethodretlabel(f); string z="function end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); $$->tac=concvector($1->tac,$2->tac,z,sv,p);}				
@@ -1370,7 +1371,11 @@ LocalClassOrInterfaceDeclaration:	 ClassDeclaration						{$$=new Typeinfo; $$->t
 		| NormalInterfaceDeclaration										{$$=new Typeinfo; $$->tac= $1->tac;}	
 		;
 LocalVariableDeclarationStatement:	 LocalVariableDeclaration SEMICOLON		{$$=createstruct();$$=$1;
-	int n=($$)->variables.size();
+	
+    $$->tac=$1->tac;
+}
+		;
+LocalVariableDeclaration:	 LocalVariableType VariableDeclaratorList		{$$ = createstruct();$$=$2;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;($$)->variables=($2)->variables;$$->decorders2=$2->decorders2;$$->arrtypes=$2->arrtypes;$$->arrdims=$2->arrdims;$$->initvartypes=$2->initvartypes;for(auto yyy:$$->variables)cout<<yyy<<" ";($$)->puvariables=($2)->puvariables;vector<string> s = pushlocal(($2)->puvariables); int n=($$)->variables.size();
     for(int i=0;i<n;i++){
         int order=$$->decorder1+($$->decorders2)[i];
         string x;
@@ -1381,19 +1386,36 @@ LocalVariableDeclarationStatement:	 LocalVariableDeclaration SEMICOLON		{$$=crea
 
         if(($$->initialdecls)[i]){
             insertidentifier($$->variables[i],x,$$->dectype,"",0,order,$$->arrdims[i]);
-            cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
+            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
         }
         else{
             vector<int>p(order,0);
             insertidentifier($$->variables[i],x,$$->dectype,"",0,order,p);
-            cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
+            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
         }
     }
-    $$->tac=$1->tac;
-}
-		;
-LocalVariableDeclaration:	 LocalVariableType VariableDeclaratorList		{$$ = createstruct();$$=$2;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;($$)->variables=($2)->variables;$$->decorders2=$2->decorders2;$$->arrtypes=$2->arrtypes;$$->arrdims=$2->arrdims;$$->initvartypes=$2->initvartypes;for(auto yyy:$$->variables)cout<<yyy<<" ";($$)->puvariables=($2)->puvariables;vector<string> s = pushlocal(($2)->puvariables); $$->tac=concvector(s,$2->tac);}
-		| OMClassModifier LocalVariableType VariableDeclaratorList			{$$ = createstruct();$$=$3;$$->dectype=$2->dectype;$$->decorder1=$2->decorder1;($$)->variables=($3)->variables;$$->decorders2=$3->decorders2;$$->arrtypes=$3->arrtypes;$$->arrdims=$3->arrdims;$$->initvartypes=$3->initvartypes; ($$)->puvariables=($3)->puvariables;vector<string> s = pushlocal(($3)->puvariables); $$->tac=concvector(s,$3->tac);}
+    $$->tac=concvector(s,$2->tac);}
+		| OMClassModifier LocalVariableType VariableDeclaratorList			{$$ = createstruct();$$=$3;$$->dectype=$2->dectype;$$->decorder1=$2->decorder1;($$)->variables=($3)->variables;$$->decorders2=$3->decorders2;$$->arrtypes=$3->arrtypes;$$->arrdims=$3->arrdims;$$->initvartypes=$3->initvartypes; ($$)->puvariables=($3)->puvariables;vector<string> s = pushlocal(($3)->puvariables);
+        int n=($$)->variables.size();
+    for(int i=0;i<n;i++){
+        int order=$$->decorder1+($$->decorders2)[i];
+        string x;
+        if(order)
+        x="array";
+        else
+        x="identifier";
+
+        if(($$->initialdecls)[i]){
+            insertidentifier($$->variables[i],x,$$->dectype,"",0,order,$$->arrdims[i]);
+            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
+        }
+        else{
+            vector<int>p(order,0);
+            insertidentifier($$->variables[i],x,$$->dectype,"",0,order,p);
+            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
+        }
+    }
+     $$->tac=concvector(s,$3->tac);}
 		;
 LocalVariableType:	 UnannType						{$$ = createstruct();$$->tac= $1->tac;($$)->type=($1)->type;$$->dectype=$1->dectype;$$->decorder1=$1->decorder1;}								
 		| VAR										{$$ = createstruct();$$->tac= emptyvector();($$)->type="all";$$->dectype="all";$$->decorder1=0;}							
@@ -1832,8 +1854,7 @@ if(argc <= 1){
 	    if(verbose){
         cout<<"Parsing finished\n";
     }
-	ofstream csvFile("symboltable.csv");
-	csvFile << "Name, Type, Line number, Function Input Type, Function Output Type, Size, Scope" << "\n";
+	csvFile << "Name, Type, primtive type, Line number, ArrayDimensions,Function Input Type, Function Output Type, Scope" << "\n";
 	// dfs(curr);
 	while(!q.empty()){
 		symtable* c=q.front();
@@ -1843,7 +1864,12 @@ if(argc <= 1){
 		// 	csvFile<<z.first<<","<<z.second->type<<","<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<","<<z.second->size<<","<<z.second->scope<<"\n";
 		// }
         for(auto z:c->m){
-			csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<"arraysize:";
+            string p="";
+            vector<int>q=z.second->arrdims;
+           for(int i=0;i<q.size()-1;i++)
+           p=p+to_string(q[i])+" x ";
+           p=p+to_string(q[q.size()-1]);
+			csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<z.second<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<"arraysize:";
 			for(auto y:z.second->arrdims)
 			csvFile<<y<<"x";
 			csvFile<<"\n";
