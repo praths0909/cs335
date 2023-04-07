@@ -4,11 +4,12 @@ public class ExceptionHandlingExample {
 
         try {
             int c = a / b;
-            System.out.println("Result: " + c);
+           
         } catch (ArithmeticException e) {
-            System.out.println("Exception: " + e.getMessage());
+
+           int d=a*b;
         }
 
-        System.out.println("Program completed");
+       
     }
 }

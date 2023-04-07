@@ -1,0 +1,11 @@
+fregrtName, Type, primtive type, ArrayDimensions,Function Input Type, Function Output Type, Scope
+Main,class,,,,,global
+main,Method,,,String[],void,global_class
+a,array,int,5,,,global_class_Method
+for,for,,,,,global_class_Method
+i,,,,,,global_class_Method_for
+statement,statement,,,,,global_class_Method_for
+for,for,,,,,global_class_Method_for_statement
+j,,,,,,global_class_Method_for_statement_for
+statement,statement,,,,,global_class_Method_for_statement_for
+t,identifier,int,,,,global_class_Method_for_statement_for_statement

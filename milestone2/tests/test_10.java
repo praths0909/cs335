@@ -4,18 +4,13 @@ import java.util.Collections;
 class Main {
     public static void main(String[] args) {
 
-        // Creating an array list
-        ArrayList numbers = new ArrayList();
-
-        // Add elements
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-        System.out.println("Sorted ArrayList: " + numbers);
-
-        // Using the shuffle() method
-        Collections.shuffle(numbers);
-        System.out.println("ArrayList using shuffle: " + numbers);
+        int a[]=new int[5];
+        for(int i=0;i<5;i++){
+            for(int j=i;j<5;j++)
+            if(a[i]<a[j]){
+                int t;t=a[i];a[i]=a[j];a[j]=t;
+            }
+        }
 
     }
 }

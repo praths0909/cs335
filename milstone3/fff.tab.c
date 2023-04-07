@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "final.y"
+#line 1 "fff.y"
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -253,7 +253,7 @@ int tellsize(vector<int>a,string p){
 	for(auto x:a){
 		pr=pr*x;
 	}
-	return pr*sizeoftype(p);
+	return pr*4;
 }
 
 int offsetcalcid(string type,int order,vector<int>dims){
@@ -643,7 +643,7 @@ void insertclass(string lexeme,string type,string modifier,symtable*name,int lin
 void insertidentifier(string lexeme,string type,string modifier,int linen)
 {
     symentry *a = new symentry;
-		
+		if(!samelookup(lexeme)){
     curr->m[lexeme] = a;
     a->lexeme=lexeme;
     a->type=type;
@@ -651,8 +651,10 @@ void insertidentifier(string lexeme,string type,string modifier,int linen)
 		a->scope=curr->scope;
 		a->linenumber = linen;
 		a->size=sizeoftype(type);
-		
-		
+		}
+		else{
+			cout<< "Error: Method is already declared "<<lexeme<<endl;
+		}
 }
 
 void insertidentifier(string lexeme,string type,string primtype,string modifier,int linen,int order,vector<int>dims)
@@ -813,7 +815,7 @@ Typeinfo *createstruct(){
 	return t;
 };
 
-#line 817 "final.tab.c"
+#line 819 "fff.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -836,7 +838,7 @@ Typeinfo *createstruct(){
 #  endif
 # endif
 
-#include "final.tab.h"
+#include "fff.tab.h"
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -1660,81 +1662,81 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   788,   788,   789,   791,   793,   794,   796,   798,   800,
-     801,   803,   804,   806,   807,   809,   810,   812,   813,   815,
-     816,   818,   820,   821,   823,   824,   826,   827,   829,   830,
-     832,   834,   835,   837,   839,   840,   842,   843,   845,   847,
-     848,   850,   852,   853,   855,   857,   858,   860,   862,   863,
-     865,   866,   868,   869,   871,   873,   874,   876,   877,   879,
-     880,   882,   883,   885,   887,   888,   890,   892,   893,   895,
-     897,   898,   900,   901,   903,   905,   906,   908,   910,   911,
-     913,   915,   916,   918,   919,   920,   921,   922,   923,   924,
-     925,   927,   929,   930,   931,   932,   933,   934,   935,   936,
-     937,   938,   939,   940,   941,   942,   943,   944,   954,   955,
-     956,   957,   958,   959,   960,   961,   962,   964,   966,   967,
-     969,   970,   971,   972,   973,   975,   976,   978,   979,   981,
-     982,   984,   985,   987,   989,   990,   992,   993,   995,   997,
-     998,  1000,  1001,  1002,  1003,  1004,  1005,  1006,  1007,  1009,
-    1010,  1012,  1013,  1015,  1016,  1017,  1018,  1020,  1021,  1023,
-    1025,  1026,  1028,  1029,  1031,  1032,  1033,  1035,  1035,  1036,
-    1036,  1037,  1037,  1038,  1038,  1039,  1039,  1040,  1040,  1041,
-    1041,  1042,  1042,  1044,  1045,  1046,  1047,  1048,  1049,  1050,
-    1051,  1052,  1053,  1054,  1055,  1056,  1057,  1058,  1059,  1060,
-    1061,  1062,  1063,  1064,  1065,  1066,  1067,  1069,  1070,  1071,
-    1073,  1073,  1074,  1074,  1075,  1075,  1076,  1076,  1077,  1077,
-    1078,  1078,  1079,  1079,  1080,  1080,  1081,  1081,  1082,  1082,
-    1083,  1083,  1084,  1084,  1085,  1085,  1086,  1086,  1087,  1087,
-    1088,  1088,  1089,  1089,  1090,  1090,  1091,  1091,  1092,  1092,
-    1093,  1093,  1094,  1094,  1095,  1095,  1096,  1096,  1097,  1097,
-    1098,  1098,  1099,  1099,  1100,  1100,  1101,  1101,  1102,  1102,
-    1103,  1103,  1104,  1104,  1106,  1108,  1109,  1111,  1113,  1115,
-    1116,  1119,  1120,  1121,  1122,  1124,  1125,  1127,  1128,  1129,
-    1130,  1132,  1133,  1134,  1135,  1136,  1140,  1141,  1143,  1144,
-    1146,  1147,  1149,  1150,  1153,  1154,  1156,  1157,  1158,  1160,
-    1161,  1163,  1164,  1167,  1168,  1170,  1171,  1172,  1173,  1175,
-    1176,  1179,  1180,  1181,  1182,  1183,  1184,  1185,  1186,  1188,
-    1189,  1191,  1192,  1194,  1195,  1196,  1198,  1199,  1201,  1203,
-    1204,  1206,  1209,  1210,  1212,  1214,  1217,  1218,  1219,  1220,
-    1222,  1224,  1225,  1226,  1227,  1228,  1229,  1230,  1231,  1234,
-    1235,  1236,  1237,  1239,  1240,  1241,  1242,  1243,  1244,  1245,
-    1246,  1247,  1248,  1250,  1251,  1252,  1253,  1256,  1257,  1258,
-    1259,  1260,  1261,  1263,  1264,  1266,  1268,  1270,  1271,  1272,
-    1273,  1274,  1275,  1277,  1278,  1280,  1282,  1283,  1284,  1285,
-    1286,  1287,  1288,  1289,  1292,  1293,  1295,  1296,  1298,  1299,
-    1302,  1304,  1305,  1307,  1308,  1310,  1312,  1313,  1316,  1318,
-    1318,  1319,  1319,  1320,  1320,  1321,  1321,  1322,  1322,  1323,
-    1323,  1324,  1324,  1325,  1325,  1326,  1326,  1327,  1327,  1328,
-    1328,  1329,  1329,  1330,  1330,  1331,  1331,  1332,  1332,  1333,
-    1333,  1336,  1338,  1340,  1341,  1343,  1344,  1346,  1347,  1348,
-    1349,  1350,  1352,  1353,  1355,  1356,  1358,  1359,  1360,  1362,
-    1363,  1365,  1366,  1368,  1369,  1371,  1372,  1373,  1375,  1376,
-    1378,  1383,  1404,  1426,  1427,  1429,  1430,  1431,  1432,  1433,
-    1434,  1436,  1437,  1438,  1439,  1440,  1442,  1442,  1443,  1444,
-    1445,  1446,  1447,  1448,  1449,  1450,  1451,  1452,  1453,  1454,
-    1456,  1458,  1460,  1463,  1465,  1466,  1467,  1468,  1469,  1470,
-    1471,  1473,  1475,  1477,  1479,  1480,  1482,  1482,  1484,  1485,
-    1486,  1487,  1488,  1489,  1491,  1492,  1493,  1495,  1496,  1498,
-    1499,  1500,  1502,  1504,  1506,  1508,  1510,  1511,  1513,  1514,
-    1516,  1518,  1519,  1520,  1521,  1522,  1523,  1524,  1525,  1527,
-    1528,  1529,  1530,  1531,  1532,  1533,  1534,  1536,  1537,  1539,
-    1541,  1542,  1544,  1546,  1548,  1550,  1551,  1554,  1556,  1557,
-    1560,  1561,  1563,  1565,  1565,  1567,  1569,  1571,  1572,  1573,
-    1574,  1576,  1577,  1579,  1579,  1581,  1582,  1584,  1585,  1588,
-    1588,  1590,  1591,  1592,  1593,  1595,  1597,  1598,  1600,  1601,
-    1603,  1604,  1606,  1607,  1608,  1609,  1610,  1611,  1612,  1613,
-    1614,  1615,  1616,  1618,  1619,  1620,  1621,  1622,  1623,  1625,
-    1626,  1627,  1628,  1634,  1635,  1636,  1637,  1639,  1640,  1642,
-    1643,  1644,  1645,  1647,  1648,  1649,  1651,  1652,  1653,  1654,
-    1655,  1656,  1657,  1658,  1659,  1660,  1661,  1662,  1663,  1664,
-    1667,  1668,  1670,  1671,  1672,  1673,  1674,  1675,  1676,  1677,
-    1679,  1680,  1681,  1682,  1683,  1684,  1687,  1689,  1691,  1692,
-    1694,  1696,  1697,  1698,  1699,  1701,  1703,  1704,  1706,  1707,
-    1709,  1710,  1712,  1713,  1715,  1716,  1718,  1719,  1721,  1722,
-    1723,  1725,  1726,  1727,  1728,  1729,  1730,  1735,  1737,  1738,
-    1739,  1740,  1742,  1743,  1744,  1746,  1747,  1748,  1749,  1751,
-    1752,  1753,  1754,  1755,  1757,  1759,  1761,  1762,  1763,  1764,
-    1765,  1767,  1768,  1769,  1770,  1771,  1773,  1775,  1777,  1778,
-    1779,  1781,  1781,  1783,  1784,  1785
+       0,   790,   790,   791,   793,   795,   796,   798,   800,   802,
+     803,   805,   806,   808,   809,   811,   812,   814,   815,   817,
+     818,   820,   822,   823,   825,   826,   828,   829,   831,   832,
+     834,   836,   837,   839,   841,   842,   844,   845,   847,   849,
+     850,   852,   854,   855,   857,   859,   860,   862,   864,   865,
+     867,   868,   870,   871,   873,   875,   876,   878,   879,   881,
+     882,   884,   885,   887,   889,   890,   892,   894,   895,   897,
+     899,   900,   902,   903,   905,   907,   908,   910,   912,   913,
+     915,   917,   918,   920,   921,   922,   923,   924,   925,   926,
+     927,   929,   931,   932,   933,   934,   935,   936,   937,   938,
+     939,   940,   941,   942,   943,   944,   945,   946,   956,   957,
+     958,   959,   960,   961,   962,   964,   965,   967,   969,   970,
+     972,   973,   974,   975,   976,   978,   979,   981,   982,   984,
+     985,   987,   988,   990,   992,   993,   995,   996,   998,  1000,
+    1001,  1003,  1004,  1005,  1006,  1007,  1008,  1009,  1010,  1012,
+    1013,  1015,  1016,  1018,  1019,  1020,  1021,  1023,  1024,  1026,
+    1028,  1029,  1031,  1032,  1034,  1035,  1036,  1038,  1038,  1039,
+    1039,  1040,  1040,  1041,  1041,  1042,  1042,  1043,  1043,  1044,
+    1044,  1045,  1045,  1047,  1048,  1049,  1050,  1051,  1052,  1053,
+    1054,  1055,  1056,  1057,  1058,  1059,  1060,  1061,  1062,  1063,
+    1064,  1065,  1066,  1067,  1068,  1069,  1070,  1072,  1073,  1074,
+    1076,  1076,  1077,  1077,  1078,  1078,  1079,  1079,  1080,  1080,
+    1081,  1081,  1082,  1082,  1083,  1083,  1084,  1084,  1085,  1085,
+    1086,  1086,  1087,  1087,  1088,  1088,  1089,  1089,  1090,  1090,
+    1091,  1091,  1092,  1092,  1093,  1093,  1094,  1094,  1095,  1095,
+    1096,  1096,  1097,  1097,  1098,  1098,  1099,  1099,  1100,  1100,
+    1101,  1101,  1102,  1102,  1103,  1103,  1104,  1104,  1105,  1105,
+    1106,  1106,  1107,  1107,  1109,  1111,  1112,  1114,  1116,  1118,
+    1119,  1122,  1123,  1124,  1125,  1127,  1128,  1130,  1131,  1132,
+    1133,  1135,  1136,  1137,  1138,  1139,  1143,  1144,  1146,  1147,
+    1149,  1150,  1152,  1153,  1156,  1157,  1159,  1160,  1161,  1163,
+    1164,  1166,  1167,  1170,  1171,  1173,  1174,  1175,  1176,  1178,
+    1179,  1182,  1183,  1184,  1185,  1186,  1187,  1188,  1189,  1191,
+    1192,  1194,  1195,  1197,  1198,  1199,  1201,  1202,  1204,  1206,
+    1207,  1209,  1212,  1213,  1215,  1217,  1220,  1221,  1222,  1223,
+    1225,  1227,  1228,  1229,  1230,  1231,  1232,  1233,  1234,  1237,
+    1238,  1239,  1240,  1242,  1243,  1244,  1245,  1246,  1247,  1248,
+    1249,  1250,  1251,  1253,  1254,  1255,  1256,  1259,  1260,  1261,
+    1262,  1263,  1264,  1266,  1267,  1269,  1271,  1273,  1274,  1275,
+    1276,  1277,  1278,  1280,  1281,  1283,  1285,  1286,  1287,  1288,
+    1289,  1290,  1291,  1292,  1295,  1296,  1298,  1299,  1301,  1302,
+    1305,  1307,  1308,  1310,  1311,  1313,  1315,  1316,  1319,  1321,
+    1321,  1322,  1322,  1323,  1323,  1324,  1324,  1325,  1325,  1326,
+    1326,  1327,  1327,  1328,  1328,  1329,  1329,  1330,  1330,  1331,
+    1331,  1332,  1332,  1333,  1333,  1334,  1334,  1335,  1335,  1336,
+    1336,  1339,  1341,  1343,  1344,  1346,  1347,  1349,  1350,  1351,
+    1352,  1353,  1355,  1356,  1358,  1359,  1361,  1362,  1363,  1365,
+    1366,  1368,  1369,  1371,  1372,  1374,  1375,  1376,  1378,  1379,
+    1381,  1404,  1405,  1407,  1408,  1410,  1411,  1412,  1413,  1414,
+    1415,  1417,  1418,  1419,  1420,  1421,  1423,  1423,  1424,  1425,
+    1426,  1427,  1428,  1429,  1430,  1431,  1432,  1433,  1434,  1435,
+    1437,  1439,  1441,  1444,  1446,  1447,  1448,  1449,  1450,  1451,
+    1452,  1454,  1456,  1458,  1460,  1461,  1463,  1463,  1465,  1466,
+    1467,  1468,  1469,  1470,  1472,  1473,  1474,  1476,  1477,  1479,
+    1480,  1481,  1483,  1485,  1487,  1489,  1491,  1492,  1494,  1495,
+    1497,  1499,  1500,  1501,  1502,  1503,  1504,  1505,  1506,  1508,
+    1509,  1510,  1511,  1512,  1513,  1514,  1515,  1517,  1518,  1520,
+    1522,  1523,  1525,  1527,  1529,  1531,  1532,  1535,  1537,  1538,
+    1541,  1542,  1544,  1546,  1546,  1548,  1550,  1552,  1553,  1554,
+    1555,  1557,  1558,  1560,  1560,  1562,  1563,  1565,  1566,  1569,
+    1569,  1571,  1572,  1573,  1574,  1576,  1578,  1579,  1581,  1582,
+    1584,  1585,  1587,  1588,  1589,  1590,  1591,  1592,  1593,  1594,
+    1595,  1596,  1597,  1599,  1600,  1601,  1602,  1603,  1604,  1606,
+    1607,  1608,  1609,  1615,  1616,  1617,  1618,  1620,  1621,  1623,
+    1624,  1625,  1626,  1628,  1629,  1630,  1632,  1633,  1634,  1635,
+    1636,  1637,  1638,  1639,  1640,  1641,  1642,  1643,  1644,  1645,
+    1648,  1649,  1651,  1652,  1653,  1654,  1655,  1656,  1657,  1658,
+    1660,  1661,  1662,  1663,  1664,  1665,  1668,  1670,  1672,  1673,
+    1675,  1677,  1678,  1679,  1680,  1682,  1684,  1685,  1687,  1688,
+    1690,  1691,  1693,  1694,  1696,  1697,  1699,  1700,  1702,  1703,
+    1704,  1706,  1707,  1708,  1709,  1710,  1711,  1716,  1718,  1719,
+    1720,  1721,  1723,  1724,  1725,  1727,  1728,  1729,  1730,  1732,
+    1733,  1734,  1735,  1736,  1738,  1740,  1742,  1743,  1744,  1745,
+    1746,  1748,  1749,  1750,  1751,  1752,  1754,  1756,  1758,  1759,
+    1760,  1762,  1762,  1764,  1765,  1766
 };
 #endif
 
@@ -4494,4502 +4496,4480 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* OMPSB: PSB  */
-#line 788 "final.y"
+#line 790 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type ;(yyval.typeinfo)->order=1;(yyval.typeinfo)->tac=emptyvector();}
-#line 4500 "final.tab.c"
+#line 4502 "fff.tab.c"
     break;
 
   case 3: /* OMPSB: OMPSB PSB  */
-#line 789 "final.y"
+#line 791 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type + "[]";(yyval.typeinfo)->order=(yyvsp[-1].typeinfo)->order+1;(yyval.typeinfo)->tac=emptyvector();}
-#line 4506 "final.tab.c"
+#line 4508 "fff.tab.c"
     break;
 
   case 4: /* PSB: LSB RSB  */
-#line 791 "final.y"
+#line 793 "fff.y"
                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "[]";(yyval.typeinfo)->tac=emptyvector();}
-#line 4512 "final.tab.c"
+#line 4514 "fff.tab.c"
     break;
 
   case 5: /* OMAdditionalBound: AdditionalBound  */
-#line 793 "final.y"
+#line 795 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 4518 "final.tab.c"
+#line 4520 "fff.tab.c"
     break;
 
   case 6: /* OMAdditionalBound: OMAdditionalBound AdditionalBound  */
-#line 794 "final.y"
+#line 796 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4524 "final.tab.c"
+#line 4526 "fff.tab.c"
     break;
 
   case 7: /* ReceiverParameterComma: ReceiverParameter COMMA  */
-#line 796 "final.y"
+#line 798 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[-1].typeinfo)->tac;}
-#line 4530 "final.tab.c"
+#line 4532 "fff.tab.c"
     break;
 
   case 8: /* IdentifierDot: Identifier DOT  */
-#line 798 "final.y"
+#line 800 "fff.y"
                               {         (yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 4536 "final.tab.c"
+#line 4538 "fff.tab.c"
     break;
 
   case 9: /* OMImportDeclaration: ImportDeclaration  */
-#line 800 "final.y"
+#line 802 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4542 "final.tab.c"
+#line 4544 "fff.tab.c"
     break;
 
   case 10: /* OMImportDeclaration: OMImportDeclaration ImportDeclaration  */
-#line 801 "final.y"
+#line 803 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4548 "final.tab.c"
+#line 4550 "fff.tab.c"
     break;
 
   case 11: /* OMTopLevelClassOrInterfaceDeclaration: TopLevelClassOrInterfaceDeclaration  */
-#line 803 "final.y"
+#line 805 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 4554 "final.tab.c"
+#line 4556 "fff.tab.c"
     break;
 
   case 12: /* OMTopLevelClassOrInterfaceDeclaration: OMTopLevelClassOrInterfaceDeclaration TopLevelClassOrInterfaceDeclaration  */
-#line 804 "final.y"
+#line 806 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4560 "final.tab.c"
+#line 4562 "fff.tab.c"
     break;
 
   case 13: /* OMDotIdentifier: DOT Identifier  */
-#line 806 "final.y"
+#line 808 "fff.y"
                                                                 {(yyval.typeinfo) = createstruct();string p=((yyvsp[0].str));((yyval.typeinfo))->name="."+p;(yyval.typeinfo)->tac=emptyvector();}
-#line 4566 "final.tab.c"
+#line 4568 "fff.tab.c"
     break;
 
   case 14: /* OMDotIdentifier: OMDotIdentifier DOT Identifier  */
-#line 807 "final.y"
+#line 809 "fff.y"
                                                     {(yyval.typeinfo) = createstruct();string p=((yyvsp[0].str));((yyval.typeinfo))->name=((yyvsp[-2].typeinfo))->name+"."+p;(yyval.typeinfo)->tac= (yyvsp[-2].typeinfo)->tac;}
-#line 4572 "final.tab.c"
+#line 4574 "fff.tab.c"
     break;
 
   case 15: /* OMModuleDirective: ModuleDirective  */
-#line 809 "final.y"
+#line 811 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 4578 "final.tab.c"
+#line 4580 "fff.tab.c"
     break;
 
   case 16: /* OMModuleDirective: OMModuleDirective ModuleDirective  */
-#line 810 "final.y"
+#line 812 "fff.y"
                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4584 "final.tab.c"
+#line 4586 "fff.tab.c"
     break;
 
   case 17: /* OMRequiresModifier: Modifieropt  */
-#line 812 "final.y"
+#line 814 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 4590 "final.tab.c"
+#line 4592 "fff.tab.c"
     break;
 
   case 18: /* OMRequiresModifier: OMRequiresModifier Modifieropt  */
-#line 813 "final.y"
+#line 815 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4596 "final.tab.c"
+#line 4598 "fff.tab.c"
     break;
 
   case 19: /* OMCommaModuleName: CommaModuleName  */
-#line 815 "final.y"
+#line 817 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4602 "final.tab.c"
+#line 4604 "fff.tab.c"
     break;
 
   case 20: /* OMCommaModuleName: OMCommaModuleName CommaModuleName  */
-#line 816 "final.y"
+#line 818 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4608 "final.tab.c"
+#line 4610 "fff.tab.c"
     break;
 
   case 21: /* CommaModuleName: COMMA ModuleName  */
-#line 818 "final.y"
+#line 820 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4614 "final.tab.c"
+#line 4616 "fff.tab.c"
     break;
 
   case 22: /* OMCommaTypeName: CommaTypeName  */
-#line 820 "final.y"
+#line 822 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4620 "final.tab.c"
+#line 4622 "fff.tab.c"
     break;
 
   case 23: /* OMCommaTypeName: OMCommaTypeName CommaTypeName  */
-#line 821 "final.y"
+#line 823 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4626 "final.tab.c"
+#line 4628 "fff.tab.c"
     break;
 
   case 24: /* CommaTypeName: COMMA Identifier  */
-#line 823 "final.y"
+#line 825 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 4632 "final.tab.c"
+#line 4634 "fff.tab.c"
     break;
 
   case 25: /* CommaTypeName: COMMA ExpressionName  */
-#line 824 "final.y"
+#line 826 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4638 "final.tab.c"
+#line 4640 "fff.tab.c"
     break;
 
   case 26: /* OMClassModifier: InterfaceModifier  */
-#line 826 "final.y"
+#line 828 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4644 "final.tab.c"
+#line 4646 "fff.tab.c"
     break;
 
   case 27: /* OMClassModifier: OMClassModifier InterfaceModifier  */
-#line 827 "final.y"
+#line 829 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4650 "final.tab.c"
+#line 4652 "fff.tab.c"
     break;
 
   case 28: /* OMCommaTypeParameter: CommaTypeParameter  */
-#line 829 "final.y"
+#line 831 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 4656 "final.tab.c"
+#line 4658 "fff.tab.c"
     break;
 
   case 29: /* OMCommaTypeParameter: OMCommaTypeParameter CommaTypeParameter  */
-#line 830 "final.y"
+#line 832 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 4662 "final.tab.c"
+#line 4664 "fff.tab.c"
     break;
 
   case 30: /* CommaTypeParameter: COMMA TypeParameter  */
-#line 832 "final.y"
+#line 834 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4668 "final.tab.c"
+#line 4670 "fff.tab.c"
     break;
 
   case 31: /* OMCommaInterfaceType: CommaInterfaceType  */
-#line 834 "final.y"
+#line 836 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4674 "final.tab.c"
+#line 4676 "fff.tab.c"
     break;
 
   case 32: /* OMCommaInterfaceType: OMCommaInterfaceType CommaInterfaceType  */
-#line 835 "final.y"
+#line 837 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4680 "final.tab.c"
+#line 4682 "fff.tab.c"
     break;
 
   case 33: /* CommaInterfaceType: COMMA Identifier  */
-#line 837 "final.y"
+#line 839 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 4686 "final.tab.c"
+#line 4688 "fff.tab.c"
     break;
 
   case 34: /* OMClassBodyDeclaration: ClassBodyDeclaration  */
-#line 839 "final.y"
+#line 841 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 4692 "final.tab.c"
+#line 4694 "fff.tab.c"
     break;
 
   case 35: /* OMClassBodyDeclaration: OMClassBodyDeclaration ClassBodyDeclaration  */
-#line 840 "final.y"
+#line 842 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4698 "final.tab.c"
+#line 4700 "fff.tab.c"
     break;
 
   case 36: /* OMCommaFormalParameter: CommaFormalParameter  */
-#line 842 "final.y"
+#line 844 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;(yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4704 "final.tab.c"
+#line 4706 "fff.tab.c"
     break;
 
   case 37: /* OMCommaFormalParameter: OMCommaFormalParameter CommaFormalParameter  */
-#line 843 "final.y"
+#line 845 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();vector<string>a=((yyvsp[-1].typeinfo))->type_variable;vector<string>b=((yyvsp[0].typeinfo))->type_variable;for(auto z:a){((yyval.typeinfo))->type_variable.push_back(z);}for(auto z:b){((yyval.typeinfo))->type_variable.push_back(z);}(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4710 "final.tab.c"
+#line 4712 "fff.tab.c"
     break;
 
   case 38: /* CommaFormalParameter: COMMA FormalParameter  */
-#line 845 "final.y"
+#line 847 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;(yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4716 "final.tab.c"
+#line 4718 "fff.tab.c"
     break;
 
   case 39: /* OMCommaExceptionType: CommaExceptionType  */
-#line 847 "final.y"
+#line 849 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4722 "final.tab.c"
+#line 4724 "fff.tab.c"
     break;
 
   case 40: /* OMCommaExceptionType: OMCommaExceptionType CommaExceptionType  */
-#line 848 "final.y"
+#line 850 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4728 "final.tab.c"
+#line 4730 "fff.tab.c"
     break;
 
   case 41: /* CommaExceptionType: COMMA ExceptionType  */
-#line 850 "final.y"
+#line 852 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4734 "final.tab.c"
+#line 4736 "fff.tab.c"
     break;
 
   case 42: /* OMCommaEnumConstant: CommaEnumConstant  */
-#line 852 "final.y"
+#line 854 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4740 "final.tab.c"
+#line 4742 "fff.tab.c"
     break;
 
   case 43: /* OMCommaEnumConstant: OMCommaEnumConstant CommaEnumConstant  */
-#line 853 "final.y"
+#line 855 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4746 "final.tab.c"
+#line 4748 "fff.tab.c"
     break;
 
   case 44: /* CommaEnumConstant: EnumConstant COMMA  */
-#line 855 "final.y"
+#line 857 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[-1].typeinfo)->tac;}
-#line 4752 "final.tab.c"
+#line 4754 "fff.tab.c"
     break;
 
   case 45: /* OMCommaRecordComponent: CommaRecordComponent  */
-#line 857 "final.y"
+#line 859 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4758 "final.tab.c"
+#line 4760 "fff.tab.c"
     break;
 
   case 46: /* OMCommaRecordComponent: OMCommaRecordComponent CommaRecordComponent  */
-#line 858 "final.y"
+#line 860 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4764 "final.tab.c"
+#line 4766 "fff.tab.c"
     break;
 
   case 47: /* CommaRecordComponent: COMMA RecordComponent  */
-#line 860 "final.y"
+#line 862 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4770 "final.tab.c"
+#line 4772 "fff.tab.c"
     break;
 
   case 48: /* OMRecordBodyDeclaration: RecordBodyDeclaration  */
-#line 862 "final.y"
+#line 864 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4776 "final.tab.c"
+#line 4778 "fff.tab.c"
     break;
 
   case 49: /* OMRecordBodyDeclaration: OMRecordBodyDeclaration RecordBodyDeclaration  */
-#line 863 "final.y"
+#line 865 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4782 "final.tab.c"
+#line 4784 "fff.tab.c"
     break;
 
   case 50: /* OMInterfaceMemberDeclaration: InterfaceMemberDeclaration  */
-#line 865 "final.y"
+#line 867 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4788 "final.tab.c"
+#line 4790 "fff.tab.c"
     break;
 
   case 51: /* OMInterfaceMemberDeclaration: OMInterfaceMemberDeclaration InterfaceMemberDeclaration  */
-#line 866 "final.y"
+#line 868 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4794 "final.tab.c"
+#line 4796 "fff.tab.c"
     break;
 
   case 52: /* OMCommaVariableInitializer: CommaVariableInitializer  */
-#line 868 "final.y"
+#line 870 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type =  ((yyvsp[0].typeinfo))->type; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4800 "final.tab.c"
+#line 4802 "fff.tab.c"
     break;
 
   case 53: /* OMCommaVariableInitializer: OMCommaVariableInitializer CommaVariableInitializer  */
-#line 869 "final.y"
+#line 871 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type =  ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4806 "final.tab.c"
+#line 4808 "fff.tab.c"
     break;
 
   case 54: /* CommaVariableInitializer: COMMA VariableInitializer  */
-#line 871 "final.y"
+#line 873 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type =  ((yyvsp[0].typeinfo))->type; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4812 "final.tab.c"
+#line 4814 "fff.tab.c"
     break;
 
   case 55: /* OMBlockStatement: BlockStatement  */
-#line 873 "final.y"
+#line 875 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
-#line 4818 "final.tab.c"
+#line 4820 "fff.tab.c"
     break;
 
   case 56: /* OMBlockStatement: OMBlockStatement BlockStatement  */
-#line 874 "final.y"
+#line 876 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4824 "final.tab.c"
+#line 4826 "fff.tab.c"
     break;
 
   case 57: /* OMSwitchRule: SwitchRule  */
-#line 876 "final.y"
+#line 878 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4830 "final.tab.c"
+#line 4832 "fff.tab.c"
     break;
 
   case 58: /* OMSwitchRule: OMSwitchRule SwitchRule  */
-#line 877 "final.y"
+#line 879 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4836 "final.tab.c"
+#line 4838 "fff.tab.c"
     break;
 
   case 59: /* OMSwitchBlockStatementGroup: SwitchBlockStatementGroup  */
-#line 879 "final.y"
+#line 881 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4842 "final.tab.c"
+#line 4844 "fff.tab.c"
     break;
 
   case 60: /* OMSwitchBlockStatementGroup: OMSwitchBlockStatementGroup SwitchBlockStatementGroup  */
-#line 880 "final.y"
+#line 882 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4848 "final.tab.c"
+#line 4850 "fff.tab.c"
     break;
 
   case 61: /* OMSwitchLabelColon: SwitchLabelColon  */
-#line 882 "final.y"
+#line 884 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4854 "final.tab.c"
+#line 4856 "fff.tab.c"
     break;
 
   case 62: /* OMSwitchLabelColon: OMSwitchLabelColon SwitchLabelColon  */
-#line 883 "final.y"
+#line 885 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4860 "final.tab.c"
+#line 4862 "fff.tab.c"
     break;
 
   case 63: /* SwitchLabelColon: SwitchLabel COLON  */
-#line 885 "final.y"
+#line 887 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[-1].typeinfo)->tac;}
-#line 4866 "final.tab.c"
+#line 4868 "fff.tab.c"
     break;
 
   case 64: /* OMCommaCaseConstant: CommaCaseConstant  */
-#line 887 "final.y"
+#line 889 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4872 "final.tab.c"
+#line 4874 "fff.tab.c"
     break;
 
   case 65: /* OMCommaCaseConstant: OMCommaCaseConstant CommaCaseConstant  */
-#line 888 "final.y"
+#line 890 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4878 "final.tab.c"
+#line 4880 "fff.tab.c"
     break;
 
   case 66: /* CommaCaseConstant: COMMA CaseConstant  */
-#line 890 "final.y"
+#line 892 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4884 "final.tab.c"
+#line 4886 "fff.tab.c"
     break;
 
   case 67: /* OMCommaStatementExpression: CommaStatementExpression  */
-#line 892 "final.y"
+#line 894 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4890 "final.tab.c"
+#line 4892 "fff.tab.c"
     break;
 
   case 68: /* OMCommaStatementExpression: OMCommaStatementExpression CommaStatementExpression  */
-#line 893 "final.y"
+#line 895 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4896 "final.tab.c"
+#line 4898 "fff.tab.c"
     break;
 
   case 69: /* CommaStatementExpression: COMMA StatementExpression  */
-#line 895 "final.y"
+#line 897 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4902 "final.tab.c"
+#line 4904 "fff.tab.c"
     break;
 
   case 70: /* OMCatchClause: CatchClause  */
-#line 897 "final.y"
+#line 899 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4908 "final.tab.c"
+#line 4910 "fff.tab.c"
     break;
 
   case 71: /* OMCatchClause: OMCatchClause CatchClause  */
-#line 898 "final.y"
+#line 900 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4914 "final.tab.c"
+#line 4916 "fff.tab.c"
     break;
 
   case 72: /* OMOrClassType: OrClassType  */
-#line 900 "final.y"
+#line 902 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4920 "final.tab.c"
+#line 4922 "fff.tab.c"
     break;
 
   case 73: /* OMOrClassType: OMOrClassType OrClassType  */
-#line 901 "final.y"
+#line 903 "fff.y"
                                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4926 "final.tab.c"
+#line 4928 "fff.tab.c"
     break;
 
   case 74: /* OrClassType: BITOR Identifier  */
-#line 903 "final.y"
+#line 905 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 4932 "final.tab.c"
+#line 4934 "fff.tab.c"
     break;
 
   case 75: /* OMSemicolonResource: SemicolonResource  */
-#line 905 "final.y"
+#line 907 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4938 "final.tab.c"
+#line 4940 "fff.tab.c"
     break;
 
   case 76: /* OMSemicolonResource: OMSemicolonResource SemicolonResource  */
-#line 906 "final.y"
+#line 908 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4944 "final.tab.c"
+#line 4946 "fff.tab.c"
     break;
 
   case 77: /* SemicolonResource: Resource SEMICOLON  */
-#line 908 "final.y"
+#line 910 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[-1].typeinfo)->tac;}
-#line 4950 "final.tab.c"
+#line 4952 "fff.tab.c"
     break;
 
   case 78: /* OMCommaExpression: CommaExpression  */
-#line 910 "final.y"
+#line 912 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;for(auto z:(yyvsp[0].typeinfo)->params)(yyval.typeinfo)->params.push_back(z);}
-#line 4956 "final.tab.c"
+#line 4958 "fff.tab.c"
     break;
 
   case 79: /* OMCommaExpression: OMCommaExpression CommaExpression  */
-#line 911 "final.y"
+#line 913 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);for(auto z:((yyvsp[-1].typeinfo))->params)((yyval.typeinfo))->params.push_back(z);for(auto z:((yyvsp[0].typeinfo))->params)((yyval.typeinfo))->params.push_back(z);}
-#line 4962 "final.tab.c"
+#line 4964 "fff.tab.c"
     break;
 
   case 80: /* CommaExpression: COMMA Expression  */
-#line 913 "final.y"
+#line 915 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;string s = ((yyvsp[0].typeinfo))->tempname; (yyval.typeinfo)->params.push_back(s);}
-#line 4968 "final.tab.c"
+#line 4970 "fff.tab.c"
     break;
 
   case 81: /* OMDimExpr: DimExpr  */
-#line 915 "final.y"
+#line 917 "fff.y"
                                                                                                                 {(yyval.typeinfo)=createstruct();int p=(yyvsp[0].typeinfo)->exprvalue;vector<int>q={p};(yyval.typeinfo)->arrdim=q;(yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 4974 "final.tab.c"
+#line 4976 "fff.tab.c"
     break;
 
   case 82: /* OMDimExpr: OMDimExpr DimExpr  */
-#line 916 "final.y"
+#line 918 "fff.y"
                                                                                                         {(yyval.typeinfo)=createstruct();int p=(yyvsp[0].typeinfo)->exprvalue;(yyval.typeinfo)->arrdim=(yyvsp[-1].typeinfo)->arrdim;((yyval.typeinfo))->arrdim.push_back(p);(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 4980 "final.tab.c"
+#line 4982 "fff.tab.c"
     break;
 
   case 83: /* Modifieropt: PUBLIC  */
-#line 918 "final.y"
+#line 920 "fff.y"
                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 4986 "final.tab.c"
+#line 4988 "fff.tab.c"
     break;
 
   case 84: /* Modifieropt: PROTECTED  */
-#line 919 "final.y"
+#line 921 "fff.y"
                                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 4992 "final.tab.c"
+#line 4994 "fff.tab.c"
     break;
 
   case 85: /* Modifieropt: PRIVATE  */
-#line 920 "final.y"
+#line 922 "fff.y"
                                                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 4998 "final.tab.c"
+#line 5000 "fff.tab.c"
     break;
 
   case 86: /* Modifieropt: ABSTRACT  */
-#line 921 "final.y"
+#line 923 "fff.y"
                                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5004 "final.tab.c"
+#line 5006 "fff.tab.c"
     break;
 
   case 87: /* Modifieropt: STATIC  */
-#line 922 "final.y"
+#line 924 "fff.y"
                                                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5010 "final.tab.c"
+#line 5012 "fff.tab.c"
     break;
 
   case 88: /* Modifieropt: SEALED  */
-#line 923 "final.y"
+#line 925 "fff.y"
                                                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5016 "final.tab.c"
+#line 5018 "fff.tab.c"
     break;
 
   case 89: /* Modifieropt: STRICTFP  */
-#line 924 "final.y"
+#line 926 "fff.y"
                                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5022 "final.tab.c"
+#line 5024 "fff.tab.c"
     break;
 
   case 90: /* Modifieropt: FINAL  */
-#line 925 "final.y"
+#line 927 "fff.y"
                                                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5028 "final.tab.c"
+#line 5030 "fff.tab.c"
     break;
 
   case 91: /* Identifier: IDENTIFIERWK  */
-#line 927 "final.y"
+#line 929 "fff.y"
                                                 {(yyval.str)=(yyvsp[0].str);}
-#line 5034 "final.tab.c"
+#line 5036 "fff.tab.c"
     break;
 
   case 92: /* UnqualifiedMethodIdentifier: IDENTIFIERWK  */
-#line 929 "final.y"
+#line 931 "fff.y"
                                                                 {(yyval.typeinfo) = createstruct(); string p = (yyvsp[0].str);((yyval.typeinfo))->name = p;(yyval.typeinfo)->tempname=p;}
-#line 5040 "final.tab.c"
+#line 5042 "fff.tab.c"
     break;
 
   case 93: /* UnqualifiedMethodIdentifier: EXPORTS  */
-#line 930 "final.y"
+#line 932 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5046 "final.tab.c"
+#line 5048 "fff.tab.c"
     break;
 
   case 94: /* UnqualifiedMethodIdentifier: OPENS  */
-#line 931 "final.y"
+#line 933 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5052 "final.tab.c"
+#line 5054 "fff.tab.c"
     break;
 
   case 95: /* UnqualifiedMethodIdentifier: REQUIRES  */
-#line 932 "final.y"
+#line 934 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5058 "final.tab.c"
+#line 5060 "fff.tab.c"
     break;
 
   case 96: /* UnqualifiedMethodIdentifier: USES  */
-#line 933 "final.y"
+#line 935 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5064 "final.tab.c"
+#line 5066 "fff.tab.c"
     break;
 
   case 97: /* UnqualifiedMethodIdentifier: MODULE  */
-#line 934 "final.y"
+#line 936 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5070 "final.tab.c"
+#line 5072 "fff.tab.c"
     break;
 
   case 98: /* UnqualifiedMethodIdentifier: PERMITS  */
-#line 935 "final.y"
+#line 937 "fff.y"
                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5076 "final.tab.c"
+#line 5078 "fff.tab.c"
     break;
 
   case 99: /* UnqualifiedMethodIdentifier: SEALED  */
-#line 936 "final.y"
+#line 938 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5082 "final.tab.c"
+#line 5084 "fff.tab.c"
     break;
 
   case 100: /* UnqualifiedMethodIdentifier: VAR  */
-#line 937 "final.y"
+#line 939 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5088 "final.tab.c"
+#line 5090 "fff.tab.c"
     break;
 
   case 101: /* UnqualifiedMethodIdentifier: NONSEALED  */
-#line 938 "final.y"
+#line 940 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5094 "final.tab.c"
+#line 5096 "fff.tab.c"
     break;
 
   case 102: /* UnqualifiedMethodIdentifier: PROVIDES  */
-#line 939 "final.y"
+#line 941 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5100 "final.tab.c"
+#line 5102 "fff.tab.c"
     break;
 
   case 103: /* UnqualifiedMethodIdentifier: TO  */
-#line 940 "final.y"
+#line 942 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5106 "final.tab.c"
+#line 5108 "fff.tab.c"
     break;
 
   case 104: /* UnqualifiedMethodIdentifier: WITH  */
-#line 941 "final.y"
+#line 943 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5112 "final.tab.c"
+#line 5114 "fff.tab.c"
     break;
 
   case 105: /* UnqualifiedMethodIdentifier: OPEN  */
-#line 942 "final.y"
+#line 944 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5118 "final.tab.c"
+#line 5120 "fff.tab.c"
     break;
 
   case 106: /* UnqualifiedMethodIdentifier: RECORD  */
-#line 943 "final.y"
+#line 945 "fff.y"
                                                                                                                 {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5124 "final.tab.c"
+#line 5126 "fff.tab.c"
     break;
 
   case 107: /* UnqualifiedMethodIdentifier: TRANSITIVE  */
-#line 944 "final.y"
+#line 946 "fff.y"
                                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tempname=x;}
-#line 5130 "final.tab.c"
+#line 5132 "fff.tab.c"
     break;
 
   case 108: /* Literal: INTEGERLITERAL  */
-#line 954 "final.y"
+#line 956 "fff.y"
                                                                                         {string x=(yyvsp[0].str);int p=stoi(x);(yyval.typeinfo)=new Typeinfo;     (yyval.typeinfo)->littype="int";(yyval.typeinfo)->valint=p;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=y+" = "+x;(yyval.typeinfo)->tac={z};(yyval.typeinfo)->exprvalue=atoi((yyvsp[0].str));((yyval.typeinfo))->type = "int";}
-#line 5136 "final.tab.c"
+#line 5138 "fff.tab.c"
     break;
 
   case 109: /* Literal: FLOATINGPOINTLITERAL  */
-#line 955 "final.y"
+#line 957 "fff.y"
                                                                                         {string x=(yyvsp[0].str);float p=stof(x);(yyval.typeinfo)=new Typeinfo;   (yyval.typeinfo)->littype="float";(yyval.typeinfo)->valfloat=p;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=y+" = "+x;(yyval.typeinfo)->tac={z};(yyval.typeinfo)->exprvalue=(int)((yyval.typeinfo)->valfloat);((yyval.typeinfo))->type = "float";}
-#line 5142 "final.tab.c"
+#line 5144 "fff.tab.c"
     break;
 
   case 110: /* Literal: BOOLEANLITERAL  */
-#line 956 "final.y"
+#line 958 "fff.y"
                                                                                         {string x=(yyvsp[0].str);;(yyval.typeinfo)=new Typeinfo;                  (yyval.typeinfo)->littype="bool";(yyval.typeinfo)->valstr=x;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=y+" = "+x;(yyval.typeinfo)->tac={z};if(x=="true"){(yyval.typeinfo)->exprvalue=1;}else{(yyval.typeinfo)->exprvalue=0;};((yyval.typeinfo))->type = "bool";}
-#line 5148 "final.tab.c"
+#line 5150 "fff.tab.c"
     break;
 
   case 111: /* Literal: NULLLITERAL  */
-#line 957 "final.y"
+#line 959 "fff.y"
                                                                                         {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo;                   (yyval.typeinfo)->littype="null";(yyval.typeinfo)->valstr=x;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=y+" = "+x;(yyval.typeinfo)->tac={z};(yyval.typeinfo)->exprvalue=0;(yyval.typeinfo)->type="null";}
-#line 5154 "final.tab.c"
+#line 5156 "fff.tab.c"
     break;
 
   case 112: /* Literal: CHARACTERLITERAL  */
-#line 958 "final.y"
+#line 960 "fff.y"
                                                                                             {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo;                   (yyval.typeinfo)->littype="char";(yyval.typeinfo)->valstr=x;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=y+"="+x;(yyval.typeinfo)->tac={z};(yyval.typeinfo)->exprvalue=x[0]-'\0';((yyval.typeinfo))->type = "char";}
-#line 5160 "final.tab.c"
+#line 5162 "fff.tab.c"
     break;
 
   case 113: /* Literal: STRING  */
-#line 959 "final.y"
+#line 961 "fff.y"
                                                                                                     {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo;                   (yyval.typeinfo)->littype="string";(yyval.typeinfo)->valstr=x;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=y+" = "+x;(yyval.typeinfo)->tac={z};((yyval.typeinfo))->type = "string";}
-#line 5166 "final.tab.c"
+#line 5168 "fff.tab.c"
     break;
 
   case 114: /* Literal: TEXTBLOCKS  */
-#line 960 "final.y"
+#line 962 "fff.y"
                                                                                             {string x=(yyvsp[0].str);(yyval.typeinfo)=new Typeinfo;                   (yyval.typeinfo)->littype="textblock";(yyval.typeinfo)->valstr=x;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=y+" = "+x;(yyval.typeinfo)->tac={z};((yyval.typeinfo))->type = "textblock";}
-#line 5172 "final.tab.c"
+#line 5174 "fff.tab.c"
     break;
 
   case 115: /* ASSIGNMENTOPERATOR: NEWASSIGNMENTOPERATOR  */
-#line 961 "final.y"
+#line 964 "fff.y"
                                                                 {(yyval.str)=(yyvsp[0].str);}
-#line 5178 "final.tab.c"
+#line 5180 "fff.tab.c"
     break;
 
   case 116: /* ASSIGNMENTOPERATOR: EQUAL  */
-#line 962 "final.y"
+#line 965 "fff.y"
                                                                                                         {(yyval.str)=(yyvsp[0].str);}
-#line 5184 "final.tab.c"
+#line 5186 "fff.tab.c"
     break;
 
   case 117: /* PrimitiveType: UnannPrimitiveType  */
-#line 964 "final.y"
+#line 967 "fff.y"
                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5190 "final.tab.c"
+#line 5192 "fff.tab.c"
     break;
 
   case 118: /* NumericType: IntegralType  */
-#line 966 "final.y"
+#line 969 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=emptyvector();}
-#line 5196 "final.tab.c"
+#line 5198 "fff.tab.c"
     break;
 
   case 119: /* NumericType: FloatingPointType  */
-#line 967 "final.y"
+#line 970 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=emptyvector();}
-#line 5202 "final.tab.c"
+#line 5204 "fff.tab.c"
     break;
 
   case 120: /* IntegralType: BYTE  */
-#line 969 "final.y"
+#line 972 "fff.y"
                                                                                                 {((yyval.typeinfo)) = createstruct();((yyval.typeinfo))->type = "byte";(yyval.typeinfo)->tac=emptyvector();}
-#line 5208 "final.tab.c"
+#line 5210 "fff.tab.c"
     break;
 
   case 121: /* IntegralType: SHORT  */
-#line 970 "final.y"
+#line 973 "fff.y"
                                                                                                                 {((yyval.typeinfo)) = createstruct();((yyval.typeinfo))->type = "short";(yyval.typeinfo)->tac=emptyvector();}
-#line 5214 "final.tab.c"
+#line 5216 "fff.tab.c"
     break;
 
   case 122: /* IntegralType: INT  */
-#line 971 "final.y"
+#line 974 "fff.y"
                                                                                                                 {((yyval.typeinfo)) = createstruct();((yyval.typeinfo))->type = "int";(yyval.typeinfo)->tac=emptyvector();}
-#line 5220 "final.tab.c"
+#line 5222 "fff.tab.c"
     break;
 
   case 123: /* IntegralType: LONG  */
-#line 972 "final.y"
+#line 975 "fff.y"
                                                                                                                 {((yyval.typeinfo)) = createstruct();((yyval.typeinfo))->type = "long";(yyval.typeinfo)->tac=emptyvector();}
-#line 5226 "final.tab.c"
+#line 5228 "fff.tab.c"
     break;
 
   case 124: /* IntegralType: CHAR  */
-#line 973 "final.y"
+#line 976 "fff.y"
                                                                                                                 {((yyval.typeinfo)) = createstruct();((yyval.typeinfo))->type = "char";(yyval.typeinfo)->tac=emptyvector();}
-#line 5232 "final.tab.c"
+#line 5234 "fff.tab.c"
     break;
 
   case 125: /* FloatingPointType: FLOAT  */
-#line 975 "final.y"
+#line 978 "fff.y"
                                                                                                 {((yyval.typeinfo)) = createstruct();((yyval.typeinfo))->type = "float";(yyval.typeinfo)->tac=emptyvector();}
-#line 5238 "final.tab.c"
+#line 5240 "fff.tab.c"
     break;
 
   case 126: /* FloatingPointType: DOUBLE  */
-#line 976 "final.y"
+#line 979 "fff.y"
                                                                                                         {((yyval.typeinfo)) = createstruct();((yyval.typeinfo))->type = "double";(yyval.typeinfo)->tac=emptyvector();}
-#line 5244 "final.tab.c"
+#line 5246 "fff.tab.c"
     break;
 
   case 127: /* ReferenceType: Identifier  */
-#line 978 "final.y"
+#line 981 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac=emptyvector();}
-#line 5250 "final.tab.c"
+#line 5252 "fff.tab.c"
     break;
 
   case 128: /* ReferenceType: UnannArrayType  */
-#line 979 "final.y"
+#line 982 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5256 "final.tab.c"
+#line 5258 "fff.tab.c"
     break;
 
   case 129: /* TypeParameter: Identifier  */
-#line 981 "final.y"
+#line 984 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5262 "final.tab.c"
+#line 5264 "fff.tab.c"
     break;
 
   case 130: /* TypeParameter: Identifier TypeBound  */
-#line 982 "final.y"
+#line 985 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5268 "final.tab.c"
+#line 5270 "fff.tab.c"
     break;
 
   case 131: /* TypeBound: EXTENDS Identifier  */
-#line 984 "final.y"
+#line 987 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5274 "final.tab.c"
+#line 5276 "fff.tab.c"
     break;
 
   case 132: /* TypeBound: EXTENDS Identifier OMAdditionalBound  */
-#line 985 "final.y"
+#line 988 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5280 "final.tab.c"
+#line 5282 "fff.tab.c"
     break;
 
   case 133: /* AdditionalBound: BITAND Identifier  */
-#line 987 "final.y"
+#line 990 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5286 "final.tab.c"
+#line 5288 "fff.tab.c"
     break;
 
   case 134: /* ModuleName: Identifier  */
-#line 989 "final.y"
+#line 992 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5292 "final.tab.c"
+#line 5294 "fff.tab.c"
     break;
 
   case 135: /* ModuleName: ModuleName DOT Identifier  */
-#line 990 "final.y"
+#line 993 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5298 "final.tab.c"
+#line 5300 "fff.tab.c"
     break;
 
   case 136: /* ExpressionName: Identifier DOT Identifier  */
-#line 992 "final.y"
+#line 995 "fff.y"
                                                                 {(yyval.typeinfo) = createstruct();string q=((yyvsp[-2].str));string p=((yyvsp[0].str));((yyval.typeinfo))->type=q+"."+p;string x=(yyvsp[-2].str);string r=newtemp(); (yyval.typeinfo)->tempname=r;r=r+" = "+x; (yyval.typeinfo)->tac={r};}
-#line 5304 "final.tab.c"
+#line 5306 "fff.tab.c"
     break;
 
   case 137: /* ExpressionName: ExpressionName DOT Identifier  */
-#line 993 "final.y"
+#line 996 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();string p=((yyvsp[0].str));((yyval.typeinfo))->type=((yyvsp[-2].typeinfo))->type+"."+p; (yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 5310 "final.tab.c"
+#line 5312 "fff.tab.c"
     break;
 
   case 138: /* MethodName: UnqualifiedMethodIdentifier  */
-#line 995 "final.y"
+#line 998 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct(); ;((yyval.typeinfo))->name = ((yyvsp[0].typeinfo))->name; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 5316 "final.tab.c"
+#line 5318 "fff.tab.c"
     break;
 
   case 139: /* CompilationUnit: OrdinaryCompilationUnit  */
-#line 997 "final.y"
-                                                                                {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;code<<"hello";csvFile<<"fregrt"; for(auto z:((yyval.typeinfo)->tac))code<<z<<"\n"; }
-#line 5322 "final.tab.c"
+#line 1000 "fff.y"
+                                                                                {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac; for(auto z:((yyval.typeinfo)->tac))code<<z<<"\n"; }
+#line 5324 "fff.tab.c"
     break;
 
   case 140: /* CompilationUnit: ModularCompilationUnit  */
-#line 998 "final.y"
+#line 1001 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac; for(auto z:((yyval.typeinfo)->tac))code<<z<<"\n"; }
-#line 5328 "final.tab.c"
+#line 5330 "fff.tab.c"
     break;
 
   case 141: /* OrdinaryCompilationUnit: %empty  */
-#line 1000 "final.y"
+#line 1003 "fff.y"
                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5334 "final.tab.c"
+#line 5336 "fff.tab.c"
     break;
 
   case 142: /* OrdinaryCompilationUnit: OMTopLevelClassOrInterfaceDeclaration  */
-#line 1001 "final.y"
+#line 1004 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5340 "final.tab.c"
+#line 5342 "fff.tab.c"
     break;
 
   case 143: /* OrdinaryCompilationUnit: OMImportDeclaration  */
-#line 1002 "final.y"
+#line 1005 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5346 "final.tab.c"
+#line 5348 "fff.tab.c"
     break;
 
   case 144: /* OrdinaryCompilationUnit: OMImportDeclaration OMTopLevelClassOrInterfaceDeclaration  */
-#line 1003 "final.y"
+#line 1006 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 5352 "final.tab.c"
+#line 5354 "fff.tab.c"
     break;
 
   case 145: /* OrdinaryCompilationUnit: PackageDeclaration  */
-#line 1004 "final.y"
+#line 1007 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5358 "final.tab.c"
+#line 5360 "fff.tab.c"
     break;
 
   case 146: /* OrdinaryCompilationUnit: PackageDeclaration OMTopLevelClassOrInterfaceDeclaration  */
-#line 1005 "final.y"
+#line 1008 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 5364 "final.tab.c"
+#line 5366 "fff.tab.c"
     break;
 
   case 147: /* OrdinaryCompilationUnit: PackageDeclaration OMImportDeclaration  */
-#line 1006 "final.y"
+#line 1009 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 5370 "final.tab.c"
+#line 5372 "fff.tab.c"
     break;
 
   case 148: /* OrdinaryCompilationUnit: PackageDeclaration OMImportDeclaration OMTopLevelClassOrInterfaceDeclaration  */
-#line 1007 "final.y"
+#line 1010 "fff.y"
                                                                                                   {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 5376 "final.tab.c"
+#line 5378 "fff.tab.c"
     break;
 
   case 149: /* ModularCompilationUnit: ModuleDeclaration  */
-#line 1009 "final.y"
+#line 1012 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5382 "final.tab.c"
+#line 5384 "fff.tab.c"
     break;
 
   case 150: /* ModularCompilationUnit: OMImportDeclaration ModuleDeclaration  */
-#line 1010 "final.y"
+#line 1013 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 5388 "final.tab.c"
+#line 5390 "fff.tab.c"
     break;
 
   case 151: /* PackageDeclaration: PACKAGE Identifier SEMICOLON  */
-#line 1012 "final.y"
+#line 1015 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5394 "final.tab.c"
+#line 5396 "fff.tab.c"
     break;
 
   case 152: /* PackageDeclaration: PACKAGE Identifier OMDotIdentifier SEMICOLON  */
-#line 1013 "final.y"
+#line 1016 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5400 "final.tab.c"
+#line 5402 "fff.tab.c"
     break;
 
   case 153: /* ImportDeclaration: SingleTypeImportDeclaration  */
-#line 1015 "final.y"
+#line 1018 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5406 "final.tab.c"
+#line 5408 "fff.tab.c"
     break;
 
   case 154: /* ImportDeclaration: SingleStaticImportDeclaration  */
-#line 1016 "final.y"
+#line 1019 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5412 "final.tab.c"
+#line 5414 "fff.tab.c"
     break;
 
   case 155: /* ImportDeclaration: StaticImportOnDemandDeclaration  */
-#line 1017 "final.y"
+#line 1020 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5418 "final.tab.c"
+#line 5420 "fff.tab.c"
     break;
 
   case 156: /* ImportDeclaration: ImportOnDemandDeclaration  */
-#line 1018 "final.y"
+#line 1021 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5424 "final.tab.c"
+#line 5426 "fff.tab.c"
     break;
 
   case 157: /* SingleTypeImportDeclaration: IMPORT Identifier SEMICOLON  */
-#line 1020 "final.y"
+#line 1023 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5430 "final.tab.c"
+#line 5432 "fff.tab.c"
     break;
 
   case 158: /* SingleTypeImportDeclaration: IMPORT ExpressionName SEMICOLON  */
-#line 1021 "final.y"
+#line 1024 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5436 "final.tab.c"
+#line 5438 "fff.tab.c"
     break;
 
   case 159: /* SingleStaticImportDeclaration: IMPORT STATIC ExpressionName SEMICOLON  */
-#line 1023 "final.y"
+#line 1026 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5442 "final.tab.c"
+#line 5444 "fff.tab.c"
     break;
 
   case 160: /* ImportOnDemandDeclaration: IMPORT Identifier DOT MULTIPLY SEMICOLON  */
-#line 1025 "final.y"
+#line 1028 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5448 "final.tab.c"
+#line 5450 "fff.tab.c"
     break;
 
   case 161: /* ImportOnDemandDeclaration: IMPORT ExpressionName DOT MULTIPLY SEMICOLON  */
-#line 1026 "final.y"
+#line 1029 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5454 "final.tab.c"
+#line 5456 "fff.tab.c"
     break;
 
   case 162: /* StaticImportOnDemandDeclaration: IMPORT STATIC Identifier DOT MULTIPLY SEMICOLON  */
-#line 1028 "final.y"
+#line 1031 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5460 "final.tab.c"
+#line 5462 "fff.tab.c"
     break;
 
   case 163: /* StaticImportOnDemandDeclaration: IMPORT STATIC ExpressionName DOT MULTIPLY SEMICOLON  */
-#line 1029 "final.y"
+#line 1032 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 5466 "final.tab.c"
+#line 5468 "fff.tab.c"
     break;
 
   case 164: /* TopLevelClassOrInterfaceDeclaration: ClassDeclaration  */
-#line 1031 "final.y"
+#line 1034 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5472 "final.tab.c"
+#line 5474 "fff.tab.c"
     break;
 
   case 165: /* TopLevelClassOrInterfaceDeclaration: InterfaceDeclaration  */
-#line 1032 "final.y"
+#line 1035 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5478 "final.tab.c"
+#line 5480 "fff.tab.c"
     break;
 
   case 166: /* TopLevelClassOrInterfaceDeclaration: SEMICOLON  */
-#line 1033 "final.y"
+#line 1036 "fff.y"
                                                                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5484 "final.tab.c"
+#line 5486 "fff.tab.c"
     break;
 
   case 167: /* $@1: %empty  */
-#line 1035 "final.y"
+#line 1038 "fff.y"
                                                {symtable*a=createtable();string p=((yyvsp[-1].str));insertclass(p,"module","",a,line);   changescope(a);  }
-#line 5490 "final.tab.c"
+#line 5492 "fff.tab.c"
     break;
 
   case 168: /* ModuleDeclaration: MODULE Identifier LCB $@1 RCB  */
-#line 1035 "final.y"
+#line 1038 "fff.y"
                                                                                                                                                                 {goparent();{(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}					}
-#line 5496 "final.tab.c"
+#line 5498 "fff.tab.c"
     break;
 
   case 169: /* $@2: %empty  */
-#line 1036 "final.y"
+#line 1039 "fff.y"
                                         {symtable*a=createtable();string p=((yyvsp[-1].str));insertclass(p,"module","",a,line);   changescope(a);  }
-#line 5502 "final.tab.c"
+#line 5504 "fff.tab.c"
     break;
 
   case 170: /* ModuleDeclaration: MODULE Identifier LCB $@2 OMModuleDirective RCB  */
-#line 1036 "final.y"
+#line 1039 "fff.y"
                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5508 "final.tab.c"
+#line 5510 "fff.tab.c"
     break;
 
   case 171: /* $@3: %empty  */
-#line 1037 "final.y"
+#line 1040 "fff.y"
                                                         {symtable*a=createtable();string p=((yyvsp[-2].str));insertclass(p+((yyvsp[-1].typeinfo))->name,"module","",a,line);changescope(a);}
-#line 5514 "final.tab.c"
+#line 5516 "fff.tab.c"
     break;
 
   case 172: /* ModuleDeclaration: MODULE Identifier OMDotIdentifier LCB $@3 RCB  */
-#line 1037 "final.y"
+#line 1040 "fff.y"
                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5520 "final.tab.c"
+#line 5522 "fff.tab.c"
     break;
 
   case 173: /* $@4: %empty  */
-#line 1038 "final.y"
+#line 1041 "fff.y"
                                                          {symtable*a=createtable();string p=((yyvsp[-2].str));insertclass(p+((yyvsp[-1].typeinfo))->name,"module","",a,line);changescope(a);}
-#line 5526 "final.tab.c"
+#line 5528 "fff.tab.c"
     break;
 
   case 174: /* ModuleDeclaration: MODULE Identifier OMDotIdentifier LCB $@4 OMModuleDirective RCB  */
-#line 1038 "final.y"
+#line 1041 "fff.y"
                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5532 "final.tab.c"
+#line 5534 "fff.tab.c"
     break;
 
   case 175: /* $@5: %empty  */
-#line 1039 "final.y"
+#line 1042 "fff.y"
                                                {symtable*a=createtable();string p=((yyvsp[-1].str));insertclass(p,"module","",a,line);   changescope(a);  }
-#line 5538 "final.tab.c"
+#line 5540 "fff.tab.c"
     break;
 
   case 176: /* ModuleDeclaration: OPEN MODULE Identifier LCB $@5 RCB  */
-#line 1039 "final.y"
+#line 1042 "fff.y"
                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5544 "final.tab.c"
+#line 5546 "fff.tab.c"
     break;
 
   case 177: /* $@6: %empty  */
-#line 1040 "final.y"
+#line 1043 "fff.y"
                                               {symtable*a=createtable();string p=((yyvsp[-1].str));insertclass(p,"module","",a,line);}
-#line 5550 "final.tab.c"
+#line 5552 "fff.tab.c"
     break;
 
   case 178: /* ModuleDeclaration: OPEN MODULE Identifier LCB $@6 OMModuleDirective RCB  */
-#line 1040 "final.y"
+#line 1043 "fff.y"
                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5556 "final.tab.c"
+#line 5558 "fff.tab.c"
     break;
 
   case 179: /* $@7: %empty  */
-#line 1041 "final.y"
+#line 1044 "fff.y"
                                                               {symtable*a=createtable();string p=((yyvsp[-2].str));insertclass(p+((yyvsp[-1].typeinfo))->name,"module","",a,line);changescope(a);}
-#line 5562 "final.tab.c"
+#line 5564 "fff.tab.c"
     break;
 
   case 180: /* ModuleDeclaration: OPEN MODULE Identifier OMDotIdentifier LCB $@7 RCB  */
-#line 1041 "final.y"
+#line 1044 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5568 "final.tab.c"
+#line 5570 "fff.tab.c"
     break;
 
   case 181: /* $@8: %empty  */
-#line 1042 "final.y"
+#line 1045 "fff.y"
                                                               {symtable*a=createtable();string p=((yyvsp[-2].str));insertclass(p+((yyvsp[-1].typeinfo))->name,"module","",a,line);changescope(a);}
-#line 5574 "final.tab.c"
+#line 5576 "fff.tab.c"
     break;
 
   case 182: /* ModuleDeclaration: OPEN MODULE Identifier OMDotIdentifier LCB $@8 OMModuleDirective RCB  */
-#line 1042 "final.y"
+#line 1045 "fff.y"
                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5580 "final.tab.c"
+#line 5582 "fff.tab.c"
     break;
 
   case 183: /* ModuleDirective: REQUIRES ModuleName SEMICOLON  */
-#line 1044 "final.y"
+#line 1047 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5586 "final.tab.c"
+#line 5588 "fff.tab.c"
     break;
 
   case 184: /* ModuleDirective: REQUIRES OMRequiresModifier ModuleName SEMICOLON  */
-#line 1045 "final.y"
+#line 1048 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5592 "final.tab.c"
+#line 5594 "fff.tab.c"
     break;
 
   case 185: /* ModuleDirective: EXPORTS Identifier SEMICOLON  */
-#line 1046 "final.y"
+#line 1049 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5598 "final.tab.c"
+#line 5600 "fff.tab.c"
     break;
 
   case 186: /* ModuleDirective: EXPORTS Identifier TO ModuleName SEMICOLON  */
-#line 1047 "final.y"
+#line 1050 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5604 "final.tab.c"
+#line 5606 "fff.tab.c"
     break;
 
   case 187: /* ModuleDirective: EXPORTS Identifier TO ModuleName OMCommaModuleName SEMICOLON  */
-#line 1048 "final.y"
+#line 1051 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5610 "final.tab.c"
+#line 5612 "fff.tab.c"
     break;
 
   case 188: /* ModuleDirective: OPENS Identifier SEMICOLON  */
-#line 1049 "final.y"
+#line 1052 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5616 "final.tab.c"
+#line 5618 "fff.tab.c"
     break;
 
   case 189: /* ModuleDirective: OPENS Identifier TO ModuleName SEMICOLON  */
-#line 1050 "final.y"
+#line 1053 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5622 "final.tab.c"
+#line 5624 "fff.tab.c"
     break;
 
   case 190: /* ModuleDirective: OPENS Identifier TO ModuleName OMCommaModuleName SEMICOLON  */
-#line 1051 "final.y"
+#line 1054 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5628 "final.tab.c"
+#line 5630 "fff.tab.c"
     break;
 
   case 191: /* ModuleDirective: USES Identifier SEMICOLON  */
-#line 1052 "final.y"
+#line 1055 "fff.y"
                                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5634 "final.tab.c"
+#line 5636 "fff.tab.c"
     break;
 
   case 192: /* ModuleDirective: PROVIDES Identifier WITH Identifier SEMICOLON  */
-#line 1053 "final.y"
+#line 1056 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5640 "final.tab.c"
+#line 5642 "fff.tab.c"
     break;
 
   case 193: /* ModuleDirective: PROVIDES Identifier WITH Identifier OMCommaTypeName SEMICOLON  */
-#line 1054 "final.y"
+#line 1057 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 5646 "final.tab.c"
+#line 5648 "fff.tab.c"
     break;
 
   case 194: /* ModuleDirective: EXPORTS ExpressionName SEMICOLON  */
-#line 1055 "final.y"
+#line 1058 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5652 "final.tab.c"
+#line 5654 "fff.tab.c"
     break;
 
   case 195: /* ModuleDirective: EXPORTS ExpressionName TO ModuleName SEMICOLON  */
-#line 1056 "final.y"
+#line 1059 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-3].typeinfo)->tac;}
-#line 5658 "final.tab.c"
+#line 5660 "fff.tab.c"
     break;
 
   case 196: /* ModuleDirective: EXPORTS ExpressionName TO ModuleName OMCommaModuleName SEMICOLON  */
-#line 1057 "final.y"
+#line 1060 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-4].typeinfo)->tac;}
-#line 5664 "final.tab.c"
+#line 5666 "fff.tab.c"
     break;
 
   case 197: /* ModuleDirective: OPENS ExpressionName SEMICOLON  */
-#line 1058 "final.y"
+#line 1061 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5670 "final.tab.c"
+#line 5672 "fff.tab.c"
     break;
 
   case 198: /* ModuleDirective: OPENS ExpressionName TO ModuleName SEMICOLON  */
-#line 1059 "final.y"
+#line 1062 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-3].typeinfo)->tac;}
-#line 5676 "final.tab.c"
+#line 5678 "fff.tab.c"
     break;
 
   case 199: /* ModuleDirective: OPENS ExpressionName TO ModuleName OMCommaModuleName SEMICOLON  */
-#line 1060 "final.y"
+#line 1063 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-4].typeinfo)->tac;}
-#line 5682 "final.tab.c"
+#line 5684 "fff.tab.c"
     break;
 
   case 200: /* ModuleDirective: USES ExpressionName SEMICOLON  */
-#line 1061 "final.y"
+#line 1064 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5688 "final.tab.c"
+#line 5690 "fff.tab.c"
     break;
 
   case 201: /* ModuleDirective: PROVIDES ExpressionName WITH ExpressionName SEMICOLON  */
-#line 1062 "final.y"
+#line 1065 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-3].typeinfo)->tac;}
-#line 5694 "final.tab.c"
+#line 5696 "fff.tab.c"
     break;
 
   case 202: /* ModuleDirective: PROVIDES ExpressionName WITH ExpressionName OMCommaTypeName SEMICOLON  */
-#line 1063 "final.y"
+#line 1066 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-4].typeinfo)->tac;}
-#line 5700 "final.tab.c"
+#line 5702 "fff.tab.c"
     break;
 
   case 203: /* ModuleDirective: PROVIDES ExpressionName WITH Identifier SEMICOLON  */
-#line 1064 "final.y"
+#line 1067 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-3].typeinfo)->tac;}
-#line 5706 "final.tab.c"
+#line 5708 "fff.tab.c"
     break;
 
   case 204: /* ModuleDirective: PROVIDES Identifier WITH ExpressionName OMCommaTypeName SEMICOLON  */
-#line 1065 "final.y"
+#line 1068 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 5712 "final.tab.c"
+#line 5714 "fff.tab.c"
     break;
 
   case 205: /* ModuleDirective: PROVIDES Identifier WITH ExpressionName SEMICOLON  */
-#line 1066 "final.y"
+#line 1069 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 5718 "final.tab.c"
+#line 5720 "fff.tab.c"
     break;
 
   case 206: /* ModuleDirective: PROVIDES ExpressionName WITH Identifier OMCommaTypeName SEMICOLON  */
-#line 1067 "final.y"
+#line 1070 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-4].typeinfo)->tac;}
-#line 5724 "final.tab.c"
+#line 5726 "fff.tab.c"
     break;
 
   case 207: /* ClassDeclaration: NormalClassDeclaration  */
-#line 1069 "final.y"
+#line 1072 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5730 "final.tab.c"
+#line 5732 "fff.tab.c"
     break;
 
   case 208: /* ClassDeclaration: EnumDeclaration  */
-#line 1070 "final.y"
+#line 1073 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5736 "final.tab.c"
+#line 5738 "fff.tab.c"
     break;
 
   case 209: /* ClassDeclaration: RecordDeclaration  */
-#line 1071 "final.y"
+#line 1074 "fff.y"
                                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5742 "final.tab.c"
+#line 5744 "fff.tab.c"
     break;
 
   case 210: /* $@9: %empty  */
-#line 1073 "final.y"
+#line 1076 "fff.y"
                                                                                         {symtable*a=createscope("class");string p=((yyvsp[0].str));insertclass(p,"class","",a,line);   changescope(a);  }
-#line 5748 "final.tab.c"
+#line 5750 "fff.tab.c"
     break;
 
   case 211: /* NormalClassDeclaration: CLASS Identifier $@9 ClassBody  */
-#line 1073 "final.y"
+#line 1076 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5754 "final.tab.c"
+#line 5756 "fff.tab.c"
     break;
 
   case 212: /* $@10: %empty  */
-#line 1074 "final.y"
+#line 1077 "fff.y"
                                                                                                 {symtable*a=createscope("class");string p=((yyvsp[-1].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5760 "final.tab.c"
+#line 5762 "fff.tab.c"
     break;
 
   case 213: /* NormalClassDeclaration: CLASS Identifier ClassPermits $@10 ClassBody  */
-#line 1074 "final.y"
+#line 1077 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5766 "final.tab.c"
+#line 5768 "fff.tab.c"
     break;
 
   case 214: /* $@11: %empty  */
-#line 1075 "final.y"
+#line 1078 "fff.y"
                                                                                         {symtable*a=createscope("class");string p=((yyvsp[-1].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5772 "final.tab.c"
+#line 5774 "fff.tab.c"
     break;
 
   case 215: /* NormalClassDeclaration: CLASS Identifier ClassImplements $@11 ClassBody  */
-#line 1075 "final.y"
+#line 1078 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5778 "final.tab.c"
+#line 5780 "fff.tab.c"
     break;
 
   case 216: /* $@12: %empty  */
-#line 1076 "final.y"
+#line 1079 "fff.y"
                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5784 "final.tab.c"
+#line 5786 "fff.tab.c"
     break;
 
   case 217: /* NormalClassDeclaration: CLASS Identifier ClassImplements ClassPermits $@12 ClassBody  */
-#line 1076 "final.y"
+#line 1079 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5790 "final.tab.c"
+#line 5792 "fff.tab.c"
     break;
 
   case 218: /* $@13: %empty  */
-#line 1077 "final.y"
+#line 1080 "fff.y"
                                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-1].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5796 "final.tab.c"
+#line 5798 "fff.tab.c"
     break;
 
   case 219: /* NormalClassDeclaration: CLASS Identifier ClassExtends $@13 ClassBody  */
-#line 1077 "final.y"
+#line 1080 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5802 "final.tab.c"
+#line 5804 "fff.tab.c"
     break;
 
   case 220: /* $@14: %empty  */
-#line 1078 "final.y"
+#line 1081 "fff.y"
                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5808 "final.tab.c"
+#line 5810 "fff.tab.c"
     break;
 
   case 221: /* NormalClassDeclaration: CLASS Identifier ClassExtends ClassPermits $@14 ClassBody  */
-#line 1078 "final.y"
+#line 1081 "fff.y"
                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5814 "final.tab.c"
+#line 5816 "fff.tab.c"
     break;
 
   case 222: /* $@15: %empty  */
-#line 1079 "final.y"
+#line 1082 "fff.y"
                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5820 "final.tab.c"
+#line 5822 "fff.tab.c"
     break;
 
   case 223: /* NormalClassDeclaration: CLASS Identifier ClassExtends ClassImplements $@15 ClassBody  */
-#line 1079 "final.y"
+#line 1082 "fff.y"
                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5826 "final.tab.c"
+#line 5828 "fff.tab.c"
     break;
 
   case 224: /* $@16: %empty  */
-#line 1080 "final.y"
+#line 1083 "fff.y"
                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5832 "final.tab.c"
+#line 5834 "fff.tab.c"
     break;
 
   case 225: /* NormalClassDeclaration: CLASS Identifier ClassExtends ClassImplements ClassPermits $@16 ClassBody  */
-#line 1080 "final.y"
+#line 1083 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5838 "final.tab.c"
+#line 5840 "fff.tab.c"
     break;
 
   case 226: /* $@17: %empty  */
-#line 1081 "final.y"
+#line 1084 "fff.y"
                                                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-1].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5844 "final.tab.c"
+#line 5846 "fff.tab.c"
     break;
 
   case 227: /* NormalClassDeclaration: CLASS Identifier TypeParameters $@17 ClassBody  */
-#line 1081 "final.y"
+#line 1084 "fff.y"
                                                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5850 "final.tab.c"
+#line 5852 "fff.tab.c"
     break;
 
   case 228: /* $@18: %empty  */
-#line 1082 "final.y"
+#line 1085 "fff.y"
                                                                                                 {symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);     changescope(a);  }
-#line 5856 "final.tab.c"
+#line 5858 "fff.tab.c"
     break;
 
   case 229: /* NormalClassDeclaration: CLASS Identifier TypeParameters ClassPermits $@18 ClassBody  */
-#line 1082 "final.y"
+#line 1085 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5862 "final.tab.c"
+#line 5864 "fff.tab.c"
     break;
 
   case 230: /* $@19: %empty  */
-#line 1083 "final.y"
+#line 1086 "fff.y"
                                                                                                 {symtable*a=createscope("class");string p=((yyvsp[-2].str)); insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5868 "final.tab.c"
+#line 5870 "fff.tab.c"
     break;
 
   case 231: /* NormalClassDeclaration: CLASS Identifier TypeParameters ClassImplements $@19 ClassBody  */
-#line 1083 "final.y"
+#line 1086 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5874 "final.tab.c"
+#line 5876 "fff.tab.c"
     break;
 
   case 232: /* $@20: %empty  */
-#line 1084 "final.y"
+#line 1087 "fff.y"
                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5880 "final.tab.c"
+#line 5882 "fff.tab.c"
     break;
 
   case 233: /* NormalClassDeclaration: CLASS Identifier TypeParameters ClassImplements ClassPermits $@20 ClassBody  */
-#line 1084 "final.y"
+#line 1087 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5886 "final.tab.c"
+#line 5888 "fff.tab.c"
     break;
 
   case 234: /* $@21: %empty  */
-#line 1085 "final.y"
+#line 1088 "fff.y"
                                                                                                 {symtable*a=createscope("class");string p=((yyvsp[-2].str)); insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5892 "final.tab.c"
+#line 5894 "fff.tab.c"
     break;
 
   case 235: /* NormalClassDeclaration: CLASS Identifier TypeParameters ClassExtends $@21 ClassBody  */
-#line 1085 "final.y"
+#line 1088 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5898 "final.tab.c"
+#line 5900 "fff.tab.c"
     break;
 
   case 236: /* $@22: %empty  */
-#line 1086 "final.y"
+#line 1089 "fff.y"
                                                                                 {symtable*a=createscope("class");string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);     changescope(a);  }
-#line 5904 "final.tab.c"
+#line 5906 "fff.tab.c"
     break;
 
   case 237: /* NormalClassDeclaration: CLASS Identifier TypeParameters ClassExtends ClassPermits $@22 ClassBody  */
-#line 1086 "final.y"
+#line 1089 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5910 "final.tab.c"
+#line 5912 "fff.tab.c"
     break;
 
   case 238: /* $@23: %empty  */
-#line 1087 "final.y"
+#line 1090 "fff.y"
                                                                                 { symtable*a=createscope("class");string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5916 "final.tab.c"
+#line 5918 "fff.tab.c"
     break;
 
   case 239: /* NormalClassDeclaration: CLASS Identifier TypeParameters ClassExtends ClassImplements $@23 ClassBody  */
-#line 1087 "final.y"
+#line 1090 "fff.y"
                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5922 "final.tab.c"
+#line 5924 "fff.tab.c"
     break;
 
   case 240: /* $@24: %empty  */
-#line 1088 "final.y"
+#line 1091 "fff.y"
                                                                                             {symtable*a=createscope("class");string p=((yyvsp[-4].str)); insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5928 "final.tab.c"
+#line 5930 "fff.tab.c"
     break;
 
   case 241: /* NormalClassDeclaration: CLASS Identifier TypeParameters ClassExtends ClassImplements ClassPermits $@24 ClassBody  */
-#line 1088 "final.y"
+#line 1091 "fff.y"
                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5934 "final.tab.c"
+#line 5936 "fff.tab.c"
     break;
 
   case 242: /* $@25: %empty  */
-#line 1089 "final.y"
+#line 1092 "fff.y"
                                                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[0].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5940 "final.tab.c"
+#line 5942 "fff.tab.c"
     break;
 
   case 243: /* NormalClassDeclaration: OMClassModifier CLASS Identifier $@25 ClassBody  */
-#line 1089 "final.y"
+#line 1092 "fff.y"
                                                                                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5946 "final.tab.c"
+#line 5948 "fff.tab.c"
     break;
 
   case 244: /* $@26: %empty  */
-#line 1090 "final.y"
+#line 1093 "fff.y"
                                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[-1].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5952 "final.tab.c"
+#line 5954 "fff.tab.c"
     break;
 
   case 245: /* NormalClassDeclaration: OMClassModifier CLASS Identifier ClassPermits $@26 ClassBody  */
-#line 1090 "final.y"
+#line 1093 "fff.y"
                                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5958 "final.tab.c"
+#line 5960 "fff.tab.c"
     break;
 
   case 246: /* $@27: %empty  */
-#line 1091 "final.y"
+#line 1094 "fff.y"
                                                                                                                         {symtable*a=createscope("class");string p=((yyvsp[-1].str)); insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5964 "final.tab.c"
+#line 5966 "fff.tab.c"
     break;
 
   case 247: /* NormalClassDeclaration: OMClassModifier CLASS Identifier ClassImplements $@27 ClassBody  */
-#line 1091 "final.y"
+#line 1094 "fff.y"
                                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5970 "final.tab.c"
+#line 5972 "fff.tab.c"
     break;
 
   case 248: /* $@28: %empty  */
-#line 1092 "final.y"
+#line 1095 "fff.y"
                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5976 "final.tab.c"
+#line 5978 "fff.tab.c"
     break;
 
   case 249: /* NormalClassDeclaration: OMClassModifier CLASS Identifier ClassImplements ClassPermits $@28 ClassBody  */
-#line 1092 "final.y"
+#line 1095 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5982 "final.tab.c"
+#line 5984 "fff.tab.c"
     break;
 
   case 250: /* $@29: %empty  */
-#line 1093 "final.y"
+#line 1096 "fff.y"
                                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[-1].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 5988 "final.tab.c"
+#line 5990 "fff.tab.c"
     break;
 
   case 251: /* NormalClassDeclaration: OMClassModifier CLASS Identifier ClassExtends $@29 ClassBody  */
-#line 1093 "final.y"
+#line 1096 "fff.y"
                                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 5994 "final.tab.c"
+#line 5996 "fff.tab.c"
     break;
 
   case 252: /* $@30: %empty  */
-#line 1094 "final.y"
+#line 1097 "fff.y"
                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6000 "final.tab.c"
+#line 6002 "fff.tab.c"
     break;
 
   case 253: /* NormalClassDeclaration: OMClassModifier CLASS Identifier ClassExtends ClassPermits $@30 ClassBody  */
-#line 1094 "final.y"
+#line 1097 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6006 "final.tab.c"
+#line 6008 "fff.tab.c"
     break;
 
   case 254: /* $@31: %empty  */
-#line 1095 "final.y"
+#line 1098 "fff.y"
                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6012 "final.tab.c"
+#line 6014 "fff.tab.c"
     break;
 
   case 255: /* NormalClassDeclaration: OMClassModifier CLASS Identifier ClassExtends ClassImplements $@31 ClassBody  */
-#line 1095 "final.y"
+#line 1098 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6018 "final.tab.c"
+#line 6020 "fff.tab.c"
     break;
 
   case 256: /* $@32: %empty  */
-#line 1096 "final.y"
+#line 1099 "fff.y"
                                                                                             { symtable*a=createscope("class");string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6024 "final.tab.c"
+#line 6026 "fff.tab.c"
     break;
 
   case 257: /* NormalClassDeclaration: OMClassModifier CLASS Identifier ClassExtends ClassImplements ClassPermits $@32 ClassBody  */
-#line 1096 "final.y"
+#line 1099 "fff.y"
                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6030 "final.tab.c"
+#line 6032 "fff.tab.c"
     break;
 
   case 258: /* $@33: %empty  */
-#line 1097 "final.y"
+#line 1100 "fff.y"
                                                                                                                         {symtable*a=createscope("class");string p=((yyvsp[-1].str)); insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6036 "final.tab.c"
+#line 6038 "fff.tab.c"
     break;
 
   case 259: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters $@33 ClassBody  */
-#line 1097 "final.y"
+#line 1100 "fff.y"
                                                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6042 "final.tab.c"
+#line 6044 "fff.tab.c"
     break;
 
   case 260: /* $@34: %empty  */
-#line 1098 "final.y"
+#line 1101 "fff.y"
                                                                                                         {symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6048 "final.tab.c"
+#line 6050 "fff.tab.c"
     break;
 
   case 261: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters ClassPermits $@34 ClassBody  */
-#line 1098 "final.y"
+#line 1101 "fff.y"
                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6054 "final.tab.c"
+#line 6056 "fff.tab.c"
     break;
 
   case 262: /* $@35: %empty  */
-#line 1099 "final.y"
+#line 1102 "fff.y"
                                                                                                         {symtable*a=createscope("class");string p=((yyvsp[-2].str)); insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6060 "final.tab.c"
+#line 6062 "fff.tab.c"
     break;
 
   case 263: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters ClassImplements $@35 ClassBody  */
-#line 1099 "final.y"
+#line 1102 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6066 "final.tab.c"
+#line 6068 "fff.tab.c"
     break;
 
   case 264: /* $@36: %empty  */
-#line 1100 "final.y"
+#line 1103 "fff.y"
                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6072 "final.tab.c"
+#line 6074 "fff.tab.c"
     break;
 
   case 265: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters ClassImplements ClassPermits $@36 ClassBody  */
-#line 1100 "final.y"
+#line 1103 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6078 "final.tab.c"
+#line 6080 "fff.tab.c"
     break;
 
   case 266: /* $@37: %empty  */
-#line 1101 "final.y"
+#line 1104 "fff.y"
                                                                                                                         {symtable*a=createscope("class");string p=((yyvsp[-2].str));insertclass(p,"class","",a,line);     changescope(a);  }
-#line 6084 "final.tab.c"
+#line 6086 "fff.tab.c"
     break;
 
   case 267: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters ClassExtends $@37 ClassBody  */
-#line 1101 "final.y"
+#line 1104 "fff.y"
                                                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6090 "final.tab.c"
+#line 6092 "fff.tab.c"
     break;
 
   case 268: /* $@38: %empty  */
-#line 1102 "final.y"
+#line 1105 "fff.y"
                                                                                                         { symtable*a=createscope("class");string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6096 "final.tab.c"
+#line 6098 "fff.tab.c"
     break;
 
   case 269: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters ClassExtends ClassPermits $@38 ClassBody  */
-#line 1102 "final.y"
+#line 1105 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6102 "final.tab.c"
+#line 6104 "fff.tab.c"
     break;
 
   case 270: /* $@39: %empty  */
-#line 1103 "final.y"
+#line 1106 "fff.y"
                                                                                                         { symtable*a=createtable();string p=((yyvsp[-3].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6108 "final.tab.c"
+#line 6110 "fff.tab.c"
     break;
 
   case 271: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters ClassExtends ClassImplements $@39 ClassBody  */
-#line 1103 "final.y"
+#line 1106 "fff.y"
                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6114 "final.tab.c"
+#line 6116 "fff.tab.c"
     break;
 
   case 272: /* $@40: %empty  */
-#line 1104 "final.y"
+#line 1107 "fff.y"
                                                                                                              { symtable*a=createscope("class");string p=((yyvsp[-4].str));insertclass(p,"class","",a,line);    changescope(a);  }
-#line 6120 "final.tab.c"
+#line 6122 "fff.tab.c"
     break;
 
   case 273: /* NormalClassDeclaration: OMClassModifier CLASS Identifier TypeParameters ClassExtends ClassImplements ClassPermits $@40 ClassBody  */
-#line 1104 "final.y"
+#line 1107 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6126 "final.tab.c"
+#line 6128 "fff.tab.c"
     break;
 
   case 274: /* TypeParameters: LT TypeParameterList GT  */
-#line 1106 "final.y"
+#line 1109 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6132 "final.tab.c"
+#line 6134 "fff.tab.c"
     break;
 
   case 275: /* TypeParameterList: TypeParameter  */
-#line 1108 "final.y"
+#line 1111 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6138 "final.tab.c"
+#line 6140 "fff.tab.c"
     break;
 
   case 276: /* TypeParameterList: TypeParameter OMCommaTypeParameter  */
-#line 1109 "final.y"
+#line 1112 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6144 "final.tab.c"
+#line 6146 "fff.tab.c"
     break;
 
   case 277: /* ClassExtends: EXTENDS Identifier  */
-#line 1111 "final.y"
+#line 1114 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6150 "final.tab.c"
+#line 6152 "fff.tab.c"
     break;
 
   case 278: /* ClassImplements: IMPLEMENTS InterfaceTypeList  */
-#line 1113 "final.y"
+#line 1116 "fff.y"
                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6156 "final.tab.c"
+#line 6158 "fff.tab.c"
     break;
 
   case 279: /* InterfaceTypeList: Identifier  */
-#line 1115 "final.y"
+#line 1118 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6162 "final.tab.c"
+#line 6164 "fff.tab.c"
     break;
 
   case 280: /* InterfaceTypeList: Identifier OMCommaInterfaceType  */
-#line 1116 "final.y"
+#line 1119 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6168 "final.tab.c"
+#line 6170 "fff.tab.c"
     break;
 
   case 281: /* ClassPermits: PERMITS Identifier  */
-#line 1119 "final.y"
+#line 1122 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6174 "final.tab.c"
+#line 6176 "fff.tab.c"
     break;
 
   case 282: /* ClassPermits: PERMITS ExpressionName  */
-#line 1120 "final.y"
+#line 1123 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6180 "final.tab.c"
+#line 6182 "fff.tab.c"
     break;
 
   case 283: /* ClassPermits: PERMITS Identifier OMCommaTypeName  */
-#line 1121 "final.y"
+#line 1124 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6186 "final.tab.c"
+#line 6188 "fff.tab.c"
     break;
 
   case 284: /* ClassPermits: PERMITS ExpressionName OMCommaTypeName  */
-#line 1122 "final.y"
+#line 1125 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6192 "final.tab.c"
+#line 6194 "fff.tab.c"
     break;
 
   case 285: /* ClassBody: LCB RCB  */
-#line 1124 "final.y"
+#line 1127 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6198 "final.tab.c"
+#line 6200 "fff.tab.c"
     break;
 
   case 286: /* ClassBody: LCB OMClassBodyDeclaration RCB  */
-#line 1125 "final.y"
+#line 1128 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6204 "final.tab.c"
+#line 6206 "fff.tab.c"
     break;
 
   case 287: /* ClassBodyDeclaration: ClassMemberDeclaration  */
-#line 1127 "final.y"
+#line 1130 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6210 "final.tab.c"
+#line 6212 "fff.tab.c"
     break;
 
   case 288: /* ClassBodyDeclaration: InstanceInitializer  */
-#line 1128 "final.y"
+#line 1131 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6216 "final.tab.c"
+#line 6218 "fff.tab.c"
     break;
 
   case 289: /* ClassBodyDeclaration: StaticInitializer  */
-#line 1129 "final.y"
+#line 1132 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6222 "final.tab.c"
+#line 6224 "fff.tab.c"
     break;
 
   case 290: /* ClassBodyDeclaration: ConstructorDeclaration  */
-#line 1130 "final.y"
+#line 1133 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6228 "final.tab.c"
+#line 6230 "fff.tab.c"
     break;
 
   case 291: /* ClassMemberDeclaration: FieldDeclaration  */
-#line 1132 "final.y"
+#line 1135 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6234 "final.tab.c"
+#line 6236 "fff.tab.c"
     break;
 
   case 292: /* ClassMemberDeclaration: MethodDeclaration  */
-#line 1133 "final.y"
+#line 1136 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6240 "final.tab.c"
+#line 6242 "fff.tab.c"
     break;
 
   case 293: /* ClassMemberDeclaration: ClassDeclaration  */
-#line 1134 "final.y"
+#line 1137 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6246 "final.tab.c"
+#line 6248 "fff.tab.c"
     break;
 
   case 294: /* ClassMemberDeclaration: InterfaceDeclaration  */
-#line 1135 "final.y"
+#line 1138 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6252 "final.tab.c"
+#line 6254 "fff.tab.c"
     break;
 
   case 295: /* ClassMemberDeclaration: SEMICOLON  */
-#line 1136 "final.y"
+#line 1139 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6258 "final.tab.c"
+#line 6260 "fff.tab.c"
     break;
 
   case 296: /* FieldDeclaration: UnannType VariableDeclaratorList SEMICOLON  */
-#line 1140 "final.y"
+#line 1143 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->variables=((yyvsp[-1].typeinfo))->variables;((yyval.typeinfo))->type=((yyvsp[-2].typeinfo))->type+((yyvsp[-1].typeinfo))->type;for(auto z:((yyval.typeinfo))->variables)insertidentifier(z,((yyval.typeinfo))->type,"",line);((yyval.typeinfo))->puvariables=((yyvsp[-1].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[-1].typeinfo))->puvariables); (yyval.typeinfo)->tac=concvector(s,(yyvsp[-1].typeinfo)->tac);}
-#line 6264 "final.tab.c"
+#line 6266 "fff.tab.c"
     break;
 
   case 297: /* FieldDeclaration: OMClassModifier UnannType VariableDeclaratorList SEMICOLON  */
-#line 1141 "final.y"
+#line 1144 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->variables=((yyvsp[-1].typeinfo))->variables;((yyval.typeinfo))->type=((yyvsp[-2].typeinfo))->type+((yyvsp[-1].typeinfo))->type;for(auto z:((yyval.typeinfo))->variables)insertidentifier(z,((yyval.typeinfo))->type,"",line);((yyval.typeinfo))->puvariables=((yyvsp[-1].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[-1].typeinfo))->puvariables); (yyval.typeinfo)->tac=concvector(s,(yyvsp[-1].typeinfo)->tac);}
-#line 6270 "final.tab.c"
+#line 6272 "fff.tab.c"
     break;
 
   case 298: /* VariableDeclaratorList: VariableDeclarator  */
-#line 1143 "final.y"
+#line 1146 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->variables.push_back((yyvsp[0].typeinfo)->variable);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->decorders2.push_back(((yyvsp[0].typeinfo))->decorder2);(yyval.typeinfo)->arrtypes.push_back((yyvsp[0].typeinfo)->arrtype);(yyval.typeinfo)->arrdims.push_back((yyvsp[0].typeinfo)->arrdim);(yyval.typeinfo)->initialdecls.push_back((yyvsp[0].typeinfo)->initialdecl);(yyval.typeinfo)->initvartypes.push_back((yyvsp[0].typeinfo)->initvartype);((yyval.typeinfo))->puvariables = ((yyvsp[0].typeinfo))->puvariables;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6276 "final.tab.c"
+#line 6278 "fff.tab.c"
     break;
 
   case 299: /* VariableDeclaratorList: VariableDeclaratorList COMMA VariableDeclarator  */
-#line 1144 "final.y"
+#line 1147 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[-2].typeinfo);((yyval.typeinfo))->variables.push_back((yyvsp[0].typeinfo)->variable);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->decorders2.push_back(((yyvsp[0].typeinfo))->decorder2);(yyval.typeinfo)->arrtypes.push_back((yyvsp[0].typeinfo)->arrtype);(yyval.typeinfo)->arrdims.push_back((yyvsp[0].typeinfo)->arrdim);(yyval.typeinfo)->initialdecls.push_back((yyvsp[0].typeinfo)->initialdecl);(yyval.typeinfo)->initvartypes.push_back((yyvsp[0].typeinfo)->initvartype);vector<string>a=((yyvsp[-2].typeinfo))->puvariables;vector<string>b=((yyvsp[0].typeinfo))->puvariables;for(auto z:a){((yyval.typeinfo))->puvariables.push_back(z);}for(auto z:b){((yyval.typeinfo))->puvariables.push_back(z);} (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6282 "final.tab.c"
+#line 6284 "fff.tab.c"
     break;
 
   case 300: /* VariableDeclarator: VariableDeclaratorId  */
-#line 1146 "final.y"
+#line 1149 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->initialdecl=false;((yyval.typeinfo))->puvariables = ((yyvsp[0].typeinfo))->puvariables;(yyval.typeinfo)->tac=emptyvector();}
-#line 6288 "final.tab.c"
+#line 6290 "fff.tab.c"
     break;
 
   case 301: /* VariableDeclarator: VariableDeclaratorId EQUAL VariableInitializer  */
-#line 1147 "final.y"
+#line 1150 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[-2].typeinfo);(yyval.typeinfo)->initialdecl=true;(yyval.typeinfo)->arrtype=(yyvsp[0].typeinfo)->arrtype;(yyval.typeinfo)->arrdim=(yyvsp[0].typeinfo)->arrdim;(yyval.typeinfo)->initvartype=(yyvsp[0].typeinfo)->initvartype;string c=(yyvsp[-2].typeinfo)->tempname+"="+(yyvsp[0].typeinfo)->tempname;((yyval.typeinfo))->puvariables = ((yyvsp[-2].typeinfo))->puvariables;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,c);}
-#line 6294 "final.tab.c"
+#line 6296 "fff.tab.c"
     break;
 
   case 302: /* VariableDeclaratorId: Identifier  */
-#line 1149 "final.y"
+#line 1152 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();string p=((yyvsp[0].str));(yyval.typeinfo)->variable=p;(yyval.typeinfo)->decorder2=0;string x=(yyvsp[0].str);(yyval.typeinfo)->tempname=x;((yyval.typeinfo))->puvariables.push_back(x);}
-#line 6300 "final.tab.c"
+#line 6302 "fff.tab.c"
     break;
 
   case 303: /* VariableDeclaratorId: Identifier OMPSB  */
-#line 1150 "final.y"
+#line 1153 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();string p=((yyvsp[-1].str));(yyval.typeinfo)->variable=p;(yyval.typeinfo)->decorder2=(yyvsp[0].typeinfo)->order;string x=(yyvsp[-1].str);(yyval.typeinfo)->tempname=x;((yyval.typeinfo))->puvariables.push_back(x);}
-#line 6306 "final.tab.c"
+#line 6308 "fff.tab.c"
     break;
 
   case 304: /* VariableInitializer: Expression  */
-#line 1153 "final.y"
+#line 1156 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);}
-#line 6312 "final.tab.c"
+#line 6314 "fff.tab.c"
     break;
 
   case 305: /* VariableInitializer: ArrayInitializer  */
-#line 1154 "final.y"
+#line 1157 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->arrtype=(yyvsp[0].typeinfo)->arrtype;(yyval.typeinfo)->arrdim=(yyvsp[0].typeinfo)->arrdim;(yyval.typeinfo)->initvartype="";}
-#line 6318 "final.tab.c"
+#line 6320 "fff.tab.c"
     break;
 
   case 306: /* UnannType: UnannPrimitiveType  */
-#line 1156 "final.y"
+#line 1159 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->dectype=(yyvsp[0].typeinfo)->type;(yyvsp[0].typeinfo)->decorder1=0;}
-#line 6324 "final.tab.c"
+#line 6326 "fff.tab.c"
     break;
 
   case 307: /* UnannType: Identifier  */
-#line 1157 "final.y"
-                                                                                                                        {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);((yyval.typeinfo))->type = p;(yyval.typeinfo)->tempname=p;(yyval.typeinfo)->decorder1=0; (yyval.typeinfo)->dectype="";}
-#line 6330 "final.tab.c"
+#line 1160 "fff.y"
+                                                                                                                                {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);((yyval.typeinfo))->type = p;(yyval.typeinfo)->tempname=p;(yyval.typeinfo)->decorder1=0; (yyval.typeinfo)->dectype="";}
+#line 6332 "fff.tab.c"
     break;
 
   case 308: /* UnannType: UnannArrayType  */
-#line 1158 "final.y"
+#line 1161 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type=((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->dectype=(yyvsp[0].typeinfo)->dectype;(yyval.typeinfo)->decorder1=(yyvsp[0].typeinfo)->decorder1;}
-#line 6336 "final.tab.c"
+#line 6338 "fff.tab.c"
     break;
 
   case 309: /* UnannPrimitiveType: NumericType  */
-#line 1160 "final.y"
+#line 1163 "fff.y"
                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=emptyvector();}
-#line 6342 "final.tab.c"
+#line 6344 "fff.tab.c"
     break;
 
   case 310: /* UnannPrimitiveType: BOOLEAN  */
-#line 1161 "final.y"
+#line 1164 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";(yyval.typeinfo)->tac=emptyvector();}
-#line 6348 "final.tab.c"
+#line 6350 "fff.tab.c"
     break;
 
   case 311: /* UnannArrayType: UnannPrimitiveType OMPSB  */
-#line 1163 "final.y"
+#line 1166 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type + ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->dectype=(yyvsp[-1].typeinfo)->type;(yyval.typeinfo)->decorder1=(yyvsp[0].typeinfo)->order;(yyval.typeinfo)->tac=emptyvector();}
-#line 6354 "final.tab.c"
+#line 6356 "fff.tab.c"
     break;
 
   case 312: /* UnannArrayType: Identifier OMPSB  */
-#line 1164 "final.y"
-                                                                                                                                {(yyval.typeinfo) = createstruct();string p = (yyvsp[-1].str);((yyval.typeinfo))->type = p + ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->dectype="";(yyval.typeinfo)->decorder1=(yyvsp[0].typeinfo)->order;(yyval.typeinfo)->tac=emptyvector();}
-#line 6360 "final.tab.c"
+#line 1167 "fff.y"
+                                                                                                                                {(yyval.typeinfo) = createstruct();string p = (yyvsp[-1].str);((yyval.typeinfo))->type = p + ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=emptyvector();}
+#line 6362 "fff.tab.c"
     break;
 
   case 313: /* MethodDeclaration: MethodHeader MethodBody  */
-#line 1167 "final.y"
+#line 1170 "fff.y"
                                                                 {goparent();insertmethod(((yyvsp[-1].typeinfo))->variables[0],"Method",((yyvsp[-1].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-1].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-1].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="function end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 6366 "final.tab.c"
+#line 6368 "fff.tab.c"
     break;
 
   case 314: /* MethodDeclaration: OMClassModifier MethodHeader MethodBody  */
-#line 1168 "final.y"
+#line 1171 "fff.y"
                                                                                 {goparent();insertmethod(((yyvsp[-1].typeinfo))->variables[0],"Method",((yyvsp[-1].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-2].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-1].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="function end"; stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st); 	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 6372 "final.tab.c"
+#line 6374 "fff.tab.c"
     break;
 
   case 315: /* MethodHeader: Result MethodDeclarator  */
-#line 1170 "final.y"
+#line 1173 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;((yyval.typeinfo))->variables = ((yyvsp[-1].typeinfo))->variables;((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;((yyval.typeinfo))->scope =((yyvsp[-1].typeinfo))->scope;((yyval.typeinfo))->linep = ((yyvsp[0].typeinfo))->linep;(yyval.typeinfo)->tempname=((yyvsp[-1].typeinfo))->tempname; string f = ((yyvsp[-1].typeinfo))->tempname; string q=newmethodlabel(f);string p="call "+((yyvsp[-1].typeinfo))->tempname+"\n"+q;(yyval.typeinfo)->tac=concvector(p,(yyvsp[0].typeinfo)->tac);}
-#line 6378 "final.tab.c"
+#line 6380 "fff.tab.c"
     break;
 
   case 316: /* MethodHeader: Result MethodDeclarator Throws  */
-#line 1171 "final.y"
+#line 1174 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;((yyval.typeinfo))->variables = ((yyvsp[-2].typeinfo))->variables;((yyval.typeinfo))->type_variable = ((yyvsp[-1].typeinfo))->type_variable;((yyval.typeinfo))->scope =((yyvsp[-2].typeinfo))->scope;((yyval.typeinfo))->linep = ((yyvsp[-1].typeinfo))->linep;(yyval.typeinfo)->tempname=((yyvsp[-2].typeinfo))->tempname; string f = ((yyvsp[-2].typeinfo))->tempname; string q=newmethodlabel(f);string p="call "+((yyvsp[-2].typeinfo))->tempname+"\n"+q; (yyval.typeinfo)->tac=concvector(p,(yyvsp[-1].typeinfo)->tac);}
-#line 6384 "final.tab.c"
+#line 6386 "fff.tab.c"
     break;
 
   case 317: /* MethodHeader: TypeParameters Result MethodDeclarator  */
-#line 1172 "final.y"
+#line 1175 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;((yyval.typeinfo))->variables = ((yyvsp[-1].typeinfo))->variables;((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;((yyval.typeinfo))->scope =((yyvsp[-1].typeinfo))->scope;((yyval.typeinfo))->linep = ((yyvsp[0].typeinfo))->linep;(yyval.typeinfo)->tempname=((yyvsp[-1].typeinfo))->tempname; string f = ((yyvsp[-1].typeinfo))->tempname; string q=newmethodlabel(f);string p="call "+((yyvsp[-1].typeinfo))->tempname+"\n"+q; (yyval.typeinfo)->tac=concvector(p,(yyvsp[0].typeinfo)->tac);}
-#line 6390 "final.tab.c"
+#line 6392 "fff.tab.c"
     break;
 
   case 318: /* MethodHeader: TypeParameters Result MethodDeclarator Throws  */
-#line 1173 "final.y"
+#line 1176 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;((yyval.typeinfo))->variables = ((yyvsp[-2].typeinfo))->variables;((yyval.typeinfo))->type_variable = ((yyvsp[-1].typeinfo))->type_variable;((yyval.typeinfo))->scope =((yyvsp[-2].typeinfo))->scope;((yyval.typeinfo))->linep = ((yyvsp[-1].typeinfo))->linep;(yyval.typeinfo)->tempname=((yyvsp[-2].typeinfo))->tempname; string f = ((yyvsp[-2].typeinfo))->tempname; string q=newmethodlabel(f);string p="call "+((yyvsp[-2].typeinfo))->tempname+"\n"+q; (yyval.typeinfo)->tac=concvector(p,(yyvsp[-1].typeinfo)->tac);}
-#line 6396 "final.tab.c"
+#line 6398 "fff.tab.c"
     break;
 
   case 319: /* Result: UnannType Identifier  */
-#line 1175 "final.y"
+#line 1178 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();symtable*a = createscope("Method");((yyval.typeinfo))->scope = a; ((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;string p = (yyvsp[0].str);((yyval.typeinfo))->variables.push_back(p); changescope(a);string x=(yyvsp[0].str); (yyval.typeinfo)->tempname=x;(yyval.typeinfo)->tac=emptyvector();}
-#line 6402 "final.tab.c"
+#line 6404 "fff.tab.c"
     break;
 
   case 320: /* Result: VOID Identifier  */
-#line 1176 "final.y"
+#line 1179 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();symtable*a = createscope("Method");((yyval.typeinfo))->scope = a;((yyval.typeinfo))->type = "void";string p = (yyvsp[0].str);((yyval.typeinfo))->variables.push_back(p); changescope(a);string x=(yyvsp[0].str); (yyval.typeinfo)->tempname=x;(yyval.typeinfo)->tac=emptyvector();}
-#line 6408 "final.tab.c"
+#line 6410 "fff.tab.c"
     break;
 
   case 321: /* MethodDeclarator: LRB RRB  */
-#line 1179 "final.y"
+#line 1182 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back("void");((yyval.typeinfo))->linep = line; (yyval.typeinfo)->tac=emptyvector();}
-#line 6414 "final.tab.c"
+#line 6416 "fff.tab.c"
     break;
 
   case 322: /* MethodDeclarator: LRB RRB OMPSB  */
-#line 1180 "final.y"
+#line 1183 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct(); (yyval.typeinfo)->tac=emptyvector();}
-#line 6420 "final.tab.c"
+#line 6422 "fff.tab.c"
     break;
 
   case 323: /* MethodDeclarator: LRB FormalParameterList RRB  */
-#line 1181 "final.y"
+#line 1184 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[-1].typeinfo))->type_variable;((yyval.typeinfo))->linep = line;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6426 "final.tab.c"
+#line 6428 "fff.tab.c"
     break;
 
   case 324: /* MethodDeclarator: LRB FormalParameterList RRB OMPSB  */
-#line 1182 "final.y"
+#line 1185 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6432 "final.tab.c"
+#line 6434 "fff.tab.c"
     break;
 
   case 325: /* MethodDeclarator: LRB ReceiverParameterComma RRB  */
-#line 1183 "final.y"
+#line 1186 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6438 "final.tab.c"
+#line 6440 "fff.tab.c"
     break;
 
   case 326: /* MethodDeclarator: LRB ReceiverParameterComma RRB OMPSB  */
-#line 1184 "final.y"
+#line 1187 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6444 "final.tab.c"
+#line 6446 "fff.tab.c"
     break;
 
   case 327: /* MethodDeclarator: LRB ReceiverParameterComma FormalParameterList RRB  */
-#line 1185 "final.y"
+#line 1188 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[-1].typeinfo))->type_variable;((yyval.typeinfo))->linep = line;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6450 "final.tab.c"
+#line 6452 "fff.tab.c"
     break;
 
   case 328: /* MethodDeclarator: LRB ReceiverParameterComma FormalParameterList RRB OMPSB  */
-#line 1186 "final.y"
+#line 1189 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6456 "final.tab.c"
+#line 6458 "fff.tab.c"
     break;
 
   case 329: /* ReceiverParameter: UnannType THIS  */
-#line 1188 "final.y"
+#line 1191 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6462 "final.tab.c"
+#line 6464 "fff.tab.c"
     break;
 
   case 330: /* ReceiverParameter: UnannType IdentifierDot THIS  */
-#line 1189 "final.y"
+#line 1192 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6468 "final.tab.c"
+#line 6470 "fff.tab.c"
     break;
 
   case 331: /* FormalParameterList: FormalParameter  */
-#line 1191 "final.y"
+#line 1194 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6474 "final.tab.c"
+#line 6476 "fff.tab.c"
     break;
 
   case 332: /* FormalParameterList: FormalParameter OMCommaFormalParameter  */
-#line 1192 "final.y"
+#line 1195 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();vector<string>a=((yyvsp[-1].typeinfo))->type_variable;vector<string>b=((yyvsp[0].typeinfo))->type_variable;for(auto z:a){((yyval.typeinfo))->type_variable.push_back(z);}for(auto z:b){((yyval.typeinfo))->type_variable.push_back(z);}(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6480 "final.tab.c"
+#line 6482 "fff.tab.c"
     break;
 
   case 333: /* FormalParameter: UnannType VariableDeclaratorId  */
-#line 1194 "final.y"
+#line 1197 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back(((yyvsp[-1].typeinfo))->type+((yyvsp[0].typeinfo))->type);((yyval.typeinfo))->type=((yyvsp[-1].typeinfo))->type+((yyvsp[0].typeinfo))->type;for(auto z:((yyvsp[0].typeinfo))->variables)insertidentifier(z,((yyval.typeinfo))->type,"",line);(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6486 "final.tab.c"
+#line 6488 "fff.tab.c"
     break;
 
   case 334: /* FormalParameter: OMClassModifier UnannType VariableDeclaratorId  */
-#line 1195 "final.y"
+#line 1198 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back(((yyvsp[-1].typeinfo))->type+((yyvsp[0].typeinfo))->type);((yyval.typeinfo))->type=((yyvsp[-1].typeinfo))->type+((yyvsp[0].typeinfo))->type;for(auto z:((yyvsp[0].typeinfo))->variables)insertidentifier(z,((yyval.typeinfo))->type,"",line);(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6492 "final.tab.c"
+#line 6494 "fff.tab.c"
     break;
 
   case 335: /* FormalParameter: VariableArityParameter  */
-#line 1196 "final.y"
+#line 1199 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6498 "final.tab.c"
+#line 6500 "fff.tab.c"
     break;
 
   case 336: /* VariableArityParameter: UnannType THREEDOT Identifier  */
-#line 1198 "final.y"
+#line 1201 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back(((yyvsp[-2].typeinfo))->type);(yyval.typeinfo)->tac=emptyvector();}
-#line 6504 "final.tab.c"
+#line 6506 "fff.tab.c"
     break;
 
   case 337: /* VariableArityParameter: OMClassModifier UnannType THREEDOT Identifier  */
-#line 1199 "final.y"
+#line 1202 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back(((yyvsp[-2].typeinfo))->type);(yyval.typeinfo)->tac=emptyvector();}
-#line 6510 "final.tab.c"
+#line 6512 "fff.tab.c"
     break;
 
   case 338: /* Throws: THROWS ExceptionTypeList  */
-#line 1201 "final.y"
+#line 1204 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6516 "final.tab.c"
+#line 6518 "fff.tab.c"
     break;
 
   case 339: /* ExceptionTypeList: ExceptionType  */
-#line 1203 "final.y"
+#line 1206 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6522 "final.tab.c"
+#line 6524 "fff.tab.c"
     break;
 
   case 340: /* ExceptionTypeList: ExceptionType OMCommaExceptionType  */
-#line 1204 "final.y"
+#line 1207 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6528 "final.tab.c"
+#line 6530 "fff.tab.c"
     break;
 
   case 341: /* ExceptionType: Identifier  */
-#line 1206 "final.y"
+#line 1209 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6534 "final.tab.c"
+#line 6536 "fff.tab.c"
     break;
 
   case 342: /* MethodBody: Block  */
-#line 1209 "final.y"
+#line 1212 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6540 "final.tab.c"
+#line 6542 "fff.tab.c"
     break;
 
   case 343: /* MethodBody: SEMICOLON  */
-#line 1210 "final.y"
+#line 1213 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6546 "final.tab.c"
+#line 6548 "fff.tab.c"
     break;
 
   case 344: /* InstanceInitializer: Block  */
-#line 1212 "final.y"
+#line 1215 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6552 "final.tab.c"
+#line 6554 "fff.tab.c"
     break;
 
   case 345: /* StaticInitializer: STATIC Block  */
-#line 1214 "final.y"
+#line 1217 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6558 "final.tab.c"
+#line 6560 "fff.tab.c"
     break;
 
   case 346: /* ConstructorDeclaration: ConstructorDeclarator ConstructorBody  */
-#line 1217 "final.y"
+#line 1220 "fff.y"
                                                                                 {goparent();insertmethod(((yyvsp[-1].typeinfo))->variables[0],"constructor",((yyvsp[-1].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-1].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-1].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 6564 "final.tab.c"
+#line 6566 "fff.tab.c"
     break;
 
   case 347: /* ConstructorDeclaration: ConstructorDeclarator Throws ConstructorBody  */
-#line 1218 "final.y"
+#line 1221 "fff.y"
                                                                                         {goparent();insertmethod(((yyvsp[-2].typeinfo))->variables[0],"constructor",((yyvsp[-2].typeinfo))->type,((yyvsp[-2].typeinfo))->type_variable,((yyvsp[-2].typeinfo))->scope,"",((yyvsp[-2].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-2].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 6570 "final.tab.c"
+#line 6572 "fff.tab.c"
     break;
 
   case 348: /* ConstructorDeclaration: OMClassModifier ConstructorDeclarator ConstructorBody  */
-#line 1219 "final.y"
+#line 1222 "fff.y"
                                                                                         {goparent();insertmethod(((yyvsp[-1].typeinfo))->variables[0],"constructor",((yyvsp[-1].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-1].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-1].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 6576 "final.tab.c"
+#line 6578 "fff.tab.c"
     break;
 
   case 349: /* ConstructorDeclaration: OMClassModifier ConstructorDeclarator Throws ConstructorBody  */
-#line 1220 "final.y"
+#line 1223 "fff.y"
                                                                                 {goparent();insertmethod(((yyvsp[-2].typeinfo))->variables[0],"constructor",((yyvsp[-2].typeinfo))->type,((yyvsp[-2].typeinfo))->type_variable,((yyvsp[-2].typeinfo))->scope,"",((yyvsp[-2].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-2].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="constructor end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 6582 "final.tab.c"
+#line 6584 "fff.tab.c"
     break;
 
   case 350: /* ConstructorDeclaratorLRBSym: LRB  */
-#line 1222 "final.y"
+#line 1225 "fff.y"
                                  {(yyval.typeinfo) = createstruct();symtable*a = createscope("constructor");((yyval.typeinfo))->scope = a; changescope(a);}
-#line 6588 "final.tab.c"
+#line 6590 "fff.tab.c"
     break;
 
   case 351: /* ConstructorDeclarator: Identifier ConstructorDeclaratorLRBSym RRB  */
-#line 1224 "final.y"
+#line 1227 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->scope = ((yyvsp[-1].typeinfo))->scope; ((yyval.typeinfo))->type_variable.push_back("void");string p = (yyvsp[-2].str);((yyval.typeinfo))->variables.push_back(p);((yyval.typeinfo))->type = "void";((yyval.typeinfo))->linep = line;string x = (yyvsp[-2].str);(yyval.typeinfo)->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;(yyval.typeinfo)->tac=concvector(g);}
-#line 6594 "final.tab.c"
+#line 6596 "fff.tab.c"
     break;
 
   case 352: /* ConstructorDeclarator: Identifier ConstructorDeclaratorLRBSym FormalParameterList RRB  */
-#line 1225 "final.y"
+#line 1228 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->scope = ((yyvsp[-2].typeinfo))->scope;((yyval.typeinfo))->type_variable = ((yyvsp[-1].typeinfo))->type_variable;string p = (yyvsp[-3].str);((yyval.typeinfo))->variables.push_back(p);((yyval.typeinfo))->type = "void";((yyval.typeinfo))->linep = line;string x = (yyvsp[-3].str);(yyval.typeinfo)->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;(yyval.typeinfo)->tac=concvector(g,(yyvsp[-1].typeinfo)->tac);}
-#line 6600 "final.tab.c"
+#line 6602 "fff.tab.c"
     break;
 
   case 353: /* ConstructorDeclarator: Identifier LRB ReceiverParameterComma RRB  */
-#line 1226 "final.y"
+#line 1229 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac=emptyvector();}
-#line 6606 "final.tab.c"
+#line 6608 "fff.tab.c"
     break;
 
   case 354: /* ConstructorDeclarator: Identifier LRB ReceiverParameterComma FormalParameterList RRB  */
-#line 1227 "final.y"
+#line 1230 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6612 "final.tab.c"
+#line 6614 "fff.tab.c"
     break;
 
   case 355: /* ConstructorDeclarator: TypeParameters Identifier ConstructorDeclaratorLRBSym RRB  */
-#line 1228 "final.y"
+#line 1231 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->scope = ((yyvsp[-1].typeinfo))->scope;((yyval.typeinfo))->type_variable.push_back("void");string p = (yyvsp[-2].str); ((yyval.typeinfo))->variables.push_back(p);((yyval.typeinfo))->type = "void";((yyval.typeinfo))->linep = line;string x = (yyvsp[-2].str);(yyval.typeinfo)->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;(yyval.typeinfo)->tac=concvector(g);}
-#line 6618 "final.tab.c"
+#line 6620 "fff.tab.c"
     break;
 
   case 356: /* ConstructorDeclarator: TypeParameters Identifier ConstructorDeclaratorLRBSym FormalParameterList RRB  */
-#line 1229 "final.y"
+#line 1232 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->scope = ((yyvsp[-2].typeinfo))->scope;((yyval.typeinfo))->type_variable = ((yyvsp[-1].typeinfo))->type_variable;string p = (yyvsp[-3].str);((yyval.typeinfo))->variables.push_back(p);((yyval.typeinfo))->type = "void";((yyval.typeinfo))->linep = line;string x = (yyvsp[-3].str);(yyval.typeinfo)->tempname=x;  string q=newmethodlabel(x);string g="call "+x+"\n"+q;(yyval.typeinfo)->tac=concvector(g,(yyvsp[-1].typeinfo)->tac);}
-#line 6624 "final.tab.c"
+#line 6626 "fff.tab.c"
     break;
 
   case 357: /* ConstructorDeclarator: TypeParameters Identifier LRB ReceiverParameterComma RRB  */
-#line 1230 "final.y"
+#line 1233 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6630 "final.tab.c"
+#line 6632 "fff.tab.c"
     break;
 
   case 358: /* ConstructorDeclarator: TypeParameters Identifier LRB ReceiverParameterComma FormalParameterList RRB  */
-#line 1231 "final.y"
+#line 1234 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6636 "final.tab.c"
+#line 6638 "fff.tab.c"
     break;
 
   case 359: /* ConstructorBody: LCB RCB  */
-#line 1234 "final.y"
+#line 1237 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6642 "final.tab.c"
+#line 6644 "fff.tab.c"
     break;
 
   case 360: /* ConstructorBody: LCB BlockStatements RCB  */
-#line 1235 "final.y"
+#line 1238 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6648 "final.tab.c"
+#line 6650 "fff.tab.c"
     break;
 
   case 361: /* ConstructorBody: LCB ExplicitConstructorInvocation RCB  */
-#line 1236 "final.y"
+#line 1239 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6654 "final.tab.c"
+#line 6656 "fff.tab.c"
     break;
 
   case 362: /* ConstructorBody: LCB ExplicitConstructorInvocation BlockStatements RCB  */
-#line 1237 "final.y"
+#line 1240 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 6660 "final.tab.c"
+#line 6662 "fff.tab.c"
     break;
 
   case 363: /* ExplicitConstructorInvocation: THIS LRB RRB SEMICOLON  */
-#line 1239 "final.y"
+#line 1242 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters();string s = ((yyvsp[-3].str));((yyval.typeinfo))->tempname = "%rax";string s1 = gotomethod(s);string s2 = newmethodretlabel(s); (yyval.typeinfo)->tac=concvector(pv1,s1,s2,pv2);}
-#line 6666 "final.tab.c"
+#line 6668 "fff.tab.c"
     break;
 
   case 364: /* ExplicitConstructorInvocation: THIS LRB ArgumentList RRB SEMICOLON  */
-#line 1240 "final.y"
+#line 1243 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters(); string s = ((yyvsp[-4].str));((yyval.typeinfo))->tempname = "%rax"; string s1 = gotomethod(s);string s2 = newmethodretlabel(s);vector<string> pushpar = pusharg(((yyvsp[-2].typeinfo))->params);(yyval.typeinfo)->tac=concvector(pv1,(yyvsp[-2].typeinfo)->tac,pushpar,s1,s2,pv2);}
-#line 6672 "final.tab.c"
+#line 6674 "fff.tab.c"
     break;
 
   case 365: /* ExplicitConstructorInvocation: SUPER LRB RRB SEMICOLON  */
-#line 1241 "final.y"
+#line 1244 "fff.y"
                                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6678 "final.tab.c"
+#line 6680 "fff.tab.c"
     break;
 
   case 366: /* ExplicitConstructorInvocation: SUPER LRB ArgumentList RRB SEMICOLON  */
-#line 1242 "final.y"
+#line 1245 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6684 "final.tab.c"
+#line 6686 "fff.tab.c"
     break;
 
   case 367: /* ExplicitConstructorInvocation: Identifier DOT SUPER LRB RRB SEMICOLON  */
-#line 1243 "final.y"
+#line 1246 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6690 "final.tab.c"
+#line 6692 "fff.tab.c"
     break;
 
   case 368: /* ExplicitConstructorInvocation: Identifier DOT SUPER LRB ArgumentList RRB SEMICOLON  */
-#line 1244 "final.y"
+#line 1247 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6696 "final.tab.c"
+#line 6698 "fff.tab.c"
     break;
 
   case 369: /* ExplicitConstructorInvocation: ExpressionName DOT SUPER LRB RRB SEMICOLON  */
-#line 1245 "final.y"
+#line 1248 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6702 "final.tab.c"
+#line 6704 "fff.tab.c"
     break;
 
   case 370: /* ExplicitConstructorInvocation: ExpressionName DOT SUPER LRB ArgumentList RRB SEMICOLON  */
-#line 1246 "final.y"
+#line 1249 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6708 "final.tab.c"
+#line 6710 "fff.tab.c"
     break;
 
   case 371: /* ExplicitConstructorInvocation: Primary DOT SUPER LRB RRB SEMICOLON  */
-#line 1247 "final.y"
+#line 1250 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6714 "final.tab.c"
+#line 6716 "fff.tab.c"
     break;
 
   case 372: /* ExplicitConstructorInvocation: Primary DOT SUPER LRB ArgumentList RRB SEMICOLON  */
-#line 1248 "final.y"
+#line 1251 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 6720 "final.tab.c"
+#line 6722 "fff.tab.c"
     break;
 
   case 373: /* EnumDeclaration: ENUM Identifier EnumBody  */
-#line 1250 "final.y"
+#line 1253 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6726 "final.tab.c"
+#line 6728 "fff.tab.c"
     break;
 
   case 374: /* EnumDeclaration: ENUM Identifier ClassImplements EnumBody  */
-#line 1251 "final.y"
+#line 1254 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6732 "final.tab.c"
+#line 6734 "fff.tab.c"
     break;
 
   case 375: /* EnumDeclaration: OMClassModifier ENUM Identifier EnumBody  */
-#line 1252 "final.y"
+#line 1255 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6738 "final.tab.c"
+#line 6740 "fff.tab.c"
     break;
 
   case 376: /* EnumDeclaration: OMClassModifier ENUM Identifier ClassImplements EnumBody  */
-#line 1253 "final.y"
+#line 1256 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6744 "final.tab.c"
+#line 6746 "fff.tab.c"
     break;
 
   case 377: /* EnumBody: LCB RCB  */
-#line 1256 "final.y"
+#line 1259 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6750 "final.tab.c"
+#line 6752 "fff.tab.c"
     break;
 
   case 378: /* EnumBody: LCB EnumBodyDeclarations RCB  */
-#line 1257 "final.y"
+#line 1260 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6756 "final.tab.c"
+#line 6758 "fff.tab.c"
     break;
 
   case 379: /* EnumBody: LCB COMMA RCB  */
-#line 1258 "final.y"
+#line 1261 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6762 "final.tab.c"
+#line 6764 "fff.tab.c"
     break;
 
   case 380: /* EnumBody: LCB COMMA EnumBodyDeclarations RCB  */
-#line 1259 "final.y"
+#line 1262 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6768 "final.tab.c"
+#line 6770 "fff.tab.c"
     break;
 
   case 381: /* EnumBody: LCB EnumConstantList RCB  */
-#line 1260 "final.y"
+#line 1263 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6774 "final.tab.c"
+#line 6776 "fff.tab.c"
     break;
 
   case 382: /* EnumBody: LCB EnumConstantList EnumBodyDeclarations RCB  */
-#line 1261 "final.y"
+#line 1264 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 6780 "final.tab.c"
+#line 6782 "fff.tab.c"
     break;
 
   case 383: /* EnumConstantList: EnumConstant  */
-#line 1263 "final.y"
+#line 1266 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6786 "final.tab.c"
+#line 6788 "fff.tab.c"
     break;
 
   case 384: /* EnumConstantList: OMCommaEnumConstant  */
-#line 1264 "final.y"
+#line 1267 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6792 "final.tab.c"
+#line 6794 "fff.tab.c"
     break;
 
   case 385: /* PRB: LRB RRB  */
-#line 1266 "final.y"
+#line 1269 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 6798 "final.tab.c"
+#line 6800 "fff.tab.c"
     break;
 
   case 386: /* PRBArgumentList: LRB ArgumentList RRB  */
-#line 1268 "final.y"
+#line 1271 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6804 "final.tab.c"
+#line 6806 "fff.tab.c"
     break;
 
   case 387: /* EnumConstant: Identifier  */
-#line 1270 "final.y"
+#line 1273 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6810 "final.tab.c"
+#line 6812 "fff.tab.c"
     break;
 
   case 388: /* EnumConstant: Identifier PRB  */
-#line 1271 "final.y"
+#line 1274 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6816 "final.tab.c"
+#line 6818 "fff.tab.c"
     break;
 
   case 389: /* EnumConstant: Identifier PRBArgumentList  */
-#line 1272 "final.y"
+#line 1275 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6822 "final.tab.c"
+#line 6824 "fff.tab.c"
     break;
 
   case 390: /* EnumConstant: Identifier ClassBody  */
-#line 1273 "final.y"
+#line 1276 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6828 "final.tab.c"
+#line 6830 "fff.tab.c"
     break;
 
   case 391: /* EnumConstant: Identifier PRB ClassBody  */
-#line 1274 "final.y"
+#line 1277 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6834 "final.tab.c"
+#line 6836 "fff.tab.c"
     break;
 
   case 392: /* EnumConstant: Identifier PRBArgumentList ClassBody  */
-#line 1275 "final.y"
+#line 1278 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6840 "final.tab.c"
+#line 6842 "fff.tab.c"
     break;
 
   case 393: /* EnumBodyDeclarations: SEMICOLON  */
-#line 1277 "final.y"
+#line 1280 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 6846 "final.tab.c"
+#line 6848 "fff.tab.c"
     break;
 
   case 394: /* EnumBodyDeclarations: SEMICOLON OMClassBodyDeclaration  */
-#line 1278 "final.y"
+#line 1281 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6852 "final.tab.c"
+#line 6854 "fff.tab.c"
     break;
 
   case 395: /* RecordDeclarationSym: RECORD Identifier  */
-#line 1280 "final.y"
+#line 1283 "fff.y"
                                         {(yyval.typeinfo) = createstruct();symtable*a=createscope("record");((yyval.typeinfo))->scope = a; ((yyval.typeinfo))->type = "record";string p = (yyvsp[0].str);((yyval.typeinfo))->variables.push_back(p); changescope(a);}
-#line 6858 "final.tab.c"
+#line 6860 "fff.tab.c"
     break;
 
   case 396: /* RecordDeclaration: RecordDeclarationSym RecordHeader RecordBody  */
-#line 1282 "final.y"
+#line 1285 "fff.y"
                                                                                                         {goparent();insertmethod(((yyvsp[-2].typeinfo))->variables[0],"record",((yyvsp[-2].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-2].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6864 "final.tab.c"
+#line 6866 "fff.tab.c"
     break;
 
   case 397: /* RecordDeclaration: RecordDeclarationSym RecordHeader ClassImplements RecordBody  */
-#line 1283 "final.y"
+#line 1286 "fff.y"
                                                                                                                         {goparent();insertmethod(((yyvsp[-3].typeinfo))->variables[0],"record",((yyvsp[-3].typeinfo))->type,((yyvsp[-2].typeinfo))->type_variable,((yyvsp[-3].typeinfo))->scope,"",((yyvsp[-2].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6870 "final.tab.c"
+#line 6872 "fff.tab.c"
     break;
 
   case 398: /* RecordDeclaration: RecordDeclarationSym TypeParameters RecordHeader RecordBody  */
-#line 1284 "final.y"
+#line 1287 "fff.y"
                                                                                                                                                         {goparent();insertmethod(((yyvsp[-3].typeinfo))->variables[0],"record",((yyvsp[-3].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-3].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6876 "final.tab.c"
+#line 6878 "fff.tab.c"
     break;
 
   case 399: /* RecordDeclaration: RecordDeclarationSym TypeParameters RecordHeader ClassImplements RecordBody  */
-#line 1285 "final.y"
+#line 1288 "fff.y"
                                                                                                                         {goparent();insertmethod(((yyvsp[-4].typeinfo))->variables[0],"record",((yyvsp[-4].typeinfo))->type,((yyvsp[-2].typeinfo))->type_variable,((yyvsp[-4].typeinfo))->scope,"",((yyvsp[-2].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6882 "final.tab.c"
+#line 6884 "fff.tab.c"
     break;
 
   case 400: /* RecordDeclaration: OMClassModifier RecordDeclarationSym RecordHeader RecordBody  */
-#line 1286 "final.y"
+#line 1289 "fff.y"
                                                                                                                                                         {goparent();insertmethod(((yyvsp[-2].typeinfo))->variables[0],"record",((yyvsp[-2].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-2].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6888 "final.tab.c"
+#line 6890 "fff.tab.c"
     break;
 
   case 401: /* RecordDeclaration: OMClassModifier RecordDeclarationSym RecordHeader ClassImplements RecordBody  */
-#line 1287 "final.y"
+#line 1290 "fff.y"
                                                                                                                 {goparent();insertmethod(((yyvsp[-3].typeinfo))->variables[0],"record",((yyvsp[-3].typeinfo))->type,((yyvsp[-2].typeinfo))->type_variable,((yyvsp[-3].typeinfo))->scope,"",((yyvsp[-2].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6894 "final.tab.c"
+#line 6896 "fff.tab.c"
     break;
 
   case 402: /* RecordDeclaration: OMClassModifier RecordDeclarationSym TypeParameters RecordHeader RecordBody  */
-#line 1288 "final.y"
+#line 1291 "fff.y"
                                                                                                                 {goparent();insertmethod(((yyvsp[-3].typeinfo))->variables[0],"record",((yyvsp[-3].typeinfo))->type,((yyvsp[-1].typeinfo))->type_variable,((yyvsp[-3].typeinfo))->scope,"",((yyvsp[-1].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6900 "final.tab.c"
+#line 6902 "fff.tab.c"
     break;
 
   case 403: /* RecordDeclaration: OMClassModifier RecordDeclarationSym TypeParameters RecordHeader ClassImplements RecordBody  */
-#line 1289 "final.y"
+#line 1292 "fff.y"
                                                                                                                         {goparent();insertmethod(((yyvsp[-4].typeinfo))->variables[0],"record",((yyvsp[-4].typeinfo))->type,((yyvsp[-2].typeinfo))->type_variable,((yyvsp[-4].typeinfo))->scope,"",((yyvsp[-2].typeinfo))->linep);(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6906 "final.tab.c"
+#line 6908 "fff.tab.c"
     break;
 
   case 404: /* RecordHeader: LRB RRB  */
-#line 1292 "final.y"
+#line 1295 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back("void");((yyval.typeinfo))->linep = line;(yyval.typeinfo)->tac=emptyvector();}
-#line 6912 "final.tab.c"
+#line 6914 "fff.tab.c"
     break;
 
   case 405: /* RecordHeader: LRB RecordComponentList RRB  */
-#line 1293 "final.y"
+#line 1296 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[-1].typeinfo))->type_variable;((yyval.typeinfo))->linep = line;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6918 "final.tab.c"
+#line 6920 "fff.tab.c"
     break;
 
   case 406: /* RecordComponentList: RecordComponent  */
-#line 1295 "final.y"
+#line 1298 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6924 "final.tab.c"
+#line 6926 "fff.tab.c"
     break;
 
   case 407: /* RecordComponentList: RecordComponent OMCommaRecordComponent  */
-#line 1296 "final.y"
+#line 1299 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();vector<string>a=((yyvsp[-1].typeinfo))->type_variable;vector<string>b=((yyvsp[0].typeinfo))->type_variable;for(auto z:a){((yyval.typeinfo))->type_variable.push_back(z);}for(auto z:b){((yyval.typeinfo))->type_variable.push_back(z);}(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 6930 "final.tab.c"
+#line 6932 "fff.tab.c"
     break;
 
   case 408: /* RecordComponent: UnannType Identifier  */
-#line 1298 "final.y"
+#line 1301 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back(((yyvsp[-1].typeinfo))->type);}
-#line 6936 "final.tab.c"
+#line 6938 "fff.tab.c"
     break;
 
   case 409: /* RecordComponent: VariableArityRecordComponent  */
-#line 1299 "final.y"
+#line 1302 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable = ((yyvsp[0].typeinfo))->type_variable;}
-#line 6942 "final.tab.c"
+#line 6944 "fff.tab.c"
     break;
 
   case 410: /* VariableArityRecordComponent: UnannType THREEDOT Identifier  */
-#line 1302 "final.y"
+#line 1305 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type_variable.push_back(((yyvsp[-2].typeinfo))->type);(yyval.typeinfo)->tac=emptyvector();}
-#line 6948 "final.tab.c"
+#line 6950 "fff.tab.c"
     break;
 
   case 411: /* RecordBody: LCB RCB  */
-#line 1304 "final.y"
+#line 1307 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 6954 "final.tab.c"
+#line 6956 "fff.tab.c"
     break;
 
   case 412: /* RecordBody: LCB OMRecordBodyDeclaration RCB  */
-#line 1305 "final.y"
+#line 1308 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 6960 "final.tab.c"
+#line 6962 "fff.tab.c"
     break;
 
   case 413: /* RecordBodyDeclaration: ClassBodyDeclaration  */
-#line 1307 "final.y"
+#line 1310 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6966 "final.tab.c"
+#line 6968 "fff.tab.c"
     break;
 
   case 414: /* RecordBodyDeclaration: CompactConstructorDeclaration  */
-#line 1308 "final.y"
+#line 1311 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6972 "final.tab.c"
+#line 6974 "fff.tab.c"
     break;
 
   case 415: /* CompactConstructorDeclarationSym: Identifier  */
-#line 1310 "final.y"
+#line 1313 "fff.y"
                                              {vector<string>tec; symtable*a=createscope("compactconstructor");string p=((yyvsp[0].str));insertmethod(p,"compactconstructor","auto",tec,a,"",line);changescope(a);}
-#line 6978 "final.tab.c"
+#line 6980 "fff.tab.c"
     break;
 
   case 416: /* CompactConstructorDeclaration: CompactConstructorDeclarationSym ConstructorBody  */
-#line 1312 "final.y"
+#line 1315 "fff.y"
                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6984 "final.tab.c"
+#line 6986 "fff.tab.c"
     break;
 
   case 417: /* CompactConstructorDeclaration: OMClassModifier CompactConstructorDeclarationSym ConstructorBody  */
-#line 1313 "final.y"
+#line 1316 "fff.y"
                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6990 "final.tab.c"
+#line 6992 "fff.tab.c"
     break;
 
   case 418: /* InterfaceDeclaration: NormalInterfaceDeclaration  */
-#line 1316 "final.y"
+#line 1319 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 6996 "final.tab.c"
+#line 6998 "fff.tab.c"
     break;
 
   case 419: /* $@41: %empty  */
-#line 1318 "final.y"
+#line 1321 "fff.y"
                                                       {symtable*a=createscope("interface");string p=((yyvsp[0].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7002 "final.tab.c"
+#line 7004 "fff.tab.c"
     break;
 
   case 420: /* NormalInterfaceDeclaration: INTERFACE Identifier $@41 InterfaceBody  */
-#line 1318 "final.y"
+#line 1321 "fff.y"
                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7008 "final.tab.c"
+#line 7010 "fff.tab.c"
     break;
 
   case 421: /* $@42: %empty  */
-#line 1319 "final.y"
+#line 1322 "fff.y"
                                                                   {symtable*a=createscope("interface");string p=((yyvsp[-1].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7014 "final.tab.c"
+#line 7016 "fff.tab.c"
     break;
 
   case 422: /* NormalInterfaceDeclaration: INTERFACE Identifier InterfacePermits $@42 InterfaceBody  */
-#line 1319 "final.y"
+#line 1322 "fff.y"
                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7020 "final.tab.c"
+#line 7022 "fff.tab.c"
     break;
 
   case 423: /* $@43: %empty  */
-#line 1320 "final.y"
+#line 1323 "fff.y"
                                                                  {symtable*a=createscope("interface");string p=((yyvsp[-1].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7026 "final.tab.c"
+#line 7028 "fff.tab.c"
     break;
 
   case 424: /* NormalInterfaceDeclaration: INTERFACE Identifier InterfaceExtends $@43 InterfaceBody  */
-#line 1320 "final.y"
+#line 1323 "fff.y"
                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7032 "final.tab.c"
+#line 7034 "fff.tab.c"
     break;
 
   case 425: /* $@44: %empty  */
-#line 1321 "final.y"
+#line 1324 "fff.y"
                                                                                  {symtable*a=createscope("interface");string p=((yyvsp[-2].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7038 "final.tab.c"
+#line 7040 "fff.tab.c"
     break;
 
   case 426: /* NormalInterfaceDeclaration: INTERFACE Identifier InterfaceExtends InterfacePermits $@44 InterfaceBody  */
-#line 1321 "final.y"
+#line 1324 "fff.y"
                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7044 "final.tab.c"
+#line 7046 "fff.tab.c"
     break;
 
   case 427: /* $@45: %empty  */
-#line 1322 "final.y"
+#line 1325 "fff.y"
                                                                 {symtable*a=createscope("interface");string p=((yyvsp[-1].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7050 "final.tab.c"
+#line 7052 "fff.tab.c"
     break;
 
   case 428: /* NormalInterfaceDeclaration: INTERFACE Identifier TypeParameters $@45 InterfaceBody  */
-#line 1322 "final.y"
+#line 1325 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7056 "final.tab.c"
+#line 7058 "fff.tab.c"
     break;
 
   case 429: /* $@46: %empty  */
-#line 1323 "final.y"
+#line 1326 "fff.y"
                                                                                 {symtable*a=createscope("interface");string p=((yyvsp[-2].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7062 "final.tab.c"
+#line 7064 "fff.tab.c"
     break;
 
   case 430: /* NormalInterfaceDeclaration: INTERFACE Identifier TypeParameters InterfacePermits $@46 InterfaceBody  */
-#line 1323 "final.y"
+#line 1326 "fff.y"
                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7068 "final.tab.c"
+#line 7070 "fff.tab.c"
     break;
 
   case 431: /* $@47: %empty  */
-#line 1324 "final.y"
+#line 1327 "fff.y"
                                                                                  {symtable*a=createscope("interface");string p=((yyvsp[-2].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7074 "final.tab.c"
+#line 7076 "fff.tab.c"
     break;
 
   case 432: /* NormalInterfaceDeclaration: INTERFACE Identifier TypeParameters InterfaceExtends $@47 InterfaceBody  */
-#line 1324 "final.y"
+#line 1327 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7080 "final.tab.c"
+#line 7082 "fff.tab.c"
     break;
 
   case 433: /* $@48: %empty  */
-#line 1325 "final.y"
+#line 1328 "fff.y"
                                                                                                   {symtable*a=createscope("interface");string p=((yyvsp[-3].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7086 "final.tab.c"
+#line 7088 "fff.tab.c"
     break;
 
   case 434: /* NormalInterfaceDeclaration: INTERFACE Identifier TypeParameters InterfaceExtends InterfacePermits $@48 InterfaceBody  */
-#line 1325 "final.y"
+#line 1328 "fff.y"
                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7092 "final.tab.c"
+#line 7094 "fff.tab.c"
     break;
 
   case 435: /* $@49: %empty  */
-#line 1326 "final.y"
+#line 1329 "fff.y"
                                                                 {symtable*a=createscope("interface");string p=((yyvsp[0].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7098 "final.tab.c"
+#line 7100 "fff.tab.c"
     break;
 
   case 436: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier $@49 InterfaceBody  */
-#line 1326 "final.y"
+#line 1329 "fff.y"
                                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7104 "final.tab.c"
+#line 7106 "fff.tab.c"
     break;
 
   case 437: /* $@50: %empty  */
-#line 1327 "final.y"
+#line 1330 "fff.y"
                                                                                   {symtable*a=createscope("interface");string p=((yyvsp[-1].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7110 "final.tab.c"
+#line 7112 "fff.tab.c"
     break;
 
   case 438: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier InterfacePermits $@50 InterfaceBody  */
-#line 1327 "final.y"
+#line 1330 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7116 "final.tab.c"
+#line 7118 "fff.tab.c"
     break;
 
   case 439: /* $@51: %empty  */
-#line 1328 "final.y"
+#line 1331 "fff.y"
                                                                                  {symtable*a=createscope("interface");string p=((yyvsp[-1].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7122 "final.tab.c"
+#line 7124 "fff.tab.c"
     break;
 
   case 440: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier InterfaceExtends $@51 InterfaceBody  */
-#line 1328 "final.y"
+#line 1331 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7128 "final.tab.c"
+#line 7130 "fff.tab.c"
     break;
 
   case 441: /* $@52: %empty  */
-#line 1329 "final.y"
+#line 1332 "fff.y"
                                                                                                    {symtable*a=createscope("interface");string p=((yyvsp[-2].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7134 "final.tab.c"
+#line 7136 "fff.tab.c"
     break;
 
   case 442: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier InterfaceExtends InterfacePermits $@52 InterfaceBody  */
-#line 1329 "final.y"
+#line 1332 "fff.y"
                                                                                                                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7140 "final.tab.c"
+#line 7142 "fff.tab.c"
     break;
 
   case 443: /* $@53: %empty  */
-#line 1330 "final.y"
+#line 1333 "fff.y"
                                                                                {symtable*a=createscope("interface");string p=((yyvsp[-1].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7146 "final.tab.c"
+#line 7148 "fff.tab.c"
     break;
 
   case 444: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier TypeParameters $@53 InterfaceBody  */
-#line 1330 "final.y"
+#line 1333 "fff.y"
                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7152 "final.tab.c"
+#line 7154 "fff.tab.c"
     break;
 
   case 445: /* $@54: %empty  */
-#line 1331 "final.y"
+#line 1334 "fff.y"
                                                                                                  {symtable*a=createscope("interface");string p=((yyvsp[-2].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7158 "final.tab.c"
+#line 7160 "fff.tab.c"
     break;
 
   case 446: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier TypeParameters InterfacePermits $@54 InterfaceBody  */
-#line 1331 "final.y"
+#line 1334 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7164 "final.tab.c"
+#line 7166 "fff.tab.c"
     break;
 
   case 447: /* $@55: %empty  */
-#line 1332 "final.y"
+#line 1335 "fff.y"
                                                                                                  {symtable*a=createscope("interface");string p=((yyvsp[-2].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7170 "final.tab.c"
+#line 7172 "fff.tab.c"
     break;
 
   case 448: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier TypeParameters InterfaceExtends $@55 InterfaceBody  */
-#line 1332 "final.y"
+#line 1335 "fff.y"
                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7176 "final.tab.c"
+#line 7178 "fff.tab.c"
     break;
 
   case 449: /* $@56: %empty  */
-#line 1333 "final.y"
+#line 1336 "fff.y"
                                                                                                                  {symtable*a=createscope("interface");string p=((yyvsp[-3].str));insertclass(p,"interface","",a,line);changescope(a);}
-#line 7182 "final.tab.c"
+#line 7184 "fff.tab.c"
     break;
 
   case 450: /* NormalInterfaceDeclaration: OMClassModifier INTERFACE Identifier TypeParameters InterfaceExtends InterfacePermits $@56 InterfaceBody  */
-#line 1333 "final.y"
+#line 1336 "fff.y"
                                                                                                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7188 "final.tab.c"
+#line 7190 "fff.tab.c"
     break;
 
   case 451: /* InterfaceModifier: Modifieropt  */
-#line 1336 "final.y"
+#line 1339 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7194 "final.tab.c"
+#line 7196 "fff.tab.c"
     break;
 
   case 452: /* InterfaceExtends: EXTENDS InterfaceTypeList  */
-#line 1338 "final.y"
+#line 1341 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7200 "final.tab.c"
+#line 7202 "fff.tab.c"
     break;
 
   case 453: /* InterfacePermits: PERMITS ExpressionName  */
-#line 1340 "final.y"
+#line 1343 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7206 "final.tab.c"
+#line 7208 "fff.tab.c"
     break;
 
   case 454: /* InterfacePermits: PERMITS ExpressionName OMCommaTypeName  */
-#line 1341 "final.y"
+#line 1344 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7212 "final.tab.c"
+#line 7214 "fff.tab.c"
     break;
 
   case 455: /* InterfaceBody: LCB RCB  */
-#line 1343 "final.y"
+#line 1346 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 7218 "final.tab.c"
+#line 7220 "fff.tab.c"
     break;
 
   case 456: /* InterfaceBody: LCB OMInterfaceMemberDeclaration RCB  */
-#line 1344 "final.y"
+#line 1347 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 7224 "final.tab.c"
+#line 7226 "fff.tab.c"
     break;
 
   case 457: /* InterfaceMemberDeclaration: ConstantDeclaration  */
-#line 1346 "final.y"
+#line 1349 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7230 "final.tab.c"
+#line 7232 "fff.tab.c"
     break;
 
   case 458: /* InterfaceMemberDeclaration: InterfaceMethodDeclaration  */
-#line 1347 "final.y"
+#line 1350 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7236 "final.tab.c"
+#line 7238 "fff.tab.c"
     break;
 
   case 459: /* InterfaceMemberDeclaration: ClassDeclaration  */
-#line 1348 "final.y"
+#line 1351 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7242 "final.tab.c"
+#line 7244 "fff.tab.c"
     break;
 
   case 460: /* InterfaceMemberDeclaration: InterfaceDeclaration  */
-#line 1349 "final.y"
+#line 1352 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7248 "final.tab.c"
+#line 7250 "fff.tab.c"
     break;
 
   case 461: /* InterfaceMemberDeclaration: SEMICOLON  */
-#line 1350 "final.y"
+#line 1353 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo;(yyval.typeinfo)->tac=emptyvector();}
-#line 7254 "final.tab.c"
+#line 7256 "fff.tab.c"
     break;
 
   case 462: /* ConstantDeclaration: UnannType VariableDeclaratorList SEMICOLON  */
-#line 1352 "final.y"
+#line 1355 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;((yyval.typeinfo))->puvariables=((yyvsp[-1].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[-1].typeinfo))->puvariables); (yyval.typeinfo)->tac=concvector(s,(yyvsp[-1].typeinfo)->tac);vector<string>a=((yyvsp[-1].typeinfo))->variables;((yyval.typeinfo))->type=((yyvsp[-2].typeinfo))->type+((yyvsp[-1].typeinfo))->type;for(auto z:a){insertidentifier(z,((yyvsp[-2].typeinfo))->type,"",line);}}
-#line 7260 "final.tab.c"
+#line 7262 "fff.tab.c"
     break;
 
   case 463: /* ConstantDeclaration: OMClassModifier UnannType VariableDeclaratorList SEMICOLON  */
-#line 1353 "final.y"
+#line 1356 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;((yyval.typeinfo))->puvariables=((yyvsp[-1].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[-1].typeinfo))->puvariables); (yyval.typeinfo)->tac=concvector(s,(yyvsp[-1].typeinfo)->tac);vector<string>a=((yyvsp[-1].typeinfo))->variables;((yyval.typeinfo))->type=((yyvsp[-2].typeinfo))->type+((yyvsp[-1].typeinfo))->type;for(auto z:a){insertidentifier(z,((yyvsp[-2].typeinfo))->type,"",line);}}
-#line 7266 "final.tab.c"
+#line 7268 "fff.tab.c"
     break;
 
   case 464: /* InterfaceMethodDeclaration: MethodHeader MethodBody  */
-#line 1355 "final.y"
+#line 1358 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-1].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="function end";stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st);	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 7272 "final.tab.c"
+#line 7274 "fff.tab.c"
     break;
 
   case 465: /* InterfaceMethodDeclaration: OMClassModifier MethodHeader MethodBody  */
-#line 1356 "final.y"
+#line 1359 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo;string f = ((yyvsp[-1].typeinfo))->tempname;string p=gotomethodretlabel(f); string z="function end"; stack<string>st = currmethodlocals.top(); vector<string>sv = poplocal(st); 	currmethod.pop(); currmethodlocals.pop(); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,z,sv,p);}
-#line 7278 "final.tab.c"
+#line 7280 "fff.tab.c"
     break;
 
   case 466: /* ArrayInitializer: LCB RCB  */
-#line 1358 "final.y"
+#line 1361 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "[]";(yyval.typeinfo)->tac=emptyvector();}
-#line 7284 "final.tab.c"
+#line 7286 "fff.tab.c"
     break;
 
   case 467: /* ArrayInitializer: LCB COMMA RCB  */
-#line 1359 "final.y"
+#line 1362 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "[]";(yyval.typeinfo)->tac=emptyvector();}
-#line 7290 "final.tab.c"
+#line 7292 "fff.tab.c"
     break;
 
   case 468: /* ArrayInitializer: LCB VariableInitializerList RCB  */
-#line 1360 "final.y"
+#line 1363 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type =  ((yyvsp[-1].typeinfo))->type + "[]";(yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 7296 "final.tab.c"
+#line 7298 "fff.tab.c"
     break;
 
   case 469: /* VariableInitializerList: VariableInitializer  */
-#line 1362 "final.y"
+#line 1365 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type =  ((yyvsp[0].typeinfo))->type ;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7302 "final.tab.c"
+#line 7304 "fff.tab.c"
     break;
 
   case 470: /* VariableInitializerList: VariableInitializer OMCommaVariableInitializer  */
-#line 1363 "final.y"
+#line 1366 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type =  ((yyvsp[-1].typeinfo))->type; (yyval.typeinfo)->tac= concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7308 "final.tab.c"
+#line 7310 "fff.tab.c"
     break;
 
   case 471: /* Block: LCB RCB  */
-#line 1365 "final.y"
+#line 1368 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo;vector<string>p={}; (yyval.typeinfo)->tac=p;}
-#line 7314 "final.tab.c"
+#line 7316 "fff.tab.c"
     break;
 
   case 472: /* Block: LCB BlockStatements RCB  */
-#line 1366 "final.y"
+#line 1369 "fff.y"
                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[-1].typeinfo)->tac;}
-#line 7320 "final.tab.c"
+#line 7322 "fff.tab.c"
     break;
 
   case 473: /* BlockStatements: BlockStatement  */
-#line 1368 "final.y"
+#line 1371 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7326 "final.tab.c"
+#line 7328 "fff.tab.c"
     break;
 
   case 474: /* BlockStatements: BlockStatement OMBlockStatement  */
-#line 1369 "final.y"
+#line 1372 "fff.y"
                                                                                                    {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7332 "final.tab.c"
+#line 7334 "fff.tab.c"
     break;
 
   case 475: /* BlockStatement: LocalClassOrInterfaceDeclaration  */
-#line 1371 "final.y"
+#line 1374 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7338 "final.tab.c"
+#line 7340 "fff.tab.c"
     break;
 
   case 476: /* BlockStatement: LocalVariableDeclarationStatement  */
-#line 1372 "final.y"
+#line 1375 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7344 "final.tab.c"
+#line 7346 "fff.tab.c"
     break;
 
   case 477: /* BlockStatement: Statement  */
-#line 1373 "final.y"
+#line 1376 "fff.y"
                                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7350 "final.tab.c"
+#line 7352 "fff.tab.c"
     break;
 
   case 478: /* LocalClassOrInterfaceDeclaration: ClassDeclaration  */
-#line 1375 "final.y"
+#line 1378 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7356 "final.tab.c"
+#line 7358 "fff.tab.c"
     break;
 
   case 479: /* LocalClassOrInterfaceDeclaration: NormalInterfaceDeclaration  */
-#line 1376 "final.y"
+#line 1379 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7362 "final.tab.c"
+#line 7364 "fff.tab.c"
     break;
 
   case 480: /* LocalVariableDeclarationStatement: LocalVariableDeclaration SEMICOLON  */
-#line 1378 "final.y"
+#line 1381 "fff.y"
                                                                                         {(yyval.typeinfo)=createstruct();(yyval.typeinfo)=(yyvsp[-1].typeinfo);
-	
+	int n=((yyval.typeinfo))->variables.size();
+    for(int i=0;i<n;i++){
+        int order=(yyval.typeinfo)->decorder1+((yyval.typeinfo)->decorders2)[i];
+        string x;
+        if(order)
+        x="array";
+        else
+        x="identifier";
+
+        if(((yyval.typeinfo)->initialdecls)[i]){
+            insertidentifier((yyval.typeinfo)->variables[i],x,(yyval.typeinfo)->dectype,"",0,order,(yyval.typeinfo)->arrdims[i]);
+            cout<<(yyval.typeinfo)->variables[i]<<x<<(yyval.typeinfo)->dectype<<""<<0<<order;
+        }
+        else{
+            vector<int>p(order,0);
+            insertidentifier((yyval.typeinfo)->variables[i],x,(yyval.typeinfo)->dectype,"",0,order,p);
+            cout<<(yyval.typeinfo)->variables[i]<<x<<(yyval.typeinfo)->dectype<<""<<0<<order;
+        }
+    }
     (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;
 }
-#line 7371 "final.tab.c"
+#line 7391 "fff.tab.c"
     break;
 
   case 481: /* LocalVariableDeclaration: LocalVariableType VariableDeclaratorList  */
-#line 1383 "final.y"
-                                                                                        {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->dectype=(yyvsp[-1].typeinfo)->dectype;(yyval.typeinfo)->decorder1=(yyvsp[-1].typeinfo)->decorder1;((yyval.typeinfo))->variables=((yyvsp[0].typeinfo))->variables;(yyval.typeinfo)->decorders2=(yyvsp[0].typeinfo)->decorders2;(yyval.typeinfo)->arrtypes=(yyvsp[0].typeinfo)->arrtypes;(yyval.typeinfo)->arrdims=(yyvsp[0].typeinfo)->arrdims;(yyval.typeinfo)->initvartypes=(yyvsp[0].typeinfo)->initvartypes;((yyval.typeinfo))->puvariables=((yyvsp[0].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[0].typeinfo))->puvariables);
- int n=((yyval.typeinfo))->variables.size();
-    for(int i=0;i<n;i++){
-        int order=(yyval.typeinfo)->decorder1+((yyval.typeinfo)->decorders2)[i];
-        string x;
-        if(order)
-        x="array";
-        else
-        x="identifier";
-
-        if(((yyval.typeinfo)->initialdecls)[i]){
-            insertidentifier((yyval.typeinfo)->variables[i],x,(yyval.typeinfo)->dectype,"",0,order,(yyval.typeinfo)->arrdims[i]);
-            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
-        }
-        else{
-            vector<int>p(order,0);
-            insertidentifier((yyval.typeinfo)->variables[i],x,(yyval.typeinfo)->dectype,"",0,order,p);
-            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
-        }
-    }
-    (yyval.typeinfo)->tac=concvector(s,(yyvsp[0].typeinfo)->tac);}
-#line 7397 "final.tab.c"
+#line 1404 "fff.y"
+                                                                                        {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->dectype=(yyvsp[-1].typeinfo)->dectype;(yyval.typeinfo)->decorder1=(yyvsp[-1].typeinfo)->decorder1;((yyval.typeinfo))->variables=((yyvsp[0].typeinfo))->variables;(yyval.typeinfo)->decorders2=(yyvsp[0].typeinfo)->decorders2;(yyval.typeinfo)->arrtypes=(yyvsp[0].typeinfo)->arrtypes;(yyval.typeinfo)->arrdims=(yyvsp[0].typeinfo)->arrdims;(yyval.typeinfo)->initvartypes=(yyvsp[0].typeinfo)->initvartypes;for(auto yyy:(yyval.typeinfo)->variables)cout<<yyy<<" ";((yyval.typeinfo))->puvariables=((yyvsp[0].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[0].typeinfo))->puvariables); (yyval.typeinfo)->tac=concvector(s,(yyvsp[0].typeinfo)->tac);}
+#line 7397 "fff.tab.c"
     break;
 
   case 482: /* LocalVariableDeclaration: OMClassModifier LocalVariableType VariableDeclaratorList  */
-#line 1404 "final.y"
-                                                                                                {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->dectype=(yyvsp[-1].typeinfo)->dectype;(yyval.typeinfo)->decorder1=(yyvsp[-1].typeinfo)->decorder1;((yyval.typeinfo))->variables=((yyvsp[0].typeinfo))->variables;(yyval.typeinfo)->decorders2=(yyvsp[0].typeinfo)->decorders2;(yyval.typeinfo)->arrtypes=(yyvsp[0].typeinfo)->arrtypes;(yyval.typeinfo)->arrdims=(yyvsp[0].typeinfo)->arrdims;(yyval.typeinfo)->initvartypes=(yyvsp[0].typeinfo)->initvartypes; ((yyval.typeinfo))->puvariables=((yyvsp[0].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[0].typeinfo))->puvariables);
-        int n=((yyval.typeinfo))->variables.size();
-    for(int i=0;i<n;i++){
-        int order=(yyval.typeinfo)->decorder1+((yyval.typeinfo)->decorders2)[i];
-        string x;
-        if(order)
-        x="array";
-        else
-        x="identifier";
-
-        if(((yyval.typeinfo)->initialdecls)[i]){
-            insertidentifier((yyval.typeinfo)->variables[i],x,(yyval.typeinfo)->dectype,"",0,order,(yyval.typeinfo)->arrdims[i]);
-            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
-        }
-        else{
-            vector<int>p(order,0);
-            insertidentifier((yyval.typeinfo)->variables[i],x,(yyval.typeinfo)->dectype,"",0,order,p);
-            // cout<<$$->variables[i]<<x<<$$->dectype<<""<<0<<order;
-        }
-    }
-     (yyval.typeinfo)->tac=concvector(s,(yyvsp[0].typeinfo)->tac);}
-#line 7423 "final.tab.c"
+#line 1405 "fff.y"
+                                                                                                {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->dectype=(yyvsp[-1].typeinfo)->dectype;(yyval.typeinfo)->decorder1=(yyvsp[-1].typeinfo)->decorder1;((yyval.typeinfo))->variables=((yyvsp[0].typeinfo))->variables;(yyval.typeinfo)->decorders2=(yyvsp[0].typeinfo)->decorders2;(yyval.typeinfo)->arrtypes=(yyvsp[0].typeinfo)->arrtypes;(yyval.typeinfo)->arrdims=(yyvsp[0].typeinfo)->arrdims;(yyval.typeinfo)->initvartypes=(yyvsp[0].typeinfo)->initvartypes; ((yyval.typeinfo))->puvariables=((yyvsp[0].typeinfo))->puvariables;vector<string> s = pushlocal(((yyvsp[0].typeinfo))->puvariables); (yyval.typeinfo)->tac=concvector(s,(yyvsp[0].typeinfo)->tac);}
+#line 7403 "fff.tab.c"
     break;
 
   case 483: /* LocalVariableType: UnannType  */
-#line 1426 "final.y"
+#line 1407 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;((yyval.typeinfo))->type=((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->dectype=(yyvsp[0].typeinfo)->dectype;(yyval.typeinfo)->decorder1=(yyvsp[0].typeinfo)->decorder1;}
-#line 7429 "final.tab.c"
+#line 7409 "fff.tab.c"
     break;
 
   case 484: /* LocalVariableType: VAR  */
-#line 1427 "final.y"
+#line 1408 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac= emptyvector();((yyval.typeinfo))->type="all";(yyval.typeinfo)->dectype="all";(yyval.typeinfo)->decorder1=0;}
-#line 7435 "final.tab.c"
+#line 7415 "fff.tab.c"
     break;
 
   case 485: /* Statement: StatementWithoutTrailingSubstatement  */
-#line 1429 "final.y"
+#line 1410 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7441 "final.tab.c"
+#line 7421 "fff.tab.c"
     break;
 
   case 486: /* Statement: LabeledStatement  */
-#line 1430 "final.y"
+#line 1411 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7447 "final.tab.c"
+#line 7427 "fff.tab.c"
     break;
 
   case 487: /* Statement: IfThenStatement  */
-#line 1431 "final.y"
+#line 1412 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7453 "final.tab.c"
+#line 7433 "fff.tab.c"
     break;
 
   case 488: /* Statement: IfThenElseStatement  */
-#line 1432 "final.y"
+#line 1413 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7459 "final.tab.c"
+#line 7439 "fff.tab.c"
     break;
 
   case 489: /* Statement: WhileStatement  */
-#line 1433 "final.y"
+#line 1414 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7465 "final.tab.c"
+#line 7445 "fff.tab.c"
     break;
 
   case 490: /* Statement: ForStatement  */
-#line 1434 "final.y"
+#line 1415 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7471 "final.tab.c"
+#line 7451 "fff.tab.c"
     break;
 
   case 491: /* StatementNoShortIf: StatementWithoutTrailingSubstatement  */
-#line 1436 "final.y"
+#line 1417 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7477 "final.tab.c"
+#line 7457 "fff.tab.c"
     break;
 
   case 492: /* StatementNoShortIf: LabeledStatementNoShortIf  */
-#line 1437 "final.y"
+#line 1418 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7483 "final.tab.c"
+#line 7463 "fff.tab.c"
     break;
 
   case 493: /* StatementNoShortIf: IfThenElseStatementNoShortIf  */
-#line 1438 "final.y"
+#line 1419 "fff.y"
                                                                             {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7489 "final.tab.c"
+#line 7469 "fff.tab.c"
     break;
 
   case 494: /* StatementNoShortIf: WhileStatementNoShortIf  */
-#line 1439 "final.y"
+#line 1420 "fff.y"
                                                                             {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7495 "final.tab.c"
+#line 7475 "fff.tab.c"
     break;
 
   case 495: /* StatementNoShortIf: ForStatementNoShortIf  */
-#line 1440 "final.y"
+#line 1421 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7501 "final.tab.c"
+#line 7481 "fff.tab.c"
     break;
 
   case 496: /* $@57: %empty  */
-#line 1442 "final.y"
+#line 1423 "fff.y"
                                         {symtable *a = createscope("statement");insertclass("statement","statement","",a,line); changescope(a);flag = 0;}
-#line 7507 "final.tab.c"
+#line 7487 "fff.tab.c"
     break;
 
   case 497: /* StatementWithoutTrailingSubstatement: $@57 Block  */
-#line 1442 "final.y"
+#line 1423 "fff.y"
                                                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7513 "final.tab.c"
+#line 7493 "fff.tab.c"
     break;
 
   case 498: /* StatementWithoutTrailingSubstatement: EmptyStatement  */
-#line 1443 "final.y"
+#line 1424 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7519 "final.tab.c"
+#line 7499 "fff.tab.c"
     break;
 
   case 499: /* StatementWithoutTrailingSubstatement: ExpressionStatement  */
-#line 1444 "final.y"
+#line 1425 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7525 "final.tab.c"
+#line 7505 "fff.tab.c"
     break;
 
   case 500: /* StatementWithoutTrailingSubstatement: AssertStatement  */
-#line 1445 "final.y"
+#line 1426 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7531 "final.tab.c"
+#line 7511 "fff.tab.c"
     break;
 
   case 501: /* StatementWithoutTrailingSubstatement: SwitchStatement  */
-#line 1446 "final.y"
+#line 1427 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7537 "final.tab.c"
+#line 7517 "fff.tab.c"
     break;
 
   case 502: /* StatementWithoutTrailingSubstatement: DoStatement  */
-#line 1447 "final.y"
+#line 1428 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7543 "final.tab.c"
+#line 7523 "fff.tab.c"
     break;
 
   case 503: /* StatementWithoutTrailingSubstatement: BreakStatement  */
-#line 1448 "final.y"
+#line 1429 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7549 "final.tab.c"
+#line 7529 "fff.tab.c"
     break;
 
   case 504: /* StatementWithoutTrailingSubstatement: ContinueStatement  */
-#line 1449 "final.y"
+#line 1430 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7555 "final.tab.c"
+#line 7535 "fff.tab.c"
     break;
 
   case 505: /* StatementWithoutTrailingSubstatement: ReturnStatement  */
-#line 1450 "final.y"
+#line 1431 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7561 "final.tab.c"
+#line 7541 "fff.tab.c"
     break;
 
   case 506: /* StatementWithoutTrailingSubstatement: SynchronizedStatement  */
-#line 1451 "final.y"
+#line 1432 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7567 "final.tab.c"
+#line 7547 "fff.tab.c"
     break;
 
   case 507: /* StatementWithoutTrailingSubstatement: ThrowStatement  */
-#line 1452 "final.y"
+#line 1433 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7573 "final.tab.c"
+#line 7553 "fff.tab.c"
     break;
 
   case 508: /* StatementWithoutTrailingSubstatement: TryStatement  */
-#line 1453 "final.y"
+#line 1434 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7579 "final.tab.c"
+#line 7559 "fff.tab.c"
     break;
 
   case 509: /* StatementWithoutTrailingSubstatement: YieldStatement  */
-#line 1454 "final.y"
+#line 1435 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7585 "final.tab.c"
+#line 7565 "fff.tab.c"
     break;
 
   case 510: /* EmptyStatement: SEMICOLON  */
-#line 1456 "final.y"
+#line 1437 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; vector<string>p={}; (yyval.typeinfo)->tac=p;}
-#line 7591 "final.tab.c"
+#line 7571 "fff.tab.c"
     break;
 
   case 511: /* LabeledStatement: Identifier COLON Statement  */
-#line 1458 "final.y"
+#line 1439 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7597 "final.tab.c"
+#line 7577 "fff.tab.c"
     break;
 
   case 512: /* LabeledStatementNoShortIf: Identifier COLON StatementNoShortIf  */
-#line 1460 "final.y"
+#line 1441 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7603 "final.tab.c"
+#line 7583 "fff.tab.c"
     break;
 
   case 513: /* ExpressionStatement: StatementExpression SEMICOLON  */
-#line 1463 "final.y"
+#line 1444 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[-1].typeinfo)->tempname;}
-#line 7609 "final.tab.c"
+#line 7589 "fff.tab.c"
     break;
 
   case 514: /* StatementExpression: Assignment  */
-#line 1465 "final.y"
+#line 1446 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 7615 "final.tab.c"
+#line 7595 "fff.tab.c"
     break;
 
   case 515: /* StatementExpression: PreIncrementExpression  */
-#line 1466 "final.y"
+#line 1447 "fff.y"
                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 7621 "final.tab.c"
+#line 7601 "fff.tab.c"
     break;
 
   case 516: /* StatementExpression: PreDecrementExpression  */
-#line 1467 "final.y"
+#line 1448 "fff.y"
                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 7627 "final.tab.c"
+#line 7607 "fff.tab.c"
     break;
 
   case 517: /* StatementExpression: PostIncrementExpression  */
-#line 1468 "final.y"
+#line 1449 "fff.y"
                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 7633 "final.tab.c"
+#line 7613 "fff.tab.c"
     break;
 
   case 518: /* StatementExpression: PostDecrementExpression  */
-#line 1469 "final.y"
+#line 1450 "fff.y"
                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 7639 "final.tab.c"
+#line 7619 "fff.tab.c"
     break;
 
   case 519: /* StatementExpression: MethodInvocation  */
-#line 1470 "final.y"
+#line 1451 "fff.y"
                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 7645 "final.tab.c"
+#line 7625 "fff.tab.c"
     break;
 
   case 520: /* StatementExpression: ClassInstanceCreationExpression  */
-#line 1471 "final.y"
+#line 1452 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;(yyval.typeinfo)->tempname=(yyvsp[0].typeinfo)->tempname;}
-#line 7651 "final.tab.c"
+#line 7631 "fff.tab.c"
     break;
 
   case 521: /* IfThenStatement: IF LRB Expression RRB Statement  */
-#line 1473 "final.y"
+#line 1454 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo;int lv=labelvariable;string a=newlabel();string ret="if zero "+((yyvsp[-2].typeinfo))->tempname+gotoo(lv+1);(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,a);}
-#line 7657 "final.tab.c"
+#line 7637 "fff.tab.c"
     break;
 
   case 522: /* IfThenElseStatement: IF LRB Expression RRB StatementNoShortIf ELSE Statement  */
-#line 1475 "final.y"
+#line 1456 "fff.y"
                                                                               {(yyval.typeinfo)=new Typeinfo;int lv=labelvariable;string a=newlabel();string ret="if zero "+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+1);(yyval.typeinfo)->tac=concvector((yyvsp[-4].typeinfo)->tac,ret,(yyvsp[-2].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac);}
-#line 7663 "final.tab.c"
+#line 7643 "fff.tab.c"
     break;
 
   case 523: /* IfThenElseStatementNoShortIf: IF LRB Expression RRB StatementNoShortIf ELSE StatementNoShortIf  */
-#line 1477 "final.y"
+#line 1458 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo;int lv=labelvariable;string a=newlabel();string ret="if zero "+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+1);(yyval.typeinfo)->tac=concvector((yyvsp[-4].typeinfo)->tac,ret,(yyvsp[-2].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac);}
-#line 7669 "final.tab.c"
+#line 7649 "fff.tab.c"
     break;
 
   case 524: /* AssertStatement: ASSERT Expression SEMICOLON  */
-#line 1479 "final.y"
+#line 1460 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 7675 "final.tab.c"
+#line 7655 "fff.tab.c"
     break;
 
   case 525: /* AssertStatement: ASSERT Expression COLON Expression SEMICOLON  */
-#line 1480 "final.y"
+#line 1461 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 7681 "final.tab.c"
+#line 7661 "fff.tab.c"
     break;
 
   case 526: /* $@58: %empty  */
-#line 1482 "final.y"
+#line 1463 "fff.y"
                                                    {symtable *a = createscope("switch"); changescope(a);}
-#line 7687 "final.tab.c"
+#line 7667 "fff.tab.c"
     break;
 
   case 527: /* SwitchStatement: SWITCH LRB Expression RRB $@58 SwitchBlock  */
-#line 1482 "final.y"
+#line 1463 "fff.y"
                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7693 "final.tab.c"
+#line 7673 "fff.tab.c"
     break;
 
   case 528: /* SwitchBlock: LCB SwitchRule RCB  */
-#line 1484 "final.y"
+#line 1465 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 7699 "final.tab.c"
+#line 7679 "fff.tab.c"
     break;
 
   case 529: /* SwitchBlock: LCB SwitchRule OMSwitchRule RCB  */
-#line 1485 "final.y"
+#line 1466 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 7705 "final.tab.c"
+#line 7685 "fff.tab.c"
     break;
 
   case 530: /* SwitchBlock: LCB RCB  */
-#line 1486 "final.y"
+#line 1467 "fff.y"
                                                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 7711 "final.tab.c"
+#line 7691 "fff.tab.c"
     break;
 
   case 531: /* SwitchBlock: LCB OMSwitchLabelColon RCB  */
-#line 1487 "final.y"
+#line 1468 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 7717 "final.tab.c"
+#line 7697 "fff.tab.c"
     break;
 
   case 532: /* SwitchBlock: LCB OMSwitchBlockStatementGroup RCB  */
-#line 1488 "final.y"
+#line 1469 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 7723 "final.tab.c"
+#line 7703 "fff.tab.c"
     break;
 
   case 533: /* SwitchBlock: LCB OMSwitchBlockStatementGroup OMSwitchLabelColon RCB  */
-#line 1489 "final.y"
+#line 1470 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 7729 "final.tab.c"
+#line 7709 "fff.tab.c"
     break;
 
   case 534: /* SwitchRule: SwitchLabel IMPLIES Expression SEMICOLON  */
-#line 1491 "final.y"
+#line 1472 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 7735 "final.tab.c"
+#line 7715 "fff.tab.c"
     break;
 
   case 535: /* SwitchRule: SwitchLabel IMPLIES Block  */
-#line 1492 "final.y"
+#line 1473 "fff.y"
                                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7741 "final.tab.c"
+#line 7721 "fff.tab.c"
     break;
 
   case 536: /* SwitchRule: SwitchLabel IMPLIES ThrowStatement  */
-#line 1493 "final.y"
+#line 1474 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7747 "final.tab.c"
+#line 7727 "fff.tab.c"
     break;
 
   case 537: /* SwitchBlockStatementGroup: SwitchLabel COLON BlockStatements  */
-#line 1495 "final.y"
+#line 1476 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7753 "final.tab.c"
+#line 7733 "fff.tab.c"
     break;
 
   case 538: /* SwitchBlockStatementGroup: SwitchLabel COLON OMSwitchLabelColon BlockStatements  */
-#line 1496 "final.y"
+#line 1477 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7759 "final.tab.c"
+#line 7739 "fff.tab.c"
     break;
 
   case 539: /* SwitchLabel: CASE CaseConstant  */
-#line 1498 "final.y"
+#line 1479 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7765 "final.tab.c"
+#line 7745 "fff.tab.c"
     break;
 
   case 540: /* SwitchLabel: CASE CaseConstant OMCommaCaseConstant  */
-#line 1499 "final.y"
+#line 1480 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7771 "final.tab.c"
+#line 7751 "fff.tab.c"
     break;
 
   case 541: /* SwitchLabel: DEFAULT  */
-#line 1500 "final.y"
+#line 1481 "fff.y"
                                                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 7777 "final.tab.c"
+#line 7757 "fff.tab.c"
     break;
 
   case 542: /* CaseConstant: ConditionalExpression  */
-#line 1502 "final.y"
+#line 1483 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7783 "final.tab.c"
+#line 7763 "fff.tab.c"
     break;
 
   case 543: /* WhileStatement: WHILE LRB Expression RRB Statement  */
-#line 1504 "final.y"
+#line 1485 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; int c=labelvariable; string a=newlabel();string b=newlabel();string z=gotoo(c+2);string d="if zero "+(((yyvsp[-2].typeinfo))->tempname)+z;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,a,d,(yyvsp[0].typeinfo)->tac,gotoo(c+1),b);}
-#line 7789 "final.tab.c"
+#line 7769 "fff.tab.c"
     break;
 
   case 544: /* WhileStatementNoShortIf: WHILE LRB Expression RRB StatementNoShortIf  */
-#line 1506 "final.y"
+#line 1487 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; int c=labelvariable; string a=newlabel();string z=gotoo(c+2);string b=newlabel();string d="if zero "+(((yyvsp[-2].typeinfo))->tempname)+z;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,a,d,(yyvsp[0].typeinfo)->tac,gotoo(c+1),b);}
-#line 7795 "final.tab.c"
+#line 7775 "fff.tab.c"
     break;
 
   case 545: /* DoStatement: DO Statement WHILE LRB Expression RRB SEMICOLON  */
-#line 1508 "final.y"
+#line 1489 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; string p=gotoo(labelvariable); (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,p);}
-#line 7801 "final.tab.c"
+#line 7781 "fff.tab.c"
     break;
 
   case 546: /* ForStatement: BasicForStatement  */
-#line 1510 "final.y"
+#line 1491 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7807 "final.tab.c"
+#line 7787 "fff.tab.c"
     break;
 
   case 547: /* ForStatement: EnhancedForStatement  */
-#line 1511 "final.y"
+#line 1492 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7813 "final.tab.c"
+#line 7793 "fff.tab.c"
     break;
 
   case 548: /* ForStatementNoShortIf: BasicForStatementNoShortIf  */
-#line 1513 "final.y"
+#line 1494 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7819 "final.tab.c"
+#line 7799 "fff.tab.c"
     break;
 
   case 549: /* ForStatementNoShortIf: EnhancedForStatementNoShortIf  */
-#line 1514 "final.y"
+#line 1495 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac= (yyvsp[0].typeinfo)->tac;}
-#line 7825 "final.tab.c"
+#line 7805 "fff.tab.c"
     break;
 
   case 550: /* ForSym: FOR  */
-#line 1516 "final.y"
+#line 1497 "fff.y"
                 {symtable*a=createscope("for");insertclass("for","for","",a,line); changescope(a);}
-#line 7831 "final.tab.c"
+#line 7811 "fff.tab.c"
     break;
 
   case 551: /* BasicForStatement: ForSym LRB SEMICOLON SEMICOLON RRB Statement  */
-#line 1518 "final.y"
+#line 1499 "fff.y"
                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector(a,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7837 "final.tab.c"
+#line 7817 "fff.tab.c"
     break;
 
   case 552: /* BasicForStatement: ForSym LRB SEMICOLON SEMICOLON ForUpdate RRB Statement  */
-#line 1519 "final.y"
+#line 1500 "fff.y"
                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector(a,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7843 "final.tab.c"
+#line 7823 "fff.tab.c"
     break;
 
   case 553: /* BasicForStatement: ForSym LRB SEMICOLON Expression SEMICOLON RRB Statement  */
-#line 1520 "final.y"
+#line 1501 "fff.y"
                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-3].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector(a,(yyvsp[-3].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7849 "final.tab.c"
+#line 7829 "fff.tab.c"
     break;
 
   case 554: /* BasicForStatement: ForSym LRB SEMICOLON Expression SEMICOLON ForUpdate RRB Statement  */
-#line 1521 "final.y"
+#line 1502 "fff.y"
                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector(a,(yyvsp[-4].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7855 "final.tab.c"
+#line 7835 "fff.tab.c"
     break;
 
   case 555: /* BasicForStatement: ForSym LRB ForInit SEMICOLON SEMICOLON RRB Statement  */
-#line 1522 "final.y"
+#line 1503 "fff.y"
                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector((yyvsp[-4].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7861 "final.tab.c"
+#line 7841 "fff.tab.c"
     break;
 
   case 556: /* BasicForStatement: ForSym LRB ForInit SEMICOLON SEMICOLON ForUpdate RRB Statement  */
-#line 1523 "final.y"
+#line 1504 "fff.y"
                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector((yyvsp[-5].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7867 "final.tab.c"
+#line 7847 "fff.tab.c"
     break;
 
   case 557: /* BasicForStatement: ForSym LRB ForInit SEMICOLON Expression SEMICOLON RRB Statement  */
-#line 1524 "final.y"
+#line 1505 "fff.y"
                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-3].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector((yyvsp[-5].typeinfo)->tac,a,(yyvsp[-3].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7873 "final.tab.c"
+#line 7853 "fff.tab.c"
     break;
 
   case 558: /* BasicForStatement: ForSym LRB ForInit SEMICOLON Expression SEMICOLON ForUpdate RRB Statement  */
-#line 1525 "final.y"
+#line 1506 "fff.y"
                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector((yyvsp[-6].typeinfo)->tac,a,(yyvsp[-4].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7879 "final.tab.c"
+#line 7859 "fff.tab.c"
     break;
 
   case 559: /* BasicForStatementNoShortIf: ForSym LRB SEMICOLON SEMICOLON RRB StatementNoShortIf  */
-#line 1527 "final.y"
+#line 1508 "fff.y"
                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector(a,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7885 "final.tab.c"
+#line 7865 "fff.tab.c"
     break;
 
   case 560: /* BasicForStatementNoShortIf: ForSym LRB SEMICOLON SEMICOLON ForUpdate RRB StatementNoShortIf  */
-#line 1528 "final.y"
+#line 1509 "fff.y"
                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector(a,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7891 "final.tab.c"
+#line 7871 "fff.tab.c"
     break;
 
   case 561: /* BasicForStatementNoShortIf: ForSym LRB SEMICOLON Expression SEMICOLON RRB StatementNoShortIf  */
-#line 1529 "final.y"
+#line 1510 "fff.y"
                                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-3].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector(a,(yyvsp[-3].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7897 "final.tab.c"
+#line 7877 "fff.tab.c"
     break;
 
   case 562: /* BasicForStatementNoShortIf: ForSym LRB SEMICOLON Expression SEMICOLON ForUpdate RRB StatementNoShortIf  */
-#line 1530 "final.y"
+#line 1511 "fff.y"
                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector(a,(yyvsp[-4].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7903 "final.tab.c"
+#line 7883 "fff.tab.c"
     break;
 
   case 563: /* BasicForStatementNoShortIf: ForSym LRB ForInit SEMICOLON SEMICOLON RRB StatementNoShortIf  */
-#line 1531 "final.y"
+#line 1512 "fff.y"
                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector((yyvsp[-4].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7909 "final.tab.c"
+#line 7889 "fff.tab.c"
     break;
 
   case 564: /* BasicForStatementNoShortIf: ForSym LRB ForInit SEMICOLON SEMICOLON ForUpdate RRB StatementNoShortIf  */
-#line 1532 "final.y"
+#line 1513 "fff.y"
                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();(yyval.typeinfo)->tac=concvector((yyvsp[-5].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7915 "final.tab.c"
+#line 7895 "fff.tab.c"
     break;
 
   case 565: /* BasicForStatementNoShortIf: ForSym LRB ForInit SEMICOLON Expression SEMICOLON RRB StatementNoShortIf  */
-#line 1533 "final.y"
+#line 1514 "fff.y"
                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-3].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector((yyvsp[-5].typeinfo)->tac,a,(yyvsp[-3].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7921 "final.tab.c"
+#line 7901 "fff.tab.c"
     break;
 
   case 566: /* BasicForStatementNoShortIf: ForSym LRB ForInit SEMICOLON Expression SEMICOLON ForUpdate RRB StatementNoShortIf  */
-#line 1534 "final.y"
+#line 1515 "fff.y"
                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector((yyvsp[-6].typeinfo)->tac,a,(yyvsp[-4].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7927 "final.tab.c"
+#line 7907 "fff.tab.c"
     break;
 
   case 567: /* ForInit: StatementExpressionList  */
-#line 1536 "final.y"
+#line 1517 "fff.y"
                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7933 "final.tab.c"
+#line 7913 "fff.tab.c"
     break;
 
   case 568: /* ForInit: LocalVariableDeclaration  */
-#line 1537 "final.y"
+#line 1518 "fff.y"
                                                                         {vector<string> a = ((yyvsp[0].typeinfo))->variables; for(auto s : a)insertidentifier(s,((yyvsp[0].typeinfo))->type,"",line);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7939 "final.tab.c"
+#line 7919 "fff.tab.c"
     break;
 
   case 569: /* ForUpdate: StatementExpressionList  */
-#line 1539 "final.y"
+#line 1520 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7945 "final.tab.c"
+#line 7925 "fff.tab.c"
     break;
 
   case 570: /* StatementExpressionList: StatementExpression  */
-#line 1541 "final.y"
+#line 1522 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7951 "final.tab.c"
+#line 7931 "fff.tab.c"
     break;
 
   case 571: /* StatementExpressionList: StatementExpression OMCommaStatementExpression  */
-#line 1542 "final.y"
+#line 1523 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 7957 "final.tab.c"
+#line 7937 "fff.tab.c"
     break;
 
   case 572: /* EnhancedForStatementSym: ForSym LRB LocalVariableDeclaration  */
-#line 1544 "final.y"
+#line 1525 "fff.y"
                                                              {vector<string> a = ((yyvsp[0].typeinfo))->variables; for(auto s : a)insertidentifier(s,((yyvsp[0].typeinfo))->type,"",line);(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 7963 "final.tab.c"
+#line 7943 "fff.tab.c"
     break;
 
   case 573: /* EnhancedForStatement: EnhancedForStatementSym COLON Expression RRB Statement  */
-#line 1546 "final.y"
+#line 1527 "fff.y"
                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-2].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector(a,(yyvsp[-4].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7969 "final.tab.c"
+#line 7949 "fff.tab.c"
     break;
 
   case 574: /* EnhancedForStatementNoShortIf: EnhancedForStatementSym COLON Expression RRB StatementNoShortIf  */
-#line 1548 "final.y"
+#line 1529 "fff.y"
                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; int lv=labelvariable; string a=newlabel();string b=newlabel();string ret="if zero"+((yyvsp[-2].typeinfo))->tempname+gotoo(lv+2);(yyval.typeinfo)->tac=concvector(a,(yyvsp[-4].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,ret,(yyvsp[0].typeinfo)->tac,gotoo(lv+1),b);}
-#line 7975 "final.tab.c"
+#line 7955 "fff.tab.c"
     break;
 
   case 575: /* BreakStatement: BREAK SEMICOLON  */
-#line 1550 "final.y"
+#line 1531 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;string p=gotoo(labelvariable+1); (yyval.typeinfo)->tac={p};}
-#line 7981 "final.tab.c"
+#line 7961 "fff.tab.c"
     break;
 
   case 576: /* BreakStatement: BREAK Identifier SEMICOLON  */
-#line 1551 "final.y"
+#line 1532 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;string p=gotoo(labelvariable+1); (yyval.typeinfo)->tac={p};}
-#line 7987 "final.tab.c"
+#line 7967 "fff.tab.c"
     break;
 
   case 577: /* YieldStatement: YIELD Expression SEMICOLON  */
-#line 1554 "final.y"
+#line 1535 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 7993 "final.tab.c"
+#line 7973 "fff.tab.c"
     break;
 
   case 578: /* ContinueStatement: CONTINUE SEMICOLON  */
-#line 1556 "final.y"
+#line 1537 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo;string p=gotoo(labelvariable); (yyval.typeinfo)->tac={p};}
-#line 7999 "final.tab.c"
+#line 7979 "fff.tab.c"
     break;
 
   case 579: /* ContinueStatement: CONTINUE Identifier SEMICOLON  */
-#line 1557 "final.y"
+#line 1538 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo;string p=gotoo(labelvariable); (yyval.typeinfo)->tac={p};}
-#line 8005 "final.tab.c"
+#line 7985 "fff.tab.c"
     break;
 
   case 580: /* ReturnStatement: RETURN SEMICOLON  */
-#line 1560 "final.y"
+#line 1541 "fff.y"
                                                         {(yyval.typeinfo)=new Typeinfo;string p=gotomethodretlabel(currmethod.top()); (yyval.typeinfo)->tac={p};}
-#line 8011 "final.tab.c"
+#line 7991 "fff.tab.c"
     break;
 
   case 581: /* ReturnStatement: RETURN Expression SEMICOLON  */
-#line 1561 "final.y"
+#line 1542 "fff.y"
                                              {(yyval.typeinfo)=new Typeinfo;string p=gotomethodretlabel(currmethod.top());string s = "%rax = " + (yyvsp[-1].typeinfo)->tempname; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,s,p);}
-#line 8017 "final.tab.c"
+#line 7997 "fff.tab.c"
     break;
 
   case 582: /* ThrowStatement: THROW Expression SEMICOLON  */
-#line 1563 "final.y"
+#line 1544 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 8023 "final.tab.c"
+#line 8003 "fff.tab.c"
     break;
 
   case 583: /* $@59: %empty  */
-#line 1565 "final.y"
+#line 1546 "fff.y"
                                                          {symtable*a=createscope("synchronized"); changescope(a);}
-#line 8029 "final.tab.c"
+#line 8009 "fff.tab.c"
     break;
 
   case 584: /* SynchronizedStatement: SYNCHRONIZED LRB Expression RRB $@59 Block  */
-#line 1565 "final.y"
+#line 1546 "fff.y"
                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8035 "final.tab.c"
+#line 8015 "fff.tab.c"
     break;
 
   case 585: /* TrySym: TRY  */
-#line 1567 "final.y"
+#line 1548 "fff.y"
             {symtable*a=createscope("try"); changescope(a);}
-#line 8041 "final.tab.c"
+#line 8021 "fff.tab.c"
     break;
 
   case 586: /* TryBlockSym: Block  */
-#line 1569 "final.y"
+#line 1550 "fff.y"
                         {goparent();(yyval.typeinfo)=createstruct(); (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8047 "final.tab.c"
+#line 8027 "fff.tab.c"
     break;
 
   case 587: /* TryStatement: TrySym TryBlockSym Catches  */
-#line 1571 "final.y"
+#line 1552 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8053 "final.tab.c"
+#line 8033 "fff.tab.c"
     break;
 
   case 588: /* TryStatement: TrySym TryBlockSym Finally  */
-#line 1572 "final.y"
+#line 1553 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8059 "final.tab.c"
+#line 8039 "fff.tab.c"
     break;
 
   case 589: /* TryStatement: TrySym TryBlockSym Catches Finally  */
-#line 1573 "final.y"
+#line 1554 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8065 "final.tab.c"
+#line 8045 "fff.tab.c"
     break;
 
   case 590: /* TryStatement: TryWithResourcesStatement  */
-#line 1574 "final.y"
+#line 1555 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8071 "final.tab.c"
+#line 8051 "fff.tab.c"
     break;
 
   case 591: /* Catches: CatchClause  */
-#line 1576 "final.y"
+#line 1557 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8077 "final.tab.c"
+#line 8057 "fff.tab.c"
     break;
 
   case 592: /* Catches: CatchClause OMCatchClause  */
-#line 1577 "final.y"
+#line 1558 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8083 "final.tab.c"
+#line 8063 "fff.tab.c"
     break;
 
   case 593: /* $@60: %empty  */
-#line 1579 "final.y"
+#line 1560 "fff.y"
                        {symtable*a=createscope("catch"); changescope(a);}
-#line 8089 "final.tab.c"
+#line 8069 "fff.tab.c"
     break;
 
   case 594: /* CatchClause: CATCH $@60 LRB CatchFormalParameter RRB Block  */
-#line 1579 "final.y"
+#line 1560 "fff.y"
                                                                                                                 {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8095 "final.tab.c"
+#line 8075 "fff.tab.c"
     break;
 
   case 595: /* CatchFormalParameter: CatchType VariableDeclaratorId  */
-#line 1581 "final.y"
+#line 1562 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8101 "final.tab.c"
+#line 8081 "fff.tab.c"
     break;
 
   case 596: /* CatchFormalParameter: OMClassModifier CatchType VariableDeclaratorId  */
-#line 1582 "final.y"
+#line 1563 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8107 "final.tab.c"
+#line 8087 "fff.tab.c"
     break;
 
   case 597: /* CatchType: Identifier  */
-#line 1584 "final.y"
+#line 1565 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8113 "final.tab.c"
+#line 8093 "fff.tab.c"
     break;
 
   case 598: /* CatchType: Identifier OMOrClassType  */
-#line 1585 "final.y"
+#line 1566 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8119 "final.tab.c"
+#line 8099 "fff.tab.c"
     break;
 
   case 599: /* $@61: %empty  */
-#line 1588 "final.y"
+#line 1569 "fff.y"
                          {symtable*a=createscope("finally"); changescope(a);}
-#line 8125 "final.tab.c"
+#line 8105 "fff.tab.c"
     break;
 
   case 600: /* Finally: FINALLY $@61 Block  */
-#line 1588 "final.y"
+#line 1569 "fff.y"
                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8131 "final.tab.c"
+#line 8111 "fff.tab.c"
     break;
 
   case 601: /* TryWithResourcesStatement: TrySym ResourceSpecification TryBlockSym  */
-#line 1590 "final.y"
+#line 1571 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8137 "final.tab.c"
+#line 8117 "fff.tab.c"
     break;
 
   case 602: /* TryWithResourcesStatement: TrySym ResourceSpecification TryBlockSym Finally  */
-#line 1591 "final.y"
+#line 1572 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8143 "final.tab.c"
+#line 8123 "fff.tab.c"
     break;
 
   case 603: /* TryWithResourcesStatement: TrySym ResourceSpecification TryBlockSym Catches  */
-#line 1592 "final.y"
+#line 1573 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8149 "final.tab.c"
+#line 8129 "fff.tab.c"
     break;
 
   case 604: /* TryWithResourcesStatement: TrySym ResourceSpecification TryBlockSym Catches Finally  */
-#line 1593 "final.y"
+#line 1574 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8155 "final.tab.c"
+#line 8135 "fff.tab.c"
     break;
 
   case 605: /* ResourceSpecification: LRB ResourceList RRB  */
-#line 1595 "final.y"
+#line 1576 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 8161 "final.tab.c"
+#line 8141 "fff.tab.c"
     break;
 
   case 606: /* ResourceList: Resource  */
-#line 1597 "final.y"
+#line 1578 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8167 "final.tab.c"
+#line 8147 "fff.tab.c"
     break;
 
   case 607: /* ResourceList: OMSemicolonResource  */
-#line 1598 "final.y"
+#line 1579 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8173 "final.tab.c"
+#line 8153 "fff.tab.c"
     break;
 
   case 608: /* Resource: LocalVariableDeclaration  */
-#line 1600 "final.y"
+#line 1581 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8179 "final.tab.c"
+#line 8159 "fff.tab.c"
     break;
 
   case 609: /* Resource: VariableAccess  */
-#line 1601 "final.y"
+#line 1582 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8185 "final.tab.c"
+#line 8165 "fff.tab.c"
     break;
 
   case 610: /* Primary: PrimaryNoNewArray  */
-#line 1603 "final.y"
+#line 1584 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;vector<int>q;(yyval.typeinfo)->arrdim=q;(yyval.typeinfo)->arrtype="";(yyval.typeinfo)->initvartype=(yyvsp[0].typeinfo)->initvartype;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8191 "final.tab.c"
+#line 8171 "fff.tab.c"
     break;
 
   case 611: /* Primary: ArrayCreationExpression  */
-#line 1604 "final.y"
+#line 1585 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->initvartype="";(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8197 "final.tab.c"
+#line 8177 "fff.tab.c"
     break;
 
   case 612: /* PrimaryNoNewArray: Literal  */
-#line 1606 "final.y"
+#line 1587 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;(yyval.typeinfo)->initvartype=(yyvsp[0].typeinfo)->type;((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8203 "final.tab.c"
+#line 8183 "fff.tab.c"
     break;
 
   case 613: /* PrimaryNoNewArray: ClassLiteral  */
-#line 1607 "final.y"
+#line 1588 "fff.y"
                                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8209 "final.tab.c"
+#line 8189 "fff.tab.c"
     break;
 
   case 614: /* PrimaryNoNewArray: THIS  */
-#line 1608 "final.y"
+#line 1589 "fff.y"
                                                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class"; (yyval.typeinfo)->tac=emptyvector();(yyval.typeinfo)->tempname="this";}
-#line 8215 "final.tab.c"
+#line 8195 "fff.tab.c"
     break;
 
   case 615: /* PrimaryNoNewArray: Identifier DOT THIS  */
-#line 1609 "final.y"
+#line 1590 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class";string x=(yyvsp[-2].str); (yyval.typeinfo)->tac=emptyvector();(yyval.typeinfo)->tempname=x;}
-#line 8221 "final.tab.c"
+#line 8201 "fff.tab.c"
     break;
 
   case 616: /* PrimaryNoNewArray: ExpressionName DOT THIS  */
-#line 1610 "final.y"
+#line 1591 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[-2].typeinfo);((yyval.typeinfo))->type = "class";}
-#line 8227 "final.tab.c"
+#line 8207 "fff.tab.c"
     break;
 
   case 617: /* PrimaryNoNewArray: LRB Expression RRB  */
-#line 1611 "final.y"
+#line 1592 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[-1].typeinfo);((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;}
-#line 8233 "final.tab.c"
+#line 8213 "fff.tab.c"
     break;
 
   case 618: /* PrimaryNoNewArray: ClassInstanceCreationExpression  */
-#line 1612 "final.y"
+#line 1593 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8239 "final.tab.c"
+#line 8219 "fff.tab.c"
     break;
 
   case 619: /* PrimaryNoNewArray: FieldAccess  */
-#line 1613 "final.y"
+#line 1594 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = "look";}
-#line 8245 "final.tab.c"
+#line 8225 "fff.tab.c"
     break;
 
   case 620: /* PrimaryNoNewArray: ArrayAccess  */
-#line 1614 "final.y"
+#line 1595 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8251 "final.tab.c"
+#line 8231 "fff.tab.c"
     break;
 
   case 621: /* PrimaryNoNewArray: MethodInvocation  */
-#line 1615 "final.y"
+#line 1596 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8257 "final.tab.c"
+#line 8237 "fff.tab.c"
     break;
 
   case 622: /* PrimaryNoNewArray: MethodReference  */
-#line 1616 "final.y"
+#line 1597 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = "look";}
-#line 8263 "final.tab.c"
+#line 8243 "fff.tab.c"
     break;
 
   case 623: /* ClassLiteral: Identifier DOT CLASS  */
-#line 1618 "final.y"
+#line 1599 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class"; (yyval.typeinfo)->tac=emptyvector();}
-#line 8269 "final.tab.c"
+#line 8249 "fff.tab.c"
     break;
 
   case 624: /* ClassLiteral: ExpressionName DOT CLASS  */
-#line 1619 "final.y"
+#line 1600 "fff.y"
                                                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class"; (yyval.typeinfo)->tac=emptyvector();}
-#line 8275 "final.tab.c"
+#line 8255 "fff.tab.c"
     break;
 
   case 625: /* ClassLiteral: Identifier OMPSB DOT CLASS  */
-#line 1620 "final.y"
+#line 1601 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class"; (yyval.typeinfo)->tac=emptyvector();}
-#line 8281 "final.tab.c"
+#line 8261 "fff.tab.c"
     break;
 
   case 626: /* ClassLiteral: ExpressionName OMPSB DOT CLASS  */
-#line 1621 "final.y"
+#line 1602 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class"; (yyval.typeinfo)->tac=emptyvector();}
-#line 8287 "final.tab.c"
+#line 8267 "fff.tab.c"
     break;
 
   case 627: /* ClassLiteral: UnannPrimitiveType DOT CLASS  */
-#line 1622 "final.y"
+#line 1603 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class"; (yyval.typeinfo)->tac=emptyvector();}
-#line 8293 "final.tab.c"
+#line 8273 "fff.tab.c"
     break;
 
   case 628: /* ClassLiteral: VOID DOT CLASS  */
-#line 1623 "final.y"
+#line 1604 "fff.y"
                                                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "class"; (yyval.typeinfo)->tac=emptyvector();}
-#line 8299 "final.tab.c"
+#line 8279 "fff.tab.c"
     break;
 
   case 629: /* ClassInstanceCreationExpression: UnqualifiedClassInstanceCreationExpression  */
-#line 1625 "final.y"
+#line 1606 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8305 "final.tab.c"
+#line 8285 "fff.tab.c"
     break;
 
   case 630: /* ClassInstanceCreationExpression: Identifier DOT UnqualifiedClassInstanceCreationExpression  */
-#line 1626 "final.y"
+#line 1607 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8311 "final.tab.c"
+#line 8291 "fff.tab.c"
     break;
 
   case 631: /* ClassInstanceCreationExpression: ExpressionName DOT UnqualifiedClassInstanceCreationExpression  */
-#line 1627 "final.y"
+#line 1608 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8317 "final.tab.c"
+#line 8297 "fff.tab.c"
     break;
 
   case 632: /* ClassInstanceCreationExpression: Primary DOT UnqualifiedClassInstanceCreationExpression  */
-#line 1628 "final.y"
+#line 1609 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8323 "final.tab.c"
+#line 8303 "fff.tab.c"
     break;
 
   case 633: /* UnqualifiedClassInstanceCreationExpression: NEW ClassOrInterfaceTypeToInstantiate LRB RRB  */
-#line 1634 "final.y"
+#line 1615 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;(yyval.typeinfo)->tac=(yyvsp[-2].typeinfo)->tac;}
-#line 8329 "final.tab.c"
+#line 8309 "fff.tab.c"
     break;
 
   case 634: /* UnqualifiedClassInstanceCreationExpression: NEW ClassOrInterfaceTypeToInstantiate LRB RRB ClassBody  */
-#line 1635 "final.y"
+#line 1616 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-3].typeinfo))->type;(yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8335 "final.tab.c"
+#line 8315 "fff.tab.c"
     break;
 
   case 635: /* UnqualifiedClassInstanceCreationExpression: NEW ClassOrInterfaceTypeToInstantiate LRB ArgumentList RRB  */
-#line 1636 "final.y"
+#line 1617 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-3].typeinfo))->type;(yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 8341 "final.tab.c"
+#line 8321 "fff.tab.c"
     break;
 
   case 636: /* UnqualifiedClassInstanceCreationExpression: NEW ClassOrInterfaceTypeToInstantiate LRB ArgumentList RRB ClassBody  */
-#line 1637 "final.y"
+#line 1618 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-4].typeinfo))->type;(yyval.typeinfo)->tac=concvector((yyvsp[-4].typeinfo)->tac,(yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);}
-#line 8347 "final.tab.c"
+#line 8327 "fff.tab.c"
     break;
 
   case 637: /* ClassOrInterfaceTypeToInstantiate: Identifier  */
-#line 1639 "final.y"
+#line 1620 "fff.y"
                                                                                 {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);if(lookup(p)){((yyval.typeinfo))->type =  lookup(p)->funcrettype ;}(yyval.typeinfo)->tac=emptyvector();}
-#line 8353 "final.tab.c"
+#line 8333 "fff.tab.c"
     break;
 
   case 638: /* ClassOrInterfaceTypeToInstantiate: Identifier OMDotIdentifier  */
-#line 1640 "final.y"
+#line 1621 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac=emptyvector();string p = (yyvsp[-1].str);if(lookup(p + ((yyvsp[0].typeinfo))->name)){((yyval.typeinfo))->type =  lookup(p + ((yyvsp[0].typeinfo))->name)->funcrettype ;}}
-#line 8359 "final.tab.c"
+#line 8339 "fff.tab.c"
     break;
 
   case 639: /* FieldAccess: Primary DOT Identifier  */
-#line 1642 "final.y"
+#line 1623 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8365 "final.tab.c"
+#line 8345 "fff.tab.c"
     break;
 
   case 640: /* FieldAccess: SUPER DOT Identifier  */
-#line 1643 "final.y"
+#line 1624 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac=emptyvector();}
-#line 8371 "final.tab.c"
+#line 8351 "fff.tab.c"
     break;
 
   case 641: /* FieldAccess: Identifier DOT SUPER DOT Identifier  */
-#line 1644 "final.y"
+#line 1625 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->tac=emptyvector();}
-#line 8377 "final.tab.c"
+#line 8357 "fff.tab.c"
     break;
 
   case 642: /* FieldAccess: ExpressionName DOT SUPER DOT Identifier  */
-#line 1645 "final.y"
+#line 1626 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-4].typeinfo)->tac;}
-#line 8383 "final.tab.c"
+#line 8363 "fff.tab.c"
     break;
 
   case 643: /* ArrayAccess: Identifier LSB Expression RSB  */
-#line 1647 "final.y"
-                                                                {(yyval.typeinfo)=new Typeinfo;string yy=(yyvsp[-3].str);symentry* entry=lookup(yy); vector<int>v=entry->arrdims;string x=entry->primtype; vector<int>f; for(int 	i=1;i<v.size();i++)f.push_back(v[i]);(yyval.typeinfo)->dimsize=f;(yyval.typeinfo)->arrname="a"; (yyval.typeinfo)->arrtype=x;string y=newtemp();(yyval.typeinfo)->tempname=y;y=y+" = "+((yyvsp[-1].typeinfo))->tempname+" * "+to_string(tellsize(f,x)); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,y);}
-#line 8389 "final.tab.c"
+#line 1628 "fff.y"
+                                                                {(yyval.typeinfo)=new Typeinfo; vector<int>v={2,3,4};string x="int"; vector<int>f; for(int 	i=1;i<v.size();i++)f.push_back(v[i]);(yyval.typeinfo)->dimsize=f;(yyval.typeinfo)->arrname="a"; (yyval.typeinfo)->arrtype=x;string y=newtemp();(yyval.typeinfo)->tempname=y;y=y+" = "+((yyvsp[-1].typeinfo))->tempname+" * "+to_string(tellsize(f,x)); (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,y);}
+#line 8369 "fff.tab.c"
     break;
 
   case 644: /* ArrayAccess: ExpressionName LSB Expression RSB  */
-#line 1648 "final.y"
+#line 1629 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 8395 "final.tab.c"
+#line 8375 "fff.tab.c"
     break;
 
   case 645: /* ArrayAccess: PrimaryNoNewArray LSB Expression RSB  */
-#line 1649 "final.y"
+#line 1630 "fff.y"
                                                                                 {(yyval.typeinfo)=new Typeinfo; vector<int>v=((yyvsp[-3].typeinfo))->dimsize;string x=((yyvsp[-3].typeinfo))->arrtype; vector<int>f; for(int i=1;i<v.size();i++)f.push_back(v[i]);(yyval.typeinfo)->dimsize=f; (yyval.typeinfo)->arrtype=x;string y=newtemp();(yyval.typeinfo)->tempname=y;string z=newtemp();y=y+" = "+((yyvsp[-1].typeinfo))->tempname+" + "+z;z=z+" = "+((yyvsp[-1].typeinfo))->tempname+" * "+to_string(tellsize(f,x)); (yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac,z,y);(yyval.typeinfo)->arrname=(yyvsp[-3].typeinfo)->arrname;}
-#line 8401 "final.tab.c"
+#line 8381 "fff.tab.c"
     break;
 
   case 646: /* MethodInvocation: MethodName LRB ArgumentList RRB  */
-#line 1651 "final.y"
+#line 1632 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();if(lookup(((yyvsp[-3].typeinfo))->name)){((yyval.typeinfo))->type =  lookup(((yyvsp[-3].typeinfo))->name)->funcrettype ;} vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters(); string s = ((yyvsp[-3].typeinfo))->tempname;((yyval.typeinfo))->tempname = "%rax"; string s1 = gotomethod(s);string s2 = newmethodretlabel(s);vector<string> pushpar = pusharg(((yyvsp[-1].typeinfo))->params);(yyval.typeinfo)->tac=concvector(pv1,(yyvsp[-1].typeinfo)->tac,pushpar,s1,(yyvsp[-3].typeinfo)->tac,s2,pv2);}
-#line 8407 "final.tab.c"
+#line 8387 "fff.tab.c"
     break;
 
   case 647: /* MethodInvocation: MethodName LRB RRB  */
-#line 1652 "final.y"
+#line 1633 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();if(lookup(((yyvsp[-2].typeinfo))->name)){((yyval.typeinfo))->type =  lookup(((yyvsp[-2].typeinfo))->name)->funcrettype ;}vector<string>pv1 = pushregisters();vector<string>pv2 = popregisters();string s = ((yyvsp[-2].typeinfo))->tempname;((yyval.typeinfo))->tempname = "%rax";string s1 = gotomethod(s);string s2 = newmethodretlabel(s); (yyval.typeinfo)->tac=concvector(pv1,s1,(yyvsp[-2].typeinfo)->tac,s2,pv2);}
-#line 8413 "final.tab.c"
+#line 8393 "fff.tab.c"
     break;
 
   case 648: /* MethodInvocation: Identifier DOT Identifier LRB RRB  */
-#line 1653 "final.y"
+#line 1634 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8419 "final.tab.c"
+#line 8399 "fff.tab.c"
     break;
 
   case 649: /* MethodInvocation: Identifier DOT Identifier LRB ArgumentList RRB  */
-#line 1654 "final.y"
+#line 1635 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 8425 "final.tab.c"
+#line 8405 "fff.tab.c"
     break;
 
   case 650: /* MethodInvocation: ExpressionName DOT Identifier LRB RRB  */
-#line 1655 "final.y"
+#line 1636 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-4].typeinfo)->tac;}
-#line 8431 "final.tab.c"
+#line 8411 "fff.tab.c"
     break;
 
   case 651: /* MethodInvocation: ExpressionName DOT Identifier LRB ArgumentList RRB  */
-#line 1656 "final.y"
+#line 1637 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-5].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 8437 "final.tab.c"
+#line 8417 "fff.tab.c"
     break;
 
   case 652: /* MethodInvocation: Primary DOT Identifier LRB RRB  */
-#line 1657 "final.y"
+#line 1638 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-4].typeinfo)->tac;}
-#line 8443 "final.tab.c"
+#line 8423 "fff.tab.c"
     break;
 
   case 653: /* MethodInvocation: Primary DOT Identifier LRB ArgumentList RRB  */
-#line 1658 "final.y"
+#line 1639 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-5].typeinfo)->tac;}
-#line 8449 "final.tab.c"
+#line 8429 "fff.tab.c"
     break;
 
   case 654: /* MethodInvocation: SUPER DOT Identifier LRB RRB  */
-#line 1659 "final.y"
+#line 1640 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8455 "final.tab.c"
+#line 8435 "fff.tab.c"
     break;
 
   case 655: /* MethodInvocation: SUPER DOT Identifier LRB ArgumentList RRB  */
-#line 1660 "final.y"
+#line 1641 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8461 "final.tab.c"
+#line 8441 "fff.tab.c"
     break;
 
   case 656: /* MethodInvocation: Identifier DOT SUPER DOT Identifier LRB RRB  */
-#line 1661 "final.y"
+#line 1642 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8467 "final.tab.c"
+#line 8447 "fff.tab.c"
     break;
 
   case 657: /* MethodInvocation: Identifier DOT SUPER DOT Identifier LRB ArgumentList RRB  */
-#line 1662 "final.y"
+#line 1643 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-1].typeinfo)->tac;}
-#line 8473 "final.tab.c"
+#line 8453 "fff.tab.c"
     break;
 
   case 658: /* MethodInvocation: ExpressionName DOT SUPER DOT Identifier LRB RRB  */
-#line 1663 "final.y"
+#line 1644 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[-6].typeinfo)->tac;}
-#line 8479 "final.tab.c"
+#line 8459 "fff.tab.c"
     break;
 
   case 659: /* MethodInvocation: ExpressionName DOT SUPER DOT Identifier LRB ArgumentList RRB  */
-#line 1664 "final.y"
+#line 1645 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-7].typeinfo)->tac,(yyvsp[-1].typeinfo)->tac);}
-#line 8485 "final.tab.c"
+#line 8465 "fff.tab.c"
     break;
 
   case 660: /* ArgumentList: Expression  */
-#line 1667 "final.y"
+#line 1648 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;string s = ((yyvsp[0].typeinfo))->tempname; (yyval.typeinfo)->params.push_back(s);}
-#line 8491 "final.tab.c"
+#line 8471 "fff.tab.c"
     break;
 
   case 661: /* ArgumentList: Expression OMCommaExpression  */
-#line 1668 "final.y"
+#line 1649 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);string s = ((yyvsp[-1].typeinfo))->tempname; (yyval.typeinfo)->params.push_back(s); for(auto z:((yyvsp[0].typeinfo))->params)((yyval.typeinfo))->params.push_back(z);}
-#line 8497 "final.tab.c"
+#line 8477 "fff.tab.c"
     break;
 
   case 662: /* MethodReference: Identifier DOUBLECOLON Identifier  */
-#line 1670 "final.y"
+#line 1651 "fff.y"
                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8503 "final.tab.c"
+#line 8483 "fff.tab.c"
     break;
 
   case 664: /* MethodReference: Primary DOUBLECOLON Identifier  */
-#line 1672 "final.y"
+#line 1653 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8509 "final.tab.c"
+#line 8489 "fff.tab.c"
     break;
 
   case 665: /* MethodReference: UnannArrayType DOUBLECOLON Identifier  */
-#line 1673 "final.y"
+#line 1654 "fff.y"
                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8515 "final.tab.c"
+#line 8495 "fff.tab.c"
     break;
 
   case 666: /* MethodReference: SUPER DOUBLECOLON Identifier  */
-#line 1674 "final.y"
+#line 1655 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8521 "final.tab.c"
+#line 8501 "fff.tab.c"
     break;
 
   case 667: /* MethodReference: Identifier DOT SUPER DOUBLECOLON Identifier  */
-#line 1675 "final.y"
+#line 1656 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8527 "final.tab.c"
+#line 8507 "fff.tab.c"
     break;
 
   case 669: /* MethodReference: UnannArrayType DOUBLECOLON NEW  */
-#line 1677 "final.y"
+#line 1658 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8533 "final.tab.c"
+#line 8513 "fff.tab.c"
     break;
 
   case 670: /* ArrayCreationExpression: NEW PrimitiveType OMDimExpr  */
-#line 1679 "final.y"
-                                                                                {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->type=(yyvsp[-1].typeinfo)->type;(yyval.typeinfo)->arrtype=(yyvsp[-1].typeinfo)->type;(yyval.typeinfo)->arrdim=(yyvsp[0].typeinfo)->arrdim; (yyval.typeinfo)->tac=emptyvector();}
-#line 8539 "final.tab.c"
+#line 1660 "fff.y"
+                                                                                {(yyval.typeinfo) = createstruct();(yyval.typeinfo)->type=(yyvsp[-1].typeinfo)->type;(yyval.typeinfo)->arrtype=(yyvsp[-1].typeinfo)->type;(yyval.typeinfo)->arrdim=(yyvsp[0].typeinfo)->arrdim;cout<<"hi";for(auto z:(yyvsp[0].typeinfo)->arrdim)cout<<z<<"  "; (yyval.typeinfo)->tac=emptyvector();}
+#line 8519 "fff.tab.c"
     break;
 
   case 671: /* ArrayCreationExpression: NEW PrimitiveType OMDimExpr OMPSB  */
-#line 1680 "final.y"
+#line 1661 "fff.y"
                                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8545 "final.tab.c"
+#line 8525 "fff.tab.c"
     break;
 
   case 672: /* ArrayCreationExpression: NEW Identifier OMDimExpr  */
-#line 1681 "final.y"
+#line 1662 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8551 "final.tab.c"
+#line 8531 "fff.tab.c"
     break;
 
   case 673: /* ArrayCreationExpression: NEW Identifier OMDimExpr OMPSB  */
-#line 1682 "final.y"
+#line 1663 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=emptyvector();}
-#line 8557 "final.tab.c"
+#line 8537 "fff.tab.c"
     break;
 
   case 674: /* ArrayCreationExpression: NEW PrimitiveType OMPSB ArrayInitializer  */
-#line 1683 "final.y"
+#line 1664 "fff.y"
                                                                                                                 {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8563 "final.tab.c"
+#line 8543 "fff.tab.c"
     break;
 
   case 675: /* ArrayCreationExpression: NEW Identifier OMPSB ArrayInitializer  */
-#line 1684 "final.y"
+#line 1665 "fff.y"
                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8569 "final.tab.c"
+#line 8549 "fff.tab.c"
     break;
 
   case 676: /* DimExpr: LSB Expression RSB  */
-#line 1687 "final.y"
+#line 1668 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();if((yyvsp[-1].typeinfo)->type!="int")cout<<"error coz of nonint array para";(yyval.typeinfo)=(yyvsp[-1].typeinfo);(yyval.typeinfo)->exprvalue=(yyvsp[-1].typeinfo)->exprvalue;(yyval.typeinfo)->type=(yyvsp[-1].typeinfo)->type;}
-#line 8575 "final.tab.c"
+#line 8555 "fff.tab.c"
     break;
 
   case 677: /* Expression: AssignmentExpression  */
-#line 1689 "final.y"
+#line 1670 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
-#line 8581 "final.tab.c"
+#line 8561 "fff.tab.c"
     break;
 
   case 678: /* AssignmentExpression: ConditionalExpression  */
-#line 1691 "final.y"
+#line 1672 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
-#line 8587 "final.tab.c"
+#line 8567 "fff.tab.c"
     break;
 
   case 679: /* AssignmentExpression: Assignment  */
-#line 1692 "final.y"
+#line 1673 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8593 "final.tab.c"
+#line 8573 "fff.tab.c"
     break;
 
   case 680: /* Assignment: LeftHandSide AssignmentOperator Expression  */
-#line 1694 "final.y"
+#line 1675 "fff.y"
                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string p=((yyvsp[-2].typeinfo))->tempname+" = "+((yyvsp[0].typeinfo))->tempname;(yyval.typeinfo)->tempname=((yyvsp[-2].typeinfo))->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,p);}
-#line 8599 "final.tab.c"
+#line 8579 "fff.tab.c"
     break;
 
   case 681: /* LeftHandSide: ExpressionName  */
-#line 1696 "final.y"
+#line 1677 "fff.y"
                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
-#line 8605 "final.tab.c"
+#line 8585 "fff.tab.c"
     break;
 
   case 682: /* LeftHandSide: Identifier  */
-#line 1697 "final.y"
+#line 1678 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);if(lookup(p)){((yyval.typeinfo))->type = lookup(p)->type;}string x=(yyvsp[0].str); string q=newtemp();(yyval.typeinfo)->tempname=q;q=q+" = "+x; (yyval.typeinfo)->tac={q};}
-#line 8611 "final.tab.c"
+#line 8591 "fff.tab.c"
     break;
 
   case 683: /* LeftHandSide: FieldAccess  */
-#line 1698 "final.y"
+#line 1679 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
-#line 8617 "final.tab.c"
+#line 8597 "fff.tab.c"
     break;
 
   case 684: /* LeftHandSide: ArrayAccess  */
-#line 1699 "final.y"
+#line 1680 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->type=(yyvsp[0].typeinfo)->type;string y=((yyvsp[0].typeinfo))->arrname+"["+((yyvsp[0].typeinfo))->tempname+"]"; (yyval.typeinfo)->tempname=y;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
-#line 8623 "final.tab.c"
+#line 8603 "fff.tab.c"
     break;
 
   case 685: /* AssignmentOperator: ASSIGNMENTOPERATOR  */
-#line 1701 "final.y"
+#line 1682 "fff.y"
                                                                                                 {(yyval.str)=(yyvsp[0].str);}
-#line 8629 "final.tab.c"
+#line 8609 "fff.tab.c"
     break;
 
   case 686: /* ConditionalExpression: ConditionalOrExpression  */
-#line 1703 "final.y"
+#line 1684 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
-#line 8635 "final.tab.c"
+#line 8615 "fff.tab.c"
     break;
 
   case 687: /* ConditionalExpression: ConditionalOrExpression QM Expression COLON ConditionalExpression  */
-#line 1704 "final.y"
+#line 1685 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-4].typeinfo))->type;int lv=labelvariable;string a=newlabel();string ret="if zero "+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+1);(yyval.typeinfo)->tac=concvector((yyvsp[-4].typeinfo)->tac,ret,(yyvsp[-2].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac);}
-#line 8641 "final.tab.c"
+#line 8621 "fff.tab.c"
     break;
 
   case 688: /* ConditionalOrExpression: ConditionalAndExpression  */
-#line 1706 "final.y"
+#line 1687 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8647 "final.tab.c"
+#line 8627 "fff.tab.c"
     break;
 
   case 689: /* ConditionalOrExpression: ConditionalOrExpression OR ConditionalAndExpression  */
-#line 1707 "final.y"
+#line 1688 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" || "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8653 "final.tab.c"
+#line 8633 "fff.tab.c"
     break;
 
   case 690: /* ConditionalAndExpression: InclusiveOrExpression  */
-#line 1709 "final.y"
+#line 1690 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8659 "final.tab.c"
+#line 8639 "fff.tab.c"
     break;
 
   case 691: /* ConditionalAndExpression: ConditionalAndExpression AND InclusiveOrExpression  */
-#line 1710 "final.y"
+#line 1691 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" && "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8665 "final.tab.c"
+#line 8645 "fff.tab.c"
     break;
 
   case 692: /* InclusiveOrExpression: ExclusiveOrExpression  */
-#line 1712 "final.y"
+#line 1693 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8671 "final.tab.c"
+#line 8651 "fff.tab.c"
     break;
 
   case 693: /* InclusiveOrExpression: InclusiveOrExpression BITOR ExclusiveOrExpression  */
-#line 1713 "final.y"
+#line 1694 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" | "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8677 "final.tab.c"
+#line 8657 "fff.tab.c"
     break;
 
   case 694: /* ExclusiveOrExpression: AndExpression  */
-#line 1715 "final.y"
+#line 1696 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8683 "final.tab.c"
+#line 8663 "fff.tab.c"
     break;
 
   case 695: /* ExclusiveOrExpression: ExclusiveOrExpression BITXOR AndExpression  */
-#line 1716 "final.y"
+#line 1697 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" ^ "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8689 "final.tab.c"
+#line 8669 "fff.tab.c"
     break;
 
   case 696: /* AndExpression: EqualityExpression  */
-#line 1718 "final.y"
+#line 1699 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8695 "final.tab.c"
+#line 8675 "fff.tab.c"
     break;
 
   case 697: /* AndExpression: AndExpression BITAND EqualityExpression  */
-#line 1719 "final.y"
+#line 1700 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" & "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8701 "final.tab.c"
+#line 8681 "fff.tab.c"
     break;
 
   case 698: /* EqualityExpression: RelationalExpression  */
-#line 1721 "final.y"
+#line 1702 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8707 "final.tab.c"
+#line 8687 "fff.tab.c"
     break;
 
   case 699: /* EqualityExpression: EqualityExpression DOUBLEEQUAL RelationalExpression  */
-#line 1722 "final.y"
+#line 1703 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" == "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8713 "final.tab.c"
+#line 8693 "fff.tab.c"
     break;
 
   case 700: /* EqualityExpression: EqualityExpression NE RelationalExpression  */
-#line 1723 "final.y"
+#line 1704 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" != "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8719 "final.tab.c"
+#line 8699 "fff.tab.c"
     break;
 
   case 701: /* RelationalExpression: ShiftExpression  */
-#line 1725 "final.y"
+#line 1706 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8725 "final.tab.c"
+#line 8705 "fff.tab.c"
     break;
 
   case 702: /* RelationalExpression: RelationalExpression LT ShiftExpression  */
-#line 1726 "final.y"
+#line 1707 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" < "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8731 "final.tab.c"
+#line 8711 "fff.tab.c"
     break;
 
   case 703: /* RelationalExpression: RelationalExpression GT ShiftExpression  */
-#line 1727 "final.y"
+#line 1708 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" > "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8737 "final.tab.c"
+#line 8717 "fff.tab.c"
     break;
 
   case 704: /* RelationalExpression: RelationalExpression LTE ShiftExpression  */
-#line 1728 "final.y"
+#line 1709 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" <= "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8743 "final.tab.c"
+#line 8723 "fff.tab.c"
     break;
 
   case 705: /* RelationalExpression: RelationalExpression GTE ShiftExpression  */
-#line 1729 "final.y"
+#line 1710 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" >= "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8749 "final.tab.c"
+#line 8729 "fff.tab.c"
     break;
 
   case 706: /* RelationalExpression: InstanceofExpression  */
-#line 1730 "final.y"
+#line 1711 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8755 "final.tab.c"
+#line 8735 "fff.tab.c"
     break;
 
   case 707: /* InstanceofExpression: RelationalExpression INSTANCEOF ReferenceType  */
-#line 1735 "final.y"
+#line 1716 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" instanceof "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8761 "final.tab.c"
+#line 8741 "fff.tab.c"
     break;
 
   case 708: /* ShiftExpression: AdditiveExpression  */
-#line 1737 "final.y"
+#line 1718 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8767 "final.tab.c"
+#line 8747 "fff.tab.c"
     break;
 
   case 709: /* ShiftExpression: ShiftExpression LSHIFT AdditiveExpression  */
-#line 1738 "final.y"
+#line 1719 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" << "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8773 "final.tab.c"
+#line 8753 "fff.tab.c"
     break;
 
   case 710: /* ShiftExpression: ShiftExpression RSHIFT AdditiveExpression  */
-#line 1739 "final.y"
+#line 1720 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" >> "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8779 "final.tab.c"
+#line 8759 "fff.tab.c"
     break;
 
   case 711: /* ShiftExpression: ShiftExpression THREEGT AdditiveExpression  */
-#line 1740 "final.y"
+#line 1721 "fff.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" >>> "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8785 "final.tab.c"
+#line 8765 "fff.tab.c"
     break;
 
   case 712: /* AdditiveExpression: MultiplicativeExpression  */
-#line 1742 "final.y"
+#line 1723 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8791 "final.tab.c"
+#line 8771 "fff.tab.c"
     break;
 
   case 713: /* AdditiveExpression: AdditiveExpression PLUS MultiplicativeExpression  */
-#line 1743 "final.y"
+#line 1724 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" + "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8797 "final.tab.c"
+#line 8777 "fff.tab.c"
     break;
 
   case 714: /* AdditiveExpression: AdditiveExpression MINUS MultiplicativeExpression  */
-#line 1744 "final.y"
+#line 1725 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" - "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8803 "final.tab.c"
+#line 8783 "fff.tab.c"
     break;
 
   case 715: /* MultiplicativeExpression: UnaryExpression  */
-#line 1746 "final.y"
+#line 1727 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8809 "final.tab.c"
+#line 8789 "fff.tab.c"
     break;
 
   case 716: /* MultiplicativeExpression: MultiplicativeExpression MULTIPLY UnaryExpression  */
-#line 1747 "final.y"
+#line 1728 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" * "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8815 "final.tab.c"
+#line 8795 "fff.tab.c"
     break;
 
   case 717: /* MultiplicativeExpression: MultiplicativeExpression DIVIDE UnaryExpression  */
-#line 1748 "final.y"
+#line 1729 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" / "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8821 "final.tab.c"
+#line 8801 "fff.tab.c"
     break;
 
   case 718: /* MultiplicativeExpression: MultiplicativeExpression PERCENT UnaryExpression  */
-#line 1749 "final.y"
+#line 1730 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" % "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);}
-#line 8827 "final.tab.c"
+#line 8807 "fff.tab.c"
     break;
 
   case 719: /* UnaryExpression: PreIncrementExpression  */
-#line 1751 "final.y"
+#line 1732 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8833 "final.tab.c"
+#line 8813 "fff.tab.c"
     break;
 
   case 720: /* UnaryExpression: PreDecrementExpression  */
-#line 1752 "final.y"
+#line 1733 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8839 "final.tab.c"
+#line 8819 "fff.tab.c"
     break;
 
   case 721: /* UnaryExpression: PLUS UnaryExpression  */
-#line 1753 "final.y"
+#line 1734 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8845 "final.tab.c"
+#line 8825 "fff.tab.c"
     break;
 
   case 722: /* UnaryExpression: MINUS UnaryExpression  */
-#line 1754 "final.y"
+#line 1735 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+" - "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);}
-#line 8851 "final.tab.c"
+#line 8831 "fff.tab.c"
     break;
 
   case 723: /* UnaryExpression: UnaryExpressionNotPlusMinus  */
-#line 1755 "final.y"
+#line 1736 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8857 "final.tab.c"
+#line 8837 "fff.tab.c"
     break;
 
   case 724: /* PreIncrementExpression: INCREAMENT UnaryExpression  */
-#line 1757 "final.y"
+#line 1738 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname+" + 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue+1;}
-#line 8863 "final.tab.c"
+#line 8843 "fff.tab.c"
     break;
 
   case 725: /* PreDecrementExpression: DECREAMENT UnaryExpression  */
-#line 1759 "final.y"
+#line 1740 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname+" - 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue+1;}
-#line 8869 "final.tab.c"
+#line 8849 "fff.tab.c"
     break;
 
   case 726: /* UnaryExpressionNotPlusMinus: PostfixExpression  */
-#line 1761 "final.y"
+#line 1742 "fff.y"
                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8875 "final.tab.c"
+#line 8855 "fff.tab.c"
     break;
 
   case 727: /* UnaryExpressionNotPlusMinus: TILDA UnaryExpression  */
-#line 1762 "final.y"
+#line 1743 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+" ~ "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);}
-#line 8881 "final.tab.c"
+#line 8861 "fff.tab.c"
     break;
 
   case 728: /* UnaryExpressionNotPlusMinus: EXCLAM UnaryExpression  */
-#line 1763 "final.y"
+#line 1744 "fff.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+" ! "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);}
-#line 8887 "final.tab.c"
+#line 8867 "fff.tab.c"
     break;
 
   case 729: /* UnaryExpressionNotPlusMinus: CastExpression  */
-#line 1764 "final.y"
+#line 1745 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8893 "final.tab.c"
+#line 8873 "fff.tab.c"
     break;
 
   case 730: /* UnaryExpressionNotPlusMinus: SwitchExpression  */
-#line 1765 "final.y"
+#line 1746 "fff.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8899 "final.tab.c"
+#line 8879 "fff.tab.c"
     break;
 
   case 731: /* PostfixExpression: Primary  */
-#line 1767 "final.y"
+#line 1748 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8905 "final.tab.c"
+#line 8885 "fff.tab.c"
     break;
 
   case 732: /* PostfixExpression: Identifier  */
-#line 1768 "final.y"
+#line 1749 "fff.y"
                                                                                         {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);symentry*s=lookup(p); if(lookup(p)){((yyval.typeinfo))->type = s->type;(yyval.typeinfo)->order=s->order;(yyval.typeinfo)->exprvalue=s->exprvalue;}string a=(yyvsp[0].str); string b=newtemp();(yyval.typeinfo)->tempname=b;b=b+" = "+a;(yyval.typeinfo)->tac={b};(yyval.typeinfo)->tac={b};}
-#line 8911 "final.tab.c"
+#line 8891 "fff.tab.c"
     break;
 
   case 733: /* PostfixExpression: ExpressionName  */
-#line 1769 "final.y"
+#line 1750 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8917 "final.tab.c"
+#line 8897 "fff.tab.c"
     break;
 
   case 734: /* PostfixExpression: PostIncrementExpression  */
-#line 1770 "final.y"
+#line 1751 "fff.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
-#line 8923 "final.tab.c"
+#line 8903 "fff.tab.c"
     break;
 
   case 735: /* PostfixExpression: PostDecrementExpression  */
-#line 1771 "final.y"
+#line 1752 "fff.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->type = ((yyvsp[0].typeinfo))->type;}
-#line 8929 "final.tab.c"
+#line 8909 "fff.tab.c"
     break;
 
   case 736: /* PostIncrementExpression: PostfixExpression INCREAMENT  */
-#line 1773 "final.y"
+#line 1754 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-1].typeinfo)->tempname+" + 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,a);}
-#line 8935 "final.tab.c"
+#line 8915 "fff.tab.c"
     break;
 
   case 737: /* PostDecrementExpression: PostfixExpression DECREAMENT  */
-#line 1775 "final.y"
+#line 1756 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-1].typeinfo)->tempname+" - 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,a);}
-#line 8941 "final.tab.c"
+#line 8921 "fff.tab.c"
     break;
 
   case 738: /* CastExpression: LRB PrimitiveType RRB UnaryExpression  */
-#line 1777 "final.y"
+#line 1758 "fff.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type; ((yyvsp[0].typeinfo))->type = ((yyvsp[-2].typeinfo))->type; string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);}
-#line 8947 "final.tab.c"
+#line 8927 "fff.tab.c"
     break;
 
   case 739: /* CastExpression: LRB UnannArrayType RRB UnaryExpressionNotPlusMinus  */
-#line 1778 "final.y"
+#line 1759 "fff.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type; ((yyvsp[0].typeinfo))->type = ((yyvsp[-2].typeinfo))->type; string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);}
-#line 8953 "final.tab.c"
+#line 8933 "fff.tab.c"
     break;
 
   case 740: /* CastExpression: LRB UnannArrayType OMAdditionalBound RRB UnaryExpressionNotPlusMinus  */
-#line 1779 "final.y"
+#line 1760 "fff.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-3].typeinfo))->type; ((yyvsp[0].typeinfo))->type = ((yyvsp[-3].typeinfo))->type; string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);}
-#line 8959 "final.tab.c"
+#line 8939 "fff.tab.c"
     break;
 
   case 741: /* $@62: %empty  */
-#line 1781 "final.y"
+#line 1762 "fff.y"
                                                    {symtable *a = createscope("switch"); changescope(a);}
-#line 8965 "final.tab.c"
+#line 8945 "fff.tab.c"
     break;
 
   case 742: /* SwitchExpression: SWITCH LRB Expression RRB $@62 SwitchBlock  */
-#line 1781 "final.y"
+#line 1762 "fff.y"
                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);((yyval.typeinfo))->type = "switch";}
-#line 8971 "final.tab.c"
+#line 8951 "fff.tab.c"
     break;
 
   case 743: /* VariableAccess: ExpressionName  */
-#line 1783 "final.y"
+#line 1764 "fff.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
-#line 8977 "final.tab.c"
+#line 8957 "fff.tab.c"
     break;
 
   case 744: /* VariableAccess: Identifier  */
-#line 1784 "final.y"
+#line 1765 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; string a=(yyvsp[0].str); string b=newtemp();(yyval.typeinfo)->tempname=b;b=b+" = "+a;(yyval.typeinfo)->tac={b};(yyval.typeinfo)->tac={b};}
-#line 8983 "final.tab.c"
+#line 8963 "fff.tab.c"
     break;
 
   case 745: /* VariableAccess: FieldAccess  */
-#line 1785 "final.y"
+#line 1766 "fff.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
-#line 8989 "final.tab.c"
+#line 8969 "fff.tab.c"
     break;
 
 
-#line 8993 "final.tab.c"
+#line 8973 "fff.tab.c"
 
       default: break;
     }
@@ -9182,12 +9162,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 1788 "final.y"
+#line 1769 "fff.y"
 
 // bool visited[100000]={false};
 
 int main(int argc,char*argv[]){
-	
 
 
 if(argc <= 1){
@@ -9259,7 +9238,8 @@ if(argc <= 1){
 	    if(verbose){
         cout<<"Parsing finished\n";
     }
-	csvFile << "Name, Type, primtive type, ArrayDimensions,Function Input Type, Function Output Type, Scope" << "\n";
+	// ofstream csvFile("symboltable.csv");
+	csvFile << "Name, Type, Line number, Function Input Type, Function Output Type, Size, Scope" << "\n";
 	// dfs(curr);
 	while(!q.empty()){
 		symtable* c=q.front();
@@ -9269,18 +9249,18 @@ if(argc <= 1){
 		// 	csvFile<<z.first<<","<<z.second->type<<","<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<","<<z.second->size<<","<<z.second->scope<<"\n";
 		// }
         for(auto z:c->m){
-            string p="";
+			// csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<"arraysize:";
+             string p="";
             vector<int>q=z.second->arrdims;
-			if(q.size()>0){
+            if(q.size()>0){
            for(int i=0;i<q.size()-1;i++)
            p=p+to_string(q[i])+" x ";
            p=p+to_string(q[q.size()-1]);
-			}
-			// csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<z.second<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<"arraysize:";
-			// for(auto y:z.second->arrdims)
-			// csvFile<<y<<"x";
-			// csvFile<<"\n";
-			csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<p<<","<<z.second->argcon<<","<<z.second->funcrettype<<","<<z.second->scope<<"\n";
+            }
+			csvFile<<z.first<<","<<z.second->type<<","<<z.second->primtype<<","<<z.second<<z.second->linenumber<<","<<z.second->argcon<<","<<z.second->funcrettype<<"arraysize:";
+			for(auto y:z.second->arrdims)
+			csvFile<<y<<"x";
+			csvFile<<"\n";
 		}
 		q.pop();
 		vector<symtable*>v=c->childscope;

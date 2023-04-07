@@ -1,11 +1,17 @@
 class Main {
+  public static int call(int a){
+    return 2*a;
+  }
   public static void main(String[] args) {
-    // create double type variable
-    double num = 10.99;
-    System.out.println("The double value: " + num);
-
-    // convert into int type
-    int data = (int)num;
-    System.out.println("The integer value: " + data);
+    int a=0;
+    for(int i=0;i<100;i++)
+    a+=1;
+    while(a>0)
+    a-=1;
+    a=call(a);
+      do {
+        a=a+2;
+      }    
+      while(a<10);
   }
 }

@@ -1,0 +1,55 @@
+hellocall main
+main:
+pushlocal a
+a=
+pushlocal i
+t4 = 0
+i=t4
+Label4
+t5 = i
+t6 = 5
+t7 = t5 < t6
+if zerot7 go to label 5
+pushlocal j
+t10 = i
+j=t10
+Label2
+t11 = j
+t12 = 5
+t13 = t11 < t12
+if zerot13 go to label 3
+t16 = i
+t17 = t16 * 4
+t18 = j
+t19 = t18 * 4
+t20 = t17 < t19
+if zero t20 go to label 1
+pushlocal t
+t21 = t
+t22 = i
+t23 = t22 * 4
+t21 = t23
+t24 = i
+t25 = t24 * 4
+t26 = j
+t27 = t26 * 4
+a[t25] = t27
+t28 = j
+t29 = t28 * 4
+t30 = t
+a[t29] = t30
+Label1
+t14 = j
+t15 = t14 + 1 
+ go to label 2
+Label3
+t8 = i
+t9 = t8 + 1 
+ go to label 4
+Label5
+function end
+poplocal t
+poplocal j
+poplocal i
+poplocal a
+go to mainret:
