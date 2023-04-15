@@ -13,5 +13,8 @@ public class test
 	   // int b[][]=new int[][]{2,3,4};
 	   int a=2;
        a=2*3;
+	   for(int i=0;i<10;i++)
+	   a++;
 	}
+
 }

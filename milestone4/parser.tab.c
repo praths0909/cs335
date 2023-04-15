@@ -1725,14 +1725,14 @@ static const yytype_int16 yyrline[] =
     1650,  1651,  1652,  1654,  1655,  1656,  1657,  1658,  1659,  1660,
     1661,  1662,  1663,  1664,  1665,  1666,  1667,  1670,  1671,  1673,
     1674,  1675,  1676,  1677,  1678,  1679,  1680,  1682,  1683,  1684,
-    1685,  1686,  1687,  1690,  1692,  1694,  1695,  1697,  1699,  1700,
-    1701,  1702,  1704,  1706,  1707,  1709,  1710,  1712,  1713,  1715,
-    1716,  1718,  1719,  1721,  1722,  1724,  1725,  1726,  1728,  1729,
-    1730,  1731,  1732,  1733,  1738,  1740,  1741,  1742,  1743,  1745,
-    1746,  1747,  1749,  1750,  1751,  1752,  1754,  1755,  1756,  1757,
-    1758,  1760,  1762,  1764,  1765,  1766,  1767,  1768,  1770,  1771,
-    1772,  1773,  1774,  1776,  1778,  1780,  1781,  1782,  1784,  1784,
-    1786,  1787,  1788
+    1685,  1686,  1687,  1690,  1692,  1694,  1695,  1697,  1699,  1701,
+    1702,  1703,  1705,  1707,  1708,  1710,  1711,  1713,  1714,  1716,
+    1717,  1719,  1720,  1722,  1723,  1725,  1726,  1727,  1729,  1730,
+    1731,  1732,  1733,  1734,  1739,  1741,  1742,  1743,  1744,  1746,
+    1747,  1748,  1750,  1751,  1752,  1753,  1755,  1756,  1757,  1758,
+    1759,  1761,  1763,  1765,  1766,  1767,  1768,  1769,  1771,  1772,
+    1773,  1774,  1775,  1777,  1779,  1781,  1782,  1783,  1785,  1785,
+    1787,  1788,  1789
 };
 #endif
 
@@ -8586,385 +8586,385 @@ yyreduce:
     break;
 
   case 679: /* LeftHandSide: Identifier  */
-#line 1700 "parser.y"
-                                                                                                        {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);if(lookup(p)){((yyval.typeinfo))->type = lookup(p)->type;}string x=(yyvsp[0].str); string q=newtemp();(yyval.typeinfo)->tempname=q;q=q+" = "+x; (yyval.typeinfo)->tac={q};}
+#line 1701 "parser.y"
+                                                                                                                {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);if(lookup(p)){((yyval.typeinfo))->type = lookup(p)->type;}string x=(yyvsp[0].str);(yyval.typeinfo)->tempname=x;(yyval.typeinfo)->tac=emptyvector();}
 #line 8592 "parser.tab.c"
     break;
 
   case 680: /* LeftHandSide: FieldAccess  */
-#line 1701 "parser.y"
+#line 1702 "parser.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
 #line 8598 "parser.tab.c"
     break;
 
   case 681: /* LeftHandSide: ArrayAccess  */
-#line 1702 "parser.y"
+#line 1703 "parser.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->type=(yyvsp[0].typeinfo)->type;string y=((yyvsp[0].typeinfo))->arrname+"["+((yyvsp[0].typeinfo))->tempname+"]"; (yyval.typeinfo)->tempname=y;(yyval.typeinfo)->tac=(yyvsp[0].typeinfo)->tac;}
 #line 8604 "parser.tab.c"
     break;
 
   case 682: /* AssignmentOperator: ASSIGNMENTOPERATOR  */
-#line 1704 "parser.y"
+#line 1705 "parser.y"
                                                                                                 {(yyval.str)=(yyvsp[0].str);}
 #line 8610 "parser.tab.c"
     break;
 
   case 683: /* ConditionalExpression: ConditionalOrExpression  */
-#line 1706 "parser.y"
+#line 1707 "parser.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8616 "parser.tab.c"
     break;
 
   case 684: /* ConditionalExpression: ConditionalOrExpression QM Expression COLON ConditionalExpression  */
-#line 1707 "parser.y"
+#line 1708 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-4].typeinfo))->type;int lv=labelvariable;string a=newlabel();string ret="if zero "+((yyvsp[-4].typeinfo))->tempname+gotoo(lv+1);(yyval.typeinfo)->tac=concvector((yyvsp[-4].typeinfo)->tac,ret,(yyvsp[-2].typeinfo)->tac,a,(yyvsp[0].typeinfo)->tac);}
 #line 8622 "parser.tab.c"
     break;
 
   case 685: /* ConditionalOrExpression: ConditionalAndExpression  */
-#line 1709 "parser.y"
+#line 1710 "parser.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8628 "parser.tab.c"
     break;
 
   case 686: /* ConditionalOrExpression: ConditionalOrExpression OR ConditionalAndExpression  */
-#line 1710 "parser.y"
+#line 1711 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" || "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[-2].typeinfo)->exprvalue||(yyvsp[0].typeinfo)->exprvalue;}
 #line 8634 "parser.tab.c"
     break;
 
   case 687: /* ConditionalAndExpression: InclusiveOrExpression  */
-#line 1712 "parser.y"
+#line 1713 "parser.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8640 "parser.tab.c"
     break;
 
   case 688: /* ConditionalAndExpression: ConditionalAndExpression AND InclusiveOrExpression  */
-#line 1713 "parser.y"
+#line 1714 "parser.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" && "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)&&((yyvsp[0].typeinfo)->exprvalue));}
 #line 8646 "parser.tab.c"
     break;
 
   case 689: /* InclusiveOrExpression: ExclusiveOrExpression  */
-#line 1715 "parser.y"
+#line 1716 "parser.y"
                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8652 "parser.tab.c"
     break;
 
   case 690: /* InclusiveOrExpression: InclusiveOrExpression BITOR ExclusiveOrExpression  */
-#line 1716 "parser.y"
+#line 1717 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" | "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)|((yyvsp[0].typeinfo)->exprvalue));}
 #line 8658 "parser.tab.c"
     break;
 
   case 691: /* ExclusiveOrExpression: AndExpression  */
-#line 1718 "parser.y"
+#line 1719 "parser.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8664 "parser.tab.c"
     break;
 
   case 692: /* ExclusiveOrExpression: ExclusiveOrExpression BITXOR AndExpression  */
-#line 1719 "parser.y"
+#line 1720 "parser.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" ^ "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)^((yyvsp[0].typeinfo)->exprvalue));}
 #line 8670 "parser.tab.c"
     break;
 
   case 693: /* AndExpression: EqualityExpression  */
-#line 1721 "parser.y"
+#line 1722 "parser.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8676 "parser.tab.c"
     break;
 
   case 694: /* AndExpression: AndExpression BITAND EqualityExpression  */
-#line 1722 "parser.y"
+#line 1723 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" & "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)&((yyvsp[0].typeinfo)->exprvalue));}
 #line 8682 "parser.tab.c"
     break;
 
   case 695: /* EqualityExpression: RelationalExpression  */
-#line 1724 "parser.y"
+#line 1725 "parser.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8688 "parser.tab.c"
     break;
 
   case 696: /* EqualityExpression: EqualityExpression DOUBLEEQUAL RelationalExpression  */
-#line 1725 "parser.y"
+#line 1726 "parser.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" == "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)==((yyvsp[0].typeinfo)->exprvalue));}
 #line 8694 "parser.tab.c"
     break;
 
   case 697: /* EqualityExpression: EqualityExpression NE RelationalExpression  */
-#line 1726 "parser.y"
+#line 1727 "parser.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" != "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)!=((yyvsp[0].typeinfo)->exprvalue));}
 #line 8700 "parser.tab.c"
     break;
 
   case 698: /* RelationalExpression: ShiftExpression  */
-#line 1728 "parser.y"
+#line 1729 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8706 "parser.tab.c"
     break;
 
   case 699: /* RelationalExpression: RelationalExpression LT ShiftExpression  */
-#line 1729 "parser.y"
+#line 1730 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" < "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)<((yyvsp[0].typeinfo)->exprvalue));}
 #line 8712 "parser.tab.c"
     break;
 
   case 700: /* RelationalExpression: RelationalExpression GT ShiftExpression  */
-#line 1730 "parser.y"
+#line 1731 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" > "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)>((yyvsp[0].typeinfo)->exprvalue));}
 #line 8718 "parser.tab.c"
     break;
 
   case 701: /* RelationalExpression: RelationalExpression LTE ShiftExpression  */
-#line 1731 "parser.y"
+#line 1732 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" <= "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)<=((yyvsp[0].typeinfo)->exprvalue));}
 #line 8724 "parser.tab.c"
     break;
 
   case 702: /* RelationalExpression: RelationalExpression GTE ShiftExpression  */
-#line 1732 "parser.y"
+#line 1733 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = "boolean";string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" >= "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)>=((yyvsp[0].typeinfo)->exprvalue));}
 #line 8730 "parser.tab.c"
     break;
 
   case 703: /* RelationalExpression: InstanceofExpression  */
-#line 1733 "parser.y"
+#line 1734 "parser.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8736 "parser.tab.c"
     break;
 
   case 704: /* InstanceofExpression: RelationalExpression INSTANCEOF ReferenceType  */
-#line 1738 "parser.y"
+#line 1739 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" instanceof "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[-2].typeinfo)->exprvalue;}
 #line 8742 "parser.tab.c"
     break;
 
   case 705: /* ShiftExpression: AdditiveExpression  */
-#line 1740 "parser.y"
+#line 1741 "parser.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8748 "parser.tab.c"
     break;
 
   case 706: /* ShiftExpression: ShiftExpression LSHIFT AdditiveExpression  */
-#line 1741 "parser.y"
+#line 1742 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" << "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)<<((yyvsp[0].typeinfo)->exprvalue));}
 #line 8754 "parser.tab.c"
     break;
 
   case 707: /* ShiftExpression: ShiftExpression RSHIFT AdditiveExpression  */
-#line 1742 "parser.y"
+#line 1743 "parser.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" >> "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)>>((yyvsp[0].typeinfo)->exprvalue));}
 #line 8760 "parser.tab.c"
     break;
 
   case 708: /* ShiftExpression: ShiftExpression THREEGT AdditiveExpression  */
-#line 1743 "parser.y"
+#line 1744 "parser.y"
                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" >>> "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)>>((yyvsp[0].typeinfo)->exprvalue));}
 #line 8766 "parser.tab.c"
     break;
 
   case 709: /* AdditiveExpression: MultiplicativeExpression  */
-#line 1745 "parser.y"
+#line 1746 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8772 "parser.tab.c"
     break;
 
   case 710: /* AdditiveExpression: AdditiveExpression PLUS MultiplicativeExpression  */
-#line 1746 "parser.y"
+#line 1747 "parser.y"
                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" + "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)+((yyvsp[0].typeinfo)->exprvalue));}
 #line 8778 "parser.tab.c"
     break;
 
   case 711: /* AdditiveExpression: AdditiveExpression MINUS MultiplicativeExpression  */
-#line 1747 "parser.y"
+#line 1748 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" - "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)-((yyvsp[0].typeinfo)->exprvalue));}
 #line 8784 "parser.tab.c"
     break;
 
   case 712: /* MultiplicativeExpression: UnaryExpression  */
-#line 1749 "parser.y"
+#line 1750 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8790 "parser.tab.c"
     break;
 
   case 713: /* MultiplicativeExpression: MultiplicativeExpression MULTIPLY UnaryExpression  */
-#line 1750 "parser.y"
+#line 1751 "parser.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" * "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)*((yyvsp[0].typeinfo)->exprvalue));}
 #line 8796 "parser.tab.c"
     break;
 
   case 714: /* MultiplicativeExpression: MultiplicativeExpression DIVIDE UnaryExpression  */
-#line 1751 "parser.y"
+#line 1752 "parser.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" / "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)/((yyvsp[0].typeinfo)->exprvalue));}
 #line 8802 "parser.tab.c"
     break;
 
   case 715: /* MultiplicativeExpression: MultiplicativeExpression PERCENT UnaryExpression  */
-#line 1752 "parser.y"
+#line 1753 "parser.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = type_change(((yyvsp[-2].typeinfo))->type,((yyvsp[0].typeinfo))->type);string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-2].typeinfo)->tempname+" % "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[-2].typeinfo)->tac,(yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[-2].typeinfo)->exprvalue)%((yyvsp[0].typeinfo)->exprvalue));}
 #line 8808 "parser.tab.c"
     break;
 
   case 716: /* UnaryExpression: PreIncrementExpression  */
-#line 1754 "parser.y"
+#line 1755 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8814 "parser.tab.c"
     break;
 
   case 717: /* UnaryExpression: PreDecrementExpression  */
-#line 1755 "parser.y"
+#line 1756 "parser.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8820 "parser.tab.c"
     break;
 
   case 718: /* UnaryExpression: PLUS UnaryExpression  */
-#line 1756 "parser.y"
+#line 1757 "parser.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(1+((yyvsp[0].typeinfo)->exprvalue));}
 #line 8826 "parser.tab.c"
     break;
 
   case 719: /* UnaryExpression: MINUS UnaryExpression  */
-#line 1757 "parser.y"
+#line 1758 "parser.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+" - "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(((yyvsp[0].typeinfo)->exprvalue)-1);}
 #line 8832 "parser.tab.c"
     break;
 
   case 720: /* UnaryExpression: UnaryExpressionNotPlusMinus  */
-#line 1758 "parser.y"
+#line 1759 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8838 "parser.tab.c"
     break;
 
   case 721: /* PreIncrementExpression: INCREAMENT UnaryExpression  */
-#line 1760 "parser.y"
+#line 1761 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname+" + 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue+1;(yyval.typeinfo)->exprvalue=(((yyvsp[0].typeinfo)->exprvalue)+1);}
 #line 8844 "parser.tab.c"
     break;
 
   case 722: /* PreDecrementExpression: DECREAMENT UnaryExpression  */
-#line 1762 "parser.y"
+#line 1763 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname+" - 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue+1;(yyval.typeinfo)->exprvalue=(((yyvsp[0].typeinfo)->exprvalue)-1);}
 #line 8850 "parser.tab.c"
     break;
 
   case 723: /* UnaryExpressionNotPlusMinus: PostfixExpression  */
-#line 1764 "parser.y"
+#line 1765 "parser.y"
                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8856 "parser.tab.c"
     break;
 
   case 724: /* UnaryExpressionNotPlusMinus: TILDA UnaryExpression  */
-#line 1765 "parser.y"
+#line 1766 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+" ~ "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8862 "parser.tab.c"
     break;
 
   case 725: /* UnaryExpressionNotPlusMinus: EXCLAM UnaryExpression  */
-#line 1766 "parser.y"
+#line 1767 "parser.y"
                                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+" ! "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=!((yyvsp[0].typeinfo)->exprvalue);}
 #line 8868 "parser.tab.c"
     break;
 
   case 726: /* UnaryExpressionNotPlusMinus: CastExpression  */
-#line 1767 "parser.y"
+#line 1768 "parser.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8874 "parser.tab.c"
     break;
 
   case 727: /* UnaryExpressionNotPlusMinus: SwitchExpression  */
-#line 1768 "parser.y"
+#line 1769 "parser.y"
                                                                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8880 "parser.tab.c"
     break;
 
   case 728: /* PostfixExpression: Primary  */
-#line 1770 "parser.y"
+#line 1771 "parser.y"
                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8886 "parser.tab.c"
     break;
 
   case 729: /* PostfixExpression: Identifier  */
-#line 1771 "parser.y"
+#line 1772 "parser.y"
                                                                                         {(yyval.typeinfo) = createstruct();string p = (yyvsp[0].str);symentry*s=lookup(p); if(lookup(p)){((yyval.typeinfo))->type = s->type;(yyval.typeinfo)->order=s->order;(yyval.typeinfo)->exprvalue=s->exprvalue;}string a=(yyvsp[0].str); string b=newtemp();(yyval.typeinfo)->tempname=b;b=b+" = "+a;(yyval.typeinfo)->tac={b};(yyval.typeinfo)->tac={b};}
 #line 8892 "parser.tab.c"
     break;
 
   case 730: /* PostfixExpression: ExpressionName  */
-#line 1772 "parser.y"
+#line 1773 "parser.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8898 "parser.tab.c"
     break;
 
   case 731: /* PostfixExpression: PostIncrementExpression  */
-#line 1773 "parser.y"
+#line 1774 "parser.y"
                                                                                                                                                 {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);((yyval.typeinfo))->type = ((yyvsp[0].typeinfo))->type;}
 #line 8904 "parser.tab.c"
     break;
 
   case 732: /* PostfixExpression: PostDecrementExpression  */
-#line 1774 "parser.y"
+#line 1775 "parser.y"
                                                                                                                                         {(yyval.typeinfo) = createstruct();(yyval.typeinfo)=(yyvsp[0].typeinfo);(yyval.typeinfo)->type = ((yyvsp[0].typeinfo))->type;}
 #line 8910 "parser.tab.c"
     break;
 
   case 733: /* PostIncrementExpression: PostfixExpression INCREAMENT  */
-#line 1776 "parser.y"
+#line 1777 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-1].typeinfo)->tempname+" + 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[-1].typeinfo)->exprvalue+1;}
 #line 8916 "parser.tab.c"
     break;
 
   case 734: /* PostDecrementExpression: PostfixExpression DECREAMENT  */
-#line 1778 "parser.y"
+#line 1779 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-1].typeinfo))->type;string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[-1].typeinfo)->tempname+" - 1 ";(yyval.typeinfo)->tac=concvector((yyvsp[-1].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[-1].typeinfo)->exprvalue-1;}
 #line 8922 "parser.tab.c"
     break;
 
   case 735: /* CastExpression: LRB PrimitiveType RRB UnaryExpression  */
-#line 1780 "parser.y"
+#line 1781 "parser.y"
                                                                                                         {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type; ((yyvsp[0].typeinfo))->type = ((yyvsp[-2].typeinfo))->type; string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8928 "parser.tab.c"
     break;
 
   case 736: /* CastExpression: LRB UnannArrayType RRB UnaryExpressionNotPlusMinus  */
-#line 1781 "parser.y"
+#line 1782 "parser.y"
                                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-2].typeinfo))->type; ((yyvsp[0].typeinfo))->type = ((yyvsp[-2].typeinfo))->type; string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8934 "parser.tab.c"
     break;
 
   case 737: /* CastExpression: LRB UnannArrayType OMAdditionalBound RRB UnaryExpressionNotPlusMinus  */
-#line 1782 "parser.y"
+#line 1783 "parser.y"
                                                                                                 {(yyval.typeinfo) = createstruct();((yyval.typeinfo))->type = ((yyvsp[-3].typeinfo))->type; ((yyvsp[0].typeinfo))->type = ((yyvsp[-3].typeinfo))->type; string a=newtemp();(yyval.typeinfo)->tempname=a;a=a+" = "+(yyvsp[0].typeinfo)->tempname;(yyval.typeinfo)->tac=concvector((yyvsp[0].typeinfo)->tac,a);(yyval.typeinfo)->exprvalue=(yyvsp[0].typeinfo)->exprvalue;}
 #line 8940 "parser.tab.c"
     break;
 
   case 738: /* $@62: %empty  */
-#line 1784 "parser.y"
+#line 1785 "parser.y"
                                                    {symtable *a = createscope("switch"); changescope(a);}
 #line 8946 "parser.tab.c"
     break;
 
   case 739: /* SwitchExpression: SWITCH LRB Expression RRB $@62 SwitchBlock  */
-#line 1784 "parser.y"
+#line 1785 "parser.y"
                                                                                                                                         {goparent();(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)->tac=concvector((yyvsp[-3].typeinfo)->tac,(yyvsp[0].typeinfo)->tac);((yyval.typeinfo))->type = "switch";(yyval.typeinfo)->exprvalue=1;}
 #line 8952 "parser.tab.c"
     break;
 
   case 740: /* VariableAccess: ExpressionName  */
-#line 1786 "parser.y"
+#line 1787 "parser.y"
                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
 #line 8958 "parser.tab.c"
     break;
 
   case 741: /* VariableAccess: Identifier  */
-#line 1787 "parser.y"
+#line 1788 "parser.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; string a=(yyvsp[0].str); string b=newtemp();(yyval.typeinfo)->tempname=b;b=b+" = "+a;(yyval.typeinfo)->tac={b};(yyval.typeinfo)->tac={b};}
 #line 8964 "parser.tab.c"
     break;
 
   case 742: /* VariableAccess: FieldAccess  */
-#line 1788 "parser.y"
+#line 1789 "parser.y"
                                                                                                                                         {(yyval.typeinfo)=new Typeinfo; (yyval.typeinfo)=(yyvsp[0].typeinfo);}
 #line 8970 "parser.tab.c"
     break;
@@ -9163,7 +9163,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 1791 "parser.y"
+#line 1792 "parser.y"
 
 // bool visited[100000]={false};
 

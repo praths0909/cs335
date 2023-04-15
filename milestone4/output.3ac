@@ -3,11 +3,25 @@ main:
 pushlocal a
 t1 = 2
 a=t1
-t2 = a
-t3 = 2
-t4 = 3
-t5 = t3 * t4
-t2 = t5
+t2 = 2
+t3 = 3
+t4 = t2 * t3
+a = t4
+pushlocal i
+t5 = 0
+i=t5
+LABEL1
+t6 = i
+t7 = 10
+t8 = t6 < t7
+if zerot8 go to LABEL2
+t11 = a
+t12 = t11 + 1 
+t9 = i
+t10 = t9 + 1 
+ go to LABEL1
+LABEL2
 function end
+poplocal i
 poplocal a
 go to mainret:

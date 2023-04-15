@@ -1697,7 +1697,8 @@ AssignmentExpression:	 ConditionalExpression				{$$ = createstruct();$$=$1;($$)-
 Assignment:	 LeftHandSide AssignmentOperator Expression		{$$ = createstruct();($$)->type = ($3)->type;string p=($1)->tempname+" = "+($3)->tempname;$$->tempname=($1)->tempname;$$->tac=concvector($1->tac,$3->tac,p);}
 		;
 LeftHandSide:	 ExpressionName								{$$=new Typeinfo; $$=$1;}	
-   		| Identifier										{$$ = createstruct();string p = $1;if(lookup(p)){($$)->type = lookup(p)->type;}string x=$1; string q=newtemp();$$->tempname=q;q=q+" = "+x; $$->tac={q};}
+   		// | Identifier										{$$ = createstruct();string p = $1;if(lookup(p)){($$)->type = lookup(p)->type;}string x=$1; string q=newtemp();$$->tempname=q;q=q+" = "+x; $$->tac={q};}
+		|Identifier											{$$ = createstruct();string p = $1;if(lookup(p)){($$)->type = lookup(p)->type;}string x=$1;$$->tempname=x;$$->tac=emptyvector();}
 		| FieldAccess										{$$=new Typeinfo; $$=$1;}	
 		| ArrayAccess										{$$=new Typeinfo; $$->type=$1->type;string y=($1)->arrname+"["+($1)->tempname+"]"; $$->tempname=y;$$->tac=$1->tac;}				
 		;
