@@ -1,0 +1,13 @@
+call main
+main:
+pushlocal a
+t1 = 2
+a=t1
+t2 = a
+t3 = 2
+t4 = 3
+t5 = t3 * t4
+t2 = t5
+function end
+poplocal a
+go to mainret:
