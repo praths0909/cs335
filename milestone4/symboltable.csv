@@ -1,0 +1,6 @@
+Name, Type, primtive type, ArrayDimensions,Function Input Type, Function Output Type, Scope
+test,class,,,,,global
+main,Method,,,String[],void,global_class
+a,identifier,int,,,,global_class_Method
+for,for,,,,,global_class_Method
+i,,,,,,global_class_Method_for
