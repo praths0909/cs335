@@ -1,0 +1,54 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t2{-8} = FIELD fil{0}
+print t2{-8}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t3{-16} = 3
+n = t3{-16}
+pushlocal n{-24}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t4{-32} = 2
+prod = t4{-32}
+pushlocal prod{-40}
+_xv86 subq $8, %rsp
+t5{-48} = prod{-40}
+_xv86 subq $8, %rsp
+t6{-56} = 2
+_xv86 subq $8, %rsp
+t7{-64} = t5{-48} == t6{-56}
+if zero t7{-64} go to LABEL1
+_xv86 subq $8, %rsp
+t8{-72} = 4
+n{-24} = t8{-72}
+ go to LABEL2
+LABEL1
+_xv86 subq $8, %rsp
+t9{-80} = 5
+n{-24} = t9{-80}
+LABEL2
+_xv86 subq $8, %rsp
+t10{-88} = n{-24}
+print t10{-88}
+function end
+poplocal prod
+poplocal n
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret

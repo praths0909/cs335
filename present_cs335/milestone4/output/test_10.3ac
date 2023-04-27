@@ -1,0 +1,101 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t2{-8} = FIELD fil{0}
+print t2{-8}
+_xv86 subq  $40, %rsp
+_xv86 subq $8, %rsp
+t3{-16} = 5
+a = 
+pushlocal a{-24}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t4{-64} = 0
+i = t4{-64}
+pushlocal i{-72}
+LABEL5
+_xv86 subq $8, %rsp
+t5{-80} = i{-72}
+_xv86 subq $8, %rsp
+t6{-88} = 5
+_xv86 subq $8, %rsp
+t7{-96} = t5{-80} < t6{-88}
+if zero t7{-96} go to LABEL6
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t11{-128} = i{-72}
+j = t11{-128}
+pushlocal j{-136}
+LABEL3
+_xv86 subq $8, %rsp
+t12{-144} = j{-136}
+_xv86 subq $8, %rsp
+t13{-152} = 5
+_xv86 subq $8, %rsp
+t14{-160} = t12{-144} < t13{-152}
+if zero t14{-160} go to LABEL4
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t18{-192} = 0
+k = t18{-192}
+pushlocal k{-200}
+LABEL1
+_xv86 subq $8, %rsp
+t19{-208} = k{-200}
+_xv86 subq $8, %rsp
+t20{-216} = 5
+_xv86 subq $8, %rsp
+t21{-224} = t19{-208} < t20{-216}
+if zero t21{-224} go to LABEL2
+_xv86 subq $8, %rsp
+t22{-232} = k{-200}
+_xv86 subq $8, %rsp
+t23{-240} = 1
+_xv86 subq $8, %rsp
+t24{-248} = t22{-232} + t23{-240}
+k{-200} = t24{-248}
+ go to LABEL1
+LABEL2
+_xv86 subq $8, %rsp
+t25{-256} = k{-200}
+print t25{-256}
+_xv86 subq $8, %rsp
+t15{-168} = j{-136}
+_xv86 subq $8, %rsp
+t16{-176} = 1
+_xv86 subq $8, %rsp
+t17{-184} = t15{-168} + t16{-176}
+j{-136} = t17{-184}
+ go to LABEL3
+LABEL4
+_xv86 subq $8, %rsp
+t8{-104} = i{-72}
+_xv86 subq $8, %rsp
+t9{-112} = 1
+_xv86 subq $8, %rsp
+t10{-120} = t8{-104} + t9{-112}
+i{-72} = t10{-120}
+ go to LABEL5
+LABEL6
+function end
+poplocal k
+poplocal j
+poplocal i
+poplocal a
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret

@@ -1,0 +1,113 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t2{-8} = FIELD fil{0}
+print t2{-8}
+_xv86 subq  $72, %rsp
+_xv86 subq $8, %rsp
+t3{-16} = 3
+_xv86 subq $8, %rsp
+t4{-24} = 3
+arr = 
+pushlocal arr{-32}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t5{-104} = 0
+a = t5{-104}
+pushlocal a{-112}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t6{-120} = 0
+i = t6{-120}
+pushlocal i{-128}
+LABEL3
+_xv86 subq $8, %rsp
+t7{-136} = i{-128}
+_xv86 subq $8, %rsp
+t8{-144} = 3
+_xv86 subq $8, %rsp
+t9{-152} = t7{-136} < t8{-144}
+if zero t9{-152} go to LABEL4
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t13{-184} = 0
+j = t13{-184}
+pushlocal j{-192}
+LABEL1
+_xv86 subq $8, %rsp
+t14{-200} = j{-192}
+_xv86 subq $8, %rsp
+t15{-208} = 3
+_xv86 subq $8, %rsp
+t16{-216} = t14{-200} < t15{-208}
+if zero t16{-216} go to LABEL2
+_xv86 subq $8, %rsp
+t20{-248} = i{-128}
+_xv86 subq $8, %rsp
+t21{-256} = t20{-248} * 24
+_xv86 subq $8, %rsp
+t22{-264} = j{-192}
+_xv86 subq $16, %rsp
+t24{-280} = t22{-264} * 8
+t23{-272} = t22{-264} + t24{-280}
+_xv86 subq $8, %rsp
+t25{-288} = i{-128}
+_xv86 subq $8, %rsp
+t26{-296} = j{-192}
+_xv86 subq $8, %rsp
+t27{-304} = t25{-288} + t26{-296}
+arr{-32}[t23{-272}] = t27{-304}
+_xv86 subq $8, %rsp
+t17{-224} = j{-192}
+_xv86 subq $8, %rsp
+t18{-232} = 1
+t19{-240} = t17{-224} + t18{-232}
+j{-192} = t19{-240}
+ go to LABEL1
+LABEL2
+_xv86 subq $8, %rsp
+t10{-160} = i{-128}
+_xv86 subq $8, %rsp
+t11{-168} = 1
+t12{-176} = t10{-160} + t11{-168}
+i{-128} = t12{-176}
+ go to LABEL3
+LABEL4
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t28{-312} = 0
+_xv86 subq $8, %rsp
+t29{-320} = t28{-312} * 24
+_xv86 subq $8, %rsp
+t30{-328} = 0
+_xv86 subq $16, %rsp
+t32{-344} = t30{-328} * 8
+t31{-336} = t30{-328} + t32{-344}
+p = arr{-32}[t31{-336}]
+pushlocal p{-352}
+_xv86 subq $8, %rsp
+t33{-360} = p{-352}
+print t33{-360}
+function end
+poplocal p
+poplocal j
+poplocal i
+poplocal a
+poplocal arr
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret

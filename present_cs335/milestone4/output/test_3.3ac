@@ -1,0 +1,538 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+function is starting
+_xv86 .globl	factorial
+_xv86 .type	factorial, @function
+_xv86 factorial:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq  $8, %rsp
+pushlocal ans{-8}
+_xv86 subq $8, %rsp
+t2{-16} = n{16}
+_xv86 subq $8, %rsp
+t3{-24} = 0
+_xv86 subq $8, %rsp
+t4{-32} = t2{-16} == t3{-24}
+if zero t4{-32} go to LABEL1
+_xv86 subq $8, %rsp
+t5{-40} = 1
+%rax = t5{-40}
+
+ go to LABEL2
+LABEL1
+_xv86 subq $8, %rsp
+t6{-48} = n{16}
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t7{-56} = n{16}
+_xv86 subq $8, %rsp
+t8{-64} = 1
+_xv86 subq $8, %rsp
+t9{-72} = t7{-56} - t8{-64}
+pushparam t9{-72}
+methodgo to factorial 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+_xv86 subq $8, %rsp
+t10{-80} = t6{-48} * %rax
+ans{-8} = t10{-80}
+_xv86 subq $8, %rsp
+t11{-88} = ans{-8}
+%rax = t11{-88}
+
+LABEL2
+function end
+poplocal ans
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret
+function is starting
+_xv86 .globl	fibonacci
+_xv86 .type	fibonacci, @function
+_xv86 fibonacci:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t12{-8} = n{16}
+_xv86 subq $8, %rsp
+t13{-16} = 0
+_xv86 subq $8, %rsp
+t14{-24} = t12{-8} == t13{-16}
+if zero t14{-24} go to LABEL5
+_xv86 subq $8, %rsp
+t15{-32} = 1
+%rax = t15{-32}
+
+ go to LABEL6
+LABEL5
+_xv86 subq $8, %rsp
+t16{-40} = n{16}
+_xv86 subq $8, %rsp
+t17{-48} = 1
+_xv86 subq $8, %rsp
+t18{-56} = t16{-40} == t17{-48}
+if zero t18{-56} go to LABEL3
+_xv86 subq $8, %rsp
+t19{-64} = 1
+%rax = t19{-64}
+
+ go to LABEL4
+LABEL3
+_xv86 subq  $8, %rsp
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t20{-72} = n{16}
+_xv86 subq $8, %rsp
+t21{-80} = 1
+_xv86 subq $8, %rsp
+t22{-88} = t20{-72} - t21{-80}
+pushparam t22{-88}
+methodgo to fibonacci 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+r1 = %rax
+pushlocal r1{-96}
+_xv86 subq  $8, %rsp
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t23{-104} = n{16}
+_xv86 subq $8, %rsp
+t24{-112} = 2
+_xv86 subq $8, %rsp
+t25{-120} = t23{-104} - t24{-112}
+pushparam t25{-120}
+methodgo to fibonacci 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+r2 = %rax
+pushlocal r2{-128}
+_xv86 subq $8, %rsp
+t26{-136} = r1{-96}
+_xv86 subq $8, %rsp
+t27{-144} = r2{-128}
+_xv86 subq $8, %rsp
+t28{-152} = t26{-136} + t27{-144}
+%rax = t28{-152}
+
+LABEL4
+LABEL6
+function end
+poplocal r2
+poplocal r1
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $0, %rsp
+_xv86 subq $8, %rsp
+t29{-8} = FIELD fil{0}
+print t29{-8}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t30{-16} = 5
+p = t30{-16}
+pushlocal p{-24}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t31{-32} = p{-24}
+_xv86 subq $8, %rsp
+t32{-40} = t31{-32}
+n = t32{-40}
+pushlocal n{-48}
+_xv86 subq  $16, %rsp
+pushlocal r{-56}
+pushlocal m{-64}
+_xv86 subq $8, %rsp
+t33{-72} = n{-48}
+print t33{-72}
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t34{-80} = n{-48}
+pushparam t34{-80}
+methodgo to factorial 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+r{-56} = %rax
+_xv86 subq $8, %rsp
+t35{-88} = r{-56}
+print t35{-88}
+_xv86 subq  $80, %rsp
+_xv86 subq $8, %rsp
+t36{-96} = 10
+a = 
+pushlocal a{-104}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t37{-184} = 0
+i = t37{-184}
+pushlocal i{-192}
+LABEL7
+_xv86 subq $8, %rsp
+t38{-200} = i{-192}
+_xv86 subq $8, %rsp
+t39{-208} = 10
+_xv86 subq $8, %rsp
+t40{-216} = t38{-200} < t39{-208}
+if zero t40{-216} go to LABEL8
+_xv86 subq  $8, %rsp
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t44{-248} = i{-192}
+pushparam t44{-248}
+methodgo to fibonacci 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+b = %rax
+pushlocal b{-256}
+_xv86 subq $8, %rsp
+t45{-264} = i{-192}
+_xv86 subq $8, %rsp
+t46{-272} = t45{-264} * 8
+_xv86 subq $8, %rsp
+t47{-280} = b{-256}
+a{-104}[t46{-272}] = t47{-280}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t48{-288} = i{-192}
+_xv86 subq $8, %rsp
+t49{-296} = t48{-288} * 8
+q = a{-104}[t49{-296}]
+pushlocal q{-304}
+_xv86 subq $8, %rsp
+t50{-312} = q{-304}
+print t50{-312}
+_xv86 subq $8, %rsp
+t41{-224} = i{-192}
+_xv86 subq $8, %rsp
+t42{-232} = 1
+t43{-240} = t41{-224} + t42{-232}
+i{-192} = t43{-240}
+ go to LABEL7
+LABEL8
+_xv86 subq $8, %rsp
+t51{-320} = 7
+r{-56} = t51{-320}
+_xv86 subq $8, %rsp
+t52{-328} = 5
+n{-48} = t52{-328}
+LABEL11
+_xv86 subq $8, %rsp
+t53{-336} = n{-48}
+_xv86 subq $8, %rsp
+t54{-344} = 3
+_xv86 subq $8, %rsp
+t55{-352} = t53{-336} % t54{-344}
+_xv86 subq $8, %rsp
+t56{-360} = 1
+_xv86 subq $8, %rsp
+t57{-368} = t55{-352} == t56{-360}
+if zero t57{-368} go to LABEL9
+_xv86 subq $8, %rsp
+t58{-376} = r{-56}
+_xv86 subq $8, %rsp
+t59{-384} = r{-56}
+_xv86 subq $8, %rsp
+t60{-392} = t58{-376} * t59{-384}
+_xv86 subq $8, %rsp
+t61{-400} = r{-56}
+_xv86 subq $8, %rsp
+t62{-408} = t60{-392} / t61{-400}
+_xv86 subq $8, %rsp
+t63{-416} = 4
+_xv86 subq $8, %rsp
+t64{-424} = t62{-408} & t63{-416}
+_xv86 subq $8, %rsp
+t65{-432} = 6
+_xv86 subq $8, %rsp
+t66{-440} = 10
+_xv86 subq $8, %rsp
+t67{-448} = t65{-432} ^ t66{-440}
+_xv86 subq $8, %rsp
+t68{-456} = t64{-424} | t67{-448}
+r{-56} = t68{-456}
+ go to LABEL10
+LABEL9
+_xv86 subq $8, %rsp
+t69{-464} = r{-56}
+_xv86 subq $8, %rsp
+t70{-472} = 4
+_xv86 subq $8, %rsp
+t71{-480} = t69{-464} * t70{-472}
+_xv86 subq $8, %rsp
+t72{-488} = r{-56}
+_xv86 subq $8, %rsp
+t73{-496} = t71{-480} / t72{-488}
+_xv86 subq $8, %rsp
+t74{-504} = 4
+_xv86 subq $8, %rsp
+t75{-512} = t73{-496} & t74{-504}
+_xv86 subq $8, %rsp
+t76{-520} = 6
+_xv86 subq $8, %rsp
+t77{-528} = 10
+_xv86 subq $8, %rsp
+t78{-536} = t76{-520} ^ t77{-528}
+_xv86 subq $8, %rsp
+t79{-544} = t75{-512} | t78{-536}
+r{-56} = t79{-544}
+LABEL10
+_xv86 subq $8, %rsp
+t80{-552} = n{-48}
+_xv86 subq $8, %rsp
+t81{-560} = 1
+t82{-568} = t80{-552} - t81{-560}
+n{-48} = t82{-568}
+_xv86 subq $8, %rsp
+t83{-576} = r{-56}
+print t83{-576}
+_xv86 subq $8, %rsp
+t84{-584} = n{-48}
+_xv86 subq $8, %rsp
+t85{-592} = 0
+_xv86 subq $8, %rsp
+t86{-600} = t84{-584} > t85{-592}
+if nonzero t86{-600}  go to LABEL11
+LABEL12
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t87{-608} = 0
+i = t87{-608}
+pushlocal i{-616}
+LABEL19
+_xv86 subq $8, %rsp
+t88{-624} = i{-616}
+_xv86 subq $8, %rsp
+t89{-632} = 3
+_xv86 subq $8, %rsp
+t90{-640} = t88{-624} < t89{-632}
+if zero t90{-640} go to LABEL20
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t94{-672} = 0
+j = t94{-672}
+pushlocal j{-680}
+LABEL17
+_xv86 subq $8, %rsp
+t95{-688} = j{-680}
+_xv86 subq $8, %rsp
+t96{-696} = 4
+_xv86 subq $8, %rsp
+t97{-704} = t95{-688} < t96{-696}
+if zero t97{-704} go to LABEL18
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t101{-736} = 0
+k = t101{-736}
+pushlocal k{-744}
+LABEL15
+_xv86 subq $8, %rsp
+t102{-752} = k{-744}
+_xv86 subq $8, %rsp
+t103{-760} = 2
+_xv86 subq $8, %rsp
+t104{-768} = t102{-752} < t103{-760}
+if zero t104{-768} go to LABEL16
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t108{-800} = 0
+l = t108{-800}
+pushlocal l{-808}
+LABEL13
+_xv86 subq $8, %rsp
+t109{-816} = l{-808}
+_xv86 subq $8, %rsp
+t110{-824} = 3
+_xv86 subq $8, %rsp
+t111{-832} = t109{-816} < t110{-824}
+if zero t111{-832} go to LABEL14
+_xv86 subq $8, %rsp
+t115{-864} = i{-616}
+_xv86 subq $8, %rsp
+t116{-872} = t115{-864} * 8
+_xv86 subq $8, %rsp
+t117{-880} = j{-680}
+_xv86 subq $16, %rsp
+t119{-896} = t117{-880} * 8
+t118{-888} = t117{-880} + t119{-896}
+_xv86 subq $8, %rsp
+t120{-904} = k{-744}
+_xv86 subq $16, %rsp
+t122{-920} = t120{-904} * 8
+t121{-912} = t120{-904} + t122{-920}
+_xv86 subq $8, %rsp
+t123{-928} = l{-808}
+_xv86 subq $16, %rsp
+t125{-944} = t123{-928} * 8
+t124{-936} = t123{-928} + t125{-944}
+_xv86 subq $8, %rsp
+t126{-952} = i{-616}
+_xv86 subq $8, %rsp
+t127{-960} = j{-680}
+_xv86 subq $8, %rsp
+t128{-968} = t126{-952} + t127{-960}
+_xv86 subq $8, %rsp
+t129{-976} = k{-744}
+_xv86 subq $8, %rsp
+t130{-984} = t128{-968} + t129{-976}
+_xv86 subq $8, %rsp
+t131{-992} = l{-808}
+_xv86 subq $8, %rsp
+t132{-1000} = t130{-984} + t131{-992}
+a{-104}[t124{-936}] = t132{-1000}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t133{-1008} = i{-616}
+_xv86 subq $8, %rsp
+t134{-1016} = t133{-1008} * 8
+_xv86 subq $8, %rsp
+t135{-1024} = j{-680}
+_xv86 subq $16, %rsp
+t137{-1040} = t135{-1024} * 8
+t136{-1032} = t135{-1024} + t137{-1040}
+_xv86 subq $8, %rsp
+t138{-1048} = k{-744}
+_xv86 subq $16, %rsp
+t140{-1064} = t138{-1048} * 8
+t139{-1056} = t138{-1048} + t140{-1064}
+_xv86 subq $8, %rsp
+t141{-1072} = l{-808}
+_xv86 subq $16, %rsp
+t143{-1088} = t141{-1072} * 8
+t142{-1080} = t141{-1072} + t143{-1088}
+q = a{-104}[t142{-1080}]
+pushlocal q{-1096}
+_xv86 subq $8, %rsp
+t144{-1104} = q{-1096}
+print t144{-1104}
+_xv86 subq $8, %rsp
+t112{-840} = l{-808}
+_xv86 subq $8, %rsp
+t113{-848} = 1
+t114{-856} = t112{-840} + t113{-848}
+l{-808} = t114{-856}
+ go to LABEL13
+LABEL14
+_xv86 subq $8, %rsp
+t105{-776} = k{-744}
+_xv86 subq $8, %rsp
+t106{-784} = 1
+t107{-792} = t105{-776} + t106{-784}
+k{-744} = t107{-792}
+ go to LABEL15
+LABEL16
+_xv86 subq $8, %rsp
+t98{-712} = j{-680}
+_xv86 subq $8, %rsp
+t99{-720} = 1
+t100{-728} = t98{-712} + t99{-720}
+j{-680} = t100{-728}
+ go to LABEL17
+LABEL18
+_xv86 subq $8, %rsp
+t91{-648} = i{-616}
+_xv86 subq $8, %rsp
+t92{-656} = 1
+t93{-664} = t91{-648} + t92{-656}
+i{-616} = t93{-664}
+ go to LABEL19
+LABEL20
+function end
+poplocal q
+poplocal l
+poplocal k
+poplocal j
+poplocal i
+poplocal q
+poplocal b
+poplocal i
+poplocal a
+poplocal m
+poplocal r
+poplocal n
+poplocal p
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret

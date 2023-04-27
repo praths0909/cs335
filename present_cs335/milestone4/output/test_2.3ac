@@ -1,0 +1,124 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t2{-16} = 0
+sum = t2{-16}
+pushlocal FIELD sum{0}
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t3{-8} = FIELD fil{0}
+print t3{-8}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t4{-16} = 0
+i = t4{-16}
+pushlocal i{-24}
+LABEL7
+_xv86 subq $8, %rsp
+t5{-32} = i{-24}
+_xv86 subq $8, %rsp
+t6{-40} = 5
+_xv86 subq $8, %rsp
+t7{-48} = t5{-32} < t6{-40}
+if zero t7{-48} go to LABEL8
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t11{-80} = 0
+j = t11{-80}
+pushlocal j{-88}
+LABEL5
+_xv86 subq $8, %rsp
+t12{-96} = j{-88}
+_xv86 subq $8, %rsp
+t13{-104} = 5
+_xv86 subq $8, %rsp
+t14{-112} = t12{-96} < t13{-104}
+if zero t14{-112} go to LABEL6
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t15{-120} = 0
+k = t15{-120}
+pushlocal k{-128}
+LABEL3
+_xv86 subq $8, %rsp
+t16{-136} = k{-128}
+_xv86 subq $8, %rsp
+t17{-144} = 2
+_xv86 subq $8, %rsp
+t18{-152} = t16{-136} % t17{-144}
+_xv86 subq $8, %rsp
+t19{-160} = 0
+_xv86 subq $8, %rsp
+t20{-168} = t18{-152} == t19{-160}
+if zero t20{-168} go to LABEL1
+_xv86 subq $8, %rsp
+t21{-176} = FIELD sum{0}
+_xv86 subq $8, %rsp
+t22{-184} = 2
+_xv86 subq $8, %rsp
+t23{-192} = t21{-176} + t22{-184}
+FIELD sum{0} = t23{-192}
+ go to LABEL2
+LABEL1
+_xv86 subq $8, %rsp
+t24{-200} = FIELD sum{0}
+_xv86 subq $8, %rsp
+t25{-208} = 3
+_xv86 subq $8, %rsp
+t26{-216} = t24{-200} + t25{-208}
+FIELD sum{0} = t26{-216}
+LABEL2
+_xv86 subq $8, %rsp
+t27{-224} = k{-128}
+_xv86 subq $8, %rsp
+t28{-232} = 1
+t29{-240} = t27{-224} + t28{-232}
+k{-128} = t29{-240}
+_xv86 subq $8, %rsp
+t30{-248} = k{-128}
+_xv86 subq $8, %rsp
+t31{-256} = 5
+_xv86 subq $8, %rsp
+t32{-264} = t30{-248} < t31{-256}
+if nonzero t32{-264}  go to LABEL3
+LABEL4
+_xv86 subq $8, %rsp
+t33{-272} = j{-88}
+_xv86 subq $8, %rsp
+t34{-280} = 1
+t35{-288} = t33{-272} + t34{-280}
+j{-88} = t35{-288}
+ go to LABEL5
+LABEL6
+_xv86 subq $8, %rsp
+t8{-56} = i{-24}
+_xv86 subq $8, %rsp
+t9{-64} = 1
+t10{-72} = t8{-56} + t9{-64}
+i{-24} = t10{-72}
+ go to LABEL7
+LABEL8
+_xv86 subq $8, %rsp
+t36{-296} = FIELD sum{0}
+print t36{-296}
+function end
+poplocal k
+poplocal j
+poplocal i
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret

@@ -1,0 +1,315 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $0, %rsp
+_xv86 subq $8, %rsp
+t2{-8} = FIELD fil{0}
+print t2{-8}
+_xv86 subq  $576, %rsp
+_xv86 subq $8, %rsp
+t3{-16} = 3
+_xv86 subq $8, %rsp
+t4{-24} = 4
+_xv86 subq $8, %rsp
+t5{-32} = 2
+_xv86 subq $8, %rsp
+t6{-40} = 3
+a = 
+pushlocal a{-48}
+_xv86 subq $8, %rsp
+t7{-624} = 1
+_xv86 subq $8, %rsp
+t8{-632} = t7{-624} * 192
+_xv86 subq $8, %rsp
+t9{-640} = 2
+_xv86 subq $16, %rsp
+t11{-656} = t9{-640} * 48
+t10{-648} = t9{-640} + t11{-656}
+_xv86 subq $8, %rsp
+t12{-664} = 1
+_xv86 subq $16, %rsp
+t14{-680} = t12{-664} * 24
+t13{-672} = t12{-664} + t14{-680}
+_xv86 subq $8, %rsp
+t15{-688} = 0
+_xv86 subq $16, %rsp
+t17{-704} = t15{-688} * 8
+t16{-696} = t15{-688} + t17{-704}
+_xv86 subq $8, %rsp
+t18{-712} = 2
+a{-48}[t16{-696}] = t18{-712}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t19{-720} = 1
+_xv86 subq $8, %rsp
+t20{-728} = t19{-720} * 192
+_xv86 subq $8, %rsp
+t21{-736} = 2
+_xv86 subq $16, %rsp
+t23{-752} = t21{-736} * 48
+t22{-744} = t21{-736} + t23{-752}
+_xv86 subq $8, %rsp
+t24{-760} = 1
+_xv86 subq $16, %rsp
+t26{-776} = t24{-760} * 24
+t25{-768} = t24{-760} + t26{-776}
+_xv86 subq $8, %rsp
+t27{-784} = 0
+_xv86 subq $16, %rsp
+t29{-800} = t27{-784} * 8
+t28{-792} = t27{-784} + t29{-800}
+p = a{-48}[t28{-792}]
+pushlocal p{-808}
+_xv86 subq $8, %rsp
+t30{-816} = p{-808}
+print t30{-816}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t31{-824} = 0
+i = t31{-824}
+pushlocal i{-832}
+LABEL7
+_xv86 subq $8, %rsp
+t32{-840} = i{-832}
+_xv86 subq $8, %rsp
+t33{-848} = 3
+_xv86 subq $8, %rsp
+t34{-856} = t32{-840} < t33{-848}
+if zero t34{-856} go to LABEL8
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t38{-888} = 0
+j = t38{-888}
+pushlocal j{-896}
+LABEL5
+_xv86 subq $8, %rsp
+t39{-904} = j{-896}
+_xv86 subq $8, %rsp
+t40{-912} = 4
+_xv86 subq $8, %rsp
+t41{-920} = t39{-904} < t40{-912}
+if zero t41{-920} go to LABEL6
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t45{-952} = 0
+k = t45{-952}
+pushlocal k{-960}
+LABEL3
+_xv86 subq $8, %rsp
+t46{-968} = k{-960}
+_xv86 subq $8, %rsp
+t47{-976} = 2
+_xv86 subq $8, %rsp
+t48{-984} = t46{-968} < t47{-976}
+if zero t48{-984} go to LABEL4
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t52{-1016} = 0
+l = t52{-1016}
+pushlocal l{-1024}
+LABEL1
+_xv86 subq $8, %rsp
+t53{-1032} = l{-1024}
+_xv86 subq $8, %rsp
+t54{-1040} = 3
+_xv86 subq $8, %rsp
+t55{-1048} = t53{-1032} < t54{-1040}
+if zero t55{-1048} go to LABEL2
+_xv86 subq $8, %rsp
+t59{-1080} = i{-832}
+_xv86 subq $8, %rsp
+t60{-1088} = t59{-1080} * 192
+_xv86 subq $8, %rsp
+t61{-1096} = j{-896}
+_xv86 subq $16, %rsp
+t63{-1112} = t61{-1096} * 48
+t62{-1104} = t61{-1096} + t63{-1112}
+_xv86 subq $8, %rsp
+t64{-1120} = k{-960}
+_xv86 subq $16, %rsp
+t66{-1136} = t64{-1120} * 24
+t65{-1128} = t64{-1120} + t66{-1136}
+_xv86 subq $8, %rsp
+t67{-1144} = l{-1024}
+_xv86 subq $16, %rsp
+t69{-1160} = t67{-1144} * 8
+t68{-1152} = t67{-1144} + t69{-1160}
+_xv86 subq $8, %rsp
+t70{-1168} = i{-832}
+_xv86 subq $8, %rsp
+t71{-1176} = j{-896}
+_xv86 subq $8, %rsp
+t72{-1184} = t70{-1168} + t71{-1176}
+_xv86 subq $8, %rsp
+t73{-1192} = k{-960}
+_xv86 subq $8, %rsp
+t74{-1200} = t72{-1184} + t73{-1192}
+_xv86 subq $8, %rsp
+t75{-1208} = l{-1024}
+_xv86 subq $8, %rsp
+t76{-1216} = t74{-1200} + t75{-1208}
+a{-48}[t68{-1152}] = t76{-1216}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t77{-1224} = i{-832}
+_xv86 subq $8, %rsp
+t78{-1232} = t77{-1224} * 192
+_xv86 subq $8, %rsp
+t79{-1240} = j{-896}
+_xv86 subq $16, %rsp
+t81{-1256} = t79{-1240} * 48
+t80{-1248} = t79{-1240} + t81{-1256}
+_xv86 subq $8, %rsp
+t82{-1264} = k{-960}
+_xv86 subq $16, %rsp
+t84{-1280} = t82{-1264} * 24
+t83{-1272} = t82{-1264} + t84{-1280}
+_xv86 subq $8, %rsp
+t85{-1288} = l{-1024}
+_xv86 subq $16, %rsp
+t87{-1304} = t85{-1288} * 8
+t86{-1296} = t85{-1288} + t87{-1304}
+q = a{-48}[t86{-1296}]
+pushlocal q{-1312}
+_xv86 subq $8, %rsp
+t88{-1320} = q{-1312}
+print t88{-1320}
+_xv86 subq $8, %rsp
+t56{-1056} = l{-1024}
+_xv86 subq $8, %rsp
+t57{-1064} = 1
+t58{-1072} = t56{-1056} + t57{-1064}
+l{-1024} = t58{-1072}
+ go to LABEL1
+LABEL2
+_xv86 subq $8, %rsp
+t49{-992} = k{-960}
+_xv86 subq $8, %rsp
+t50{-1000} = 1
+t51{-1008} = t49{-992} + t50{-1000}
+k{-960} = t51{-1008}
+ go to LABEL3
+LABEL4
+_xv86 subq $8, %rsp
+t42{-928} = j{-896}
+_xv86 subq $8, %rsp
+t43{-936} = 1
+t44{-944} = t42{-928} + t43{-936}
+j{-896} = t44{-944}
+ go to LABEL5
+LABEL6
+_xv86 subq $8, %rsp
+t35{-864} = i{-832}
+_xv86 subq $8, %rsp
+t36{-872} = 1
+t37{-880} = t35{-864} + t36{-872}
+i{-832} = t37{-880}
+ go to LABEL7
+LABEL8
+_xv86 subq  $240, %rsp
+_xv86 subq $8, %rsp
+t89{-1328} = 5
+_xv86 subq $8, %rsp
+t90{-1336} = 6
+b = 
+pushlocal b{-1344}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t91{-1584} = 0
+i = t91{-1584}
+pushlocal i{-1592}
+LABEL11
+_xv86 subq $8, %rsp
+t92{-1600} = i{-1592}
+_xv86 subq $8, %rsp
+t93{-1608} = 5
+_xv86 subq $8, %rsp
+t94{-1616} = t92{-1600} < t93{-1608}
+if zero t94{-1616} go to LABEL12
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t98{-1648} = 0
+j = t98{-1648}
+pushlocal j{-1656}
+LABEL9
+_xv86 subq $8, %rsp
+t99{-1664} = j{-1656}
+_xv86 subq $8, %rsp
+t100{-1672} = 6
+_xv86 subq $8, %rsp
+t101{-1680} = t99{-1664} < t100{-1672}
+if zero t101{-1680} go to LABEL10
+_xv86 subq $8, %rsp
+t105{-1712} = i{-1592}
+_xv86 subq $8, %rsp
+t106{-1720} = t105{-1712} * 48
+_xv86 subq $8, %rsp
+t107{-1728} = j{-1656}
+_xv86 subq $16, %rsp
+t109{-1744} = t107{-1728} * 8
+t108{-1736} = t107{-1728} + t109{-1744}
+_xv86 subq $8, %rsp
+t110{-1752} = i{-1592}
+_xv86 subq $8, %rsp
+t111{-1760} = j{-1656}
+_xv86 subq $8, %rsp
+t112{-1768} = t110{-1752} * t111{-1760}
+b{-1344}[t108{-1736}] = t112{-1768}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t113{-1776} = i{-1592}
+_xv86 subq $8, %rsp
+t114{-1784} = t113{-1776} * 48
+_xv86 subq $8, %rsp
+t115{-1792} = j{-1656}
+_xv86 subq $16, %rsp
+t117{-1808} = t115{-1792} * 8
+t116{-1800} = t115{-1792} + t117{-1808}
+r = b{-1344}[t116{-1800}]
+pushlocal r{-1816}
+_xv86 subq $8, %rsp
+t118{-1824} = r{-1816}
+print t118{-1824}
+_xv86 subq $8, %rsp
+t102{-1688} = j{-1656}
+_xv86 subq $8, %rsp
+t103{-1696} = 1
+t104{-1704} = t102{-1688} + t103{-1696}
+j{-1656} = t104{-1704}
+ go to LABEL9
+LABEL10
+_xv86 subq $8, %rsp
+t95{-1624} = i{-1592}
+_xv86 subq $8, %rsp
+t96{-1632} = 1
+t97{-1640} = t95{-1624} + t96{-1632}
+i{-1592} = t97{-1640}
+ go to LABEL11
+LABEL12
+function end
+poplocal r
+poplocal j
+poplocal i
+poplocal b
+poplocal q
+poplocal l
+poplocal k
+poplocal j
+poplocal i
+poplocal p
+poplocal a
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret
