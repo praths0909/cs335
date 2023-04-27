@@ -1,0 +1,92 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+function is starting
+_xv86 .globl	call
+_xv86 .type	call, @function
+_xv86 call:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t2{-8} = 2
+_xv86 subq $8, %rsp
+t3{-16} = a{16}
+_xv86 subq $8, %rsp
+t4{-24} = t2{-8} * t3{-16}
+%rax = t4{-24}
+
+function end
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t5{-8} = FIELD fil{0}
+print t5{-8}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t6{-16} = 0
+a = t6{-16}
+pushlocal a{-24}
+LABEL1
+_xv86 subq $8, %rsp
+t7{-32} = a{-24}
+_xv86 subq $8, %rsp
+t8{-40} = 0
+_xv86 subq $8, %rsp
+t9{-48} = t7{-32} > t8{-40}
+if zero t9{-48} go to LABEL2
+_xv86 subq $8, %rsp
+t10{-56} = a{-24}
+_xv86 subq $8, %rsp
+t11{-64} = 1
+_xv86 subq $8, %rsp
+t12{-72} = t10{-56} - t11{-64}
+a{-24} = t12{-72}
+ go to LABEL1
+LABEL2
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t13{-80} = a{-24}
+pushparam t13{-80}
+methodgo to call 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+a{-24} = %rax
+_xv86 subq $8, %rsp
+t14{-88} = a{-24}
+print t14{-88}
+function end
+poplocal a
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret

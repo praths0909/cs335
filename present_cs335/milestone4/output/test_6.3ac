@@ -1,0 +1,158 @@
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t1{-8} = 7
+fil = t1{-8}
+pushlocal FIELD fil{0}
+function is starting
+_xv86 .globl	fact2
+_xv86 .type	fact2, @function
+_xv86 fact2:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq  $8, %rsp
+pushlocal ans{-8}
+_xv86 subq $8, %rsp
+t2{-16} = n{16}
+_xv86 subq $8, %rsp
+t3{-24} = 0
+_xv86 subq $8, %rsp
+t4{-32} = t2{-16} == t3{-24}
+if zero t4{-32} go to LABEL1
+_xv86 subq $8, %rsp
+t5{-40} = 1
+%rax = t5{-40}
+
+ go to LABEL2
+LABEL1
+_xv86 subq $8, %rsp
+t6{-48} = n{16}
+ans{-8} = t6{-48}
+_xv86 subq $8, %rsp
+t7{-56} = ans{-8}
+%rax = t7{-56}
+
+LABEL2
+function end
+poplocal ans
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret
+function is starting
+_xv86 .globl	fact
+_xv86 .type	fact, @function
+_xv86 fact:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $8, %rsp
+_xv86 subq  $8, %rsp
+pushlocal ans{-8}
+_xv86 subq $8, %rsp
+t8{-16} = n{16}
+_xv86 subq $8, %rsp
+t9{-24} = 0
+_xv86 subq $8, %rsp
+t10{-32} = t8{-16} == t9{-24}
+if zero t10{-32} go to LABEL3
+_xv86 subq $8, %rsp
+t11{-40} = 1
+%rax = t11{-40}
+
+ go to LABEL4
+LABEL3
+_xv86 subq $8, %rsp
+t12{-48} = n{16}
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t13{-56} = n{16}
+_xv86 subq $8, %rsp
+t14{-64} = 1
+_xv86 subq $8, %rsp
+t15{-72} = t13{-56} - t14{-64}
+pushparam t15{-72}
+methodgo to fact2 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+_xv86 subq $8, %rsp
+t16{-80} = t12{-48} * %rax
+ans{-8} = t16{-80}
+_xv86 subq $8, %rsp
+t17{-88} = ans{-8}
+%rax = t17{-88}
+
+LABEL4
+function end
+poplocal ans
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret
+function is starting
+_xv86 .globl	main
+_xv86 .type	main, @function
+_xv86 main:
+_xv86 endbr64
+_xv86 pushq	%rbp
+_xv86 movq	%rsp, %rbp
+_xv86 pushq %rdi
+enter required subq
+_xv86 subq  $0, %rsp
+_xv86 subq $8, %rsp
+t18{-8} = FIELD fil{0}
+print t18{-8}
+_xv86 subq  $8, %rsp
+_xv86 subq $8, %rsp
+t19{-16} = 5
+n = t19{-16}
+pushlocal n{-24}
+_xv86 subq $8, %rsp
+t20{-32} = n{-24}
+print t20{-32}
+push %rbp
+push %rbx
+push %rsp
+push %r12
+push %r13
+push %r14
+push %r15
+_xv86 subq $8, %rsp
+t21{-40} = n{-24}
+pushparam t21{-40}
+methodgo to fact 1
+
+pop %r15
+pop %r14
+pop %r13
+pop %r12
+pop %rsp
+pop %rax
+pop %rbp
+n{-24} = %rax
+_xv86 subq $8, %rsp
+t22{-48} = n{-24}
+print t22{-48}
+function end
+poplocal n
+
+_xv86 popq %rdi
+_xv86 leave
+_xv86 ret
